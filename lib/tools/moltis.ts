@@ -11,7 +11,7 @@ export const moltis: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['桌面控制', 'Shell 执行', '自部署', '本地优先', '开源'],
   homepageUrl: 'https://github.com/openclaw/moltis',
-  githubUrl: null,
+  githubUrl: 'https://github.com/openclaw/moltis',
   docsUrl: 'https://docs.openclaw.org/moltis',
   githubStars: null,
   primaryLanguage: null,

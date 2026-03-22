@@ -11,7 +11,7 @@ export const miniclaw: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['桌面控制', 'Shell 执行', '开源', '自部署'],
   homepageUrl: 'https://github.com/openclaw/miniclaw',
-  githubUrl: null,
+  githubUrl: 'https://github.com/openclaw/miniclaw',
   docsUrl: 'https://docs.openclaw.org/miniclaw',
   githubStars: null,
   primaryLanguage: null,

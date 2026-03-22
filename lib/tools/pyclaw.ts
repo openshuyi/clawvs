@@ -11,7 +11,7 @@ export const pyclaw: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['桌面控制', 'Shell 执行', '开源', 'Python'],
   homepageUrl: 'https://github.com/openclaw/pyclaw',
-  githubUrl: null,
+  githubUrl: 'https://github.com/openclaw/pyclaw',
   docsUrl: 'https://docs.openclaw.org/pyclaw',
   githubStars: null,
   primaryLanguage: null,

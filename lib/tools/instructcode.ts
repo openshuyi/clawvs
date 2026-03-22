@@ -11,7 +11,7 @@ export const instructcode: ToolProfile = {
   primaryCategory: 'Code Agent / 开发助手',
   tags: ['代码生成', '开源', '自部署', '研发提效'],
   homepageUrl: 'https://github.com/instructlab/instructcode',
-  githubUrl: null,
+  githubUrl: 'https://github.com/instructlab/instructcode',
   docsUrl: 'https://github.com/instructlab/instructcode#readme',
   githubStars: null,
   primaryLanguage: null,

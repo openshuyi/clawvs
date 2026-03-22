@@ -13,7 +13,7 @@ export const guiagent: ToolProfile = {
   homepageUrl: 'https://github.com/showlab/Awesome-GUI-Agent',
   githubUrl: 'https://github.com/showlab/Awesome-GUI-Agent',
   docsUrl: 'https://github.com/showlab/Awesome-GUI-Agent#readme',
-  githubStars: null,
+  githubStars: 1147,
   primaryLanguage: null,
   pricing: '免费开源',
   license: 'MIT',

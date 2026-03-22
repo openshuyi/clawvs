@@ -11,7 +11,7 @@ export const clawrs: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['桌面控制', 'Shell 执行', '开源', 'Rust'],
   homepageUrl: 'https://github.com/openclaw/clawrs',
-  githubUrl: null,
+  githubUrl: 'https://github.com/openclaw/clawrs',
   docsUrl: 'https://docs.openclaw.org/clawrs',
   githubStars: null,
   primaryLanguage: null,
