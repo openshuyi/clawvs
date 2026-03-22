@@ -212,7 +212,12 @@ export function ToolGraph() {
     setHighlightLinks(new Set(highlightLinks));
   };
 
-  // Click Interaction (Focus)
+  // Drag Interaction
+  const handleNodeDragEnd = useCallback((node: any) => {
+    node.fx = node.x;
+    node.fy = node.y;
+    node.fz = node.z;
+  }, []);
   const handleNodeClick = useCallback((node: Node) => {
     setSelectedNode(node);
     if (fgRef.current && node.x !== undefined && node.y !== undefined && node.z !== undefined) {
@@ -223,7 +228,7 @@ export function ToolGraph() {
       fgRef.current.cameraPosition(
         { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
         node, // lookAt ({ x, y, z })
-        3000 // ms transition duration
+        1000 // ms transition duration (speeded up)
       );
     }
   }, []);
@@ -239,65 +244,79 @@ export function ToolGraph() {
           graphData={graphData}
         nodeLabel="name"
         nodeThreeObject={renderNode}
-        linkColor={(link: any) => highlightLinks.has(link) ? '#ffffff' : 'rgba(255,255,255,0.1)'}
-        linkWidth={(link) => (highlightLinks.has(link as any) ? 2 : 0.5)}
-        linkDirectionalParticles={(link) => (highlightLinks.has(link as any) ? 4 : 0)}
-        linkDirectionalParticleWidth={2}
-        onNodeHover={handleNodeHover as any}
-        onNodeClick={handleNodeClick as any}
-        backgroundColor="#000000"
+          linkColor={(link: any) => highlightLinks.has(link) ? '#ffffff' : 'rgba(255,255,255,0.2)'}
+          linkWidth={(link) => (highlightLinks.has(link as any) ? 2 : 0.5)}
+          linkDirectionalParticles={(link) => (highlightLinks.has(link as any) ? 4 : 0)}
+          linkDirectionalParticleWidth={2}
+          onNodeHover={handleNodeHover as any}
+          onNodeClick={handleNodeClick as any}
+          onNodeDragEnd={handleNodeDragEnd as any}
+          backgroundColor="#000000"
         showNavInfo={false}
       />
       )}
 
       {/* Overlay UI - Controls */}
-      <div className="absolute top-4 left-4 z-10 flex flex-col gap-4 bg-bg-surface/80 p-4 rounded-xl border border-border-color backdrop-blur-md">
-        <h2 className="text-lg font-bold text-text-primary">图谱控制 (Graph Controls)</h2>
+      <div className="absolute top-4 left-4 z-10 flex flex-col gap-4 bg-bg-surface/60 p-5 rounded-2xl border border-border-color/50 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+        <h2 className="text-lg font-bold text-text-primary flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-accent-cyan shadow-[0_0_8px_var(--accent-cyan)]"></span>
+          图谱控制 (Graph Controls)
+        </h2>
         
-        <div className="flex flex-col gap-2 text-sm">
-          <label htmlFor={categoryId} className="text-text-secondary">类别 (Category):</label>
-          <select 
-            id={categoryId}
-            className="bg-bg-subtle border border-border-color rounded p-1 text-text-primary"
-            value={filterCategory}
-            onChange={(e) => setFilterCategory(e.target.value)}
-          >
-            <option value="All">All Categories</option>
-            {primaryCategories.map(c => <option key={c} value={c}>{c}</option>)}
-          </select>
+        <div className="flex flex-col gap-3 text-sm">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor={categoryId} className="text-text-secondary text-xs font-medium uppercase tracking-wider">类别 (Category)</label>
+            <select 
+              id={categoryId}
+              className="bg-bg-subtle/80 border border-border-color/50 rounded-lg p-2 text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-cyan transition-all"
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+            >
+              <option value="All">All Categories</option>
+              {primaryCategories.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
 
-          <label htmlFor={sourceTypeId} className="text-text-secondary mt-2">开源类型 (Source Type):</label>
-          <select 
-            id={sourceTypeId}
-            className="bg-bg-subtle border border-border-color rounded p-1 text-text-primary"
-            value={filterSourceType}
-            onChange={(e) => setFilterSourceType(e.target.value)}
-          >
-            <option value="All">All</option>
-            <option value="开源">开源 (Open Source)</option>
-            <option value="闭源">闭源 (Closed Source)</option>
-            <option value="部分开源">部分开源 (Partial)</option>
-          </select>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor={sourceTypeId} className="text-text-secondary text-xs font-medium uppercase tracking-wider">开源类型 (Source Type)</label>
+            <select 
+              id={sourceTypeId}
+              className="bg-bg-subtle/80 border border-border-color/50 rounded-lg p-2 text-text-primary focus:outline-none focus:ring-1 focus:ring-accent-cyan transition-all"
+              value={filterSourceType}
+              onChange={(e) => setFilterSourceType(e.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="开源">开源 (Open Source)</option>
+              <option value="闭源">闭源 (Closed Source)</option>
+              <option value="部分开源">部分开源 (Partial)</option>
+            </select>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2 mt-2">
-          <input 
-            type="checkbox" 
-            id={autoRotateId} 
-            checked={autoRotate}
-            onChange={(e) => setAutoRotate(e.target.checked)}
-          />
-          <label htmlFor={autoRotateId} className="text-sm text-text-primary">自动旋转 (Auto Rotate)</label>
+        <div className="h-px w-full bg-border-color/30 my-1"></div>
+
+        <div className="flex items-center gap-3">
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input 
+              type="checkbox" 
+              id={autoRotateId} 
+              className="sr-only peer"
+              checked={autoRotate}
+              onChange={(e) => setAutoRotate(e.target.checked)}
+            />
+            <div className="w-9 h-5 bg-bg-subtle peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-secondary after:border-border-color after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent-cyan"></div>
+          </label>
+          <label htmlFor={autoRotateId} className="text-sm font-medium text-text-primary cursor-pointer">自动旋转 (Auto Rotate)</label>
         </div>
       </div>
 
       {/* Overlay UI - Tool Details */}
       {selectedNode && selectedNode.group === 'tool' && selectedNode.tool && (
-        <div className="absolute top-4 right-4 z-10 w-80 bg-bg-surface/90 p-6 rounded-xl border border-border-color backdrop-blur-md shadow-2xl transition-all animate-in slide-in-from-right-8">
+        <div className="absolute top-4 right-4 z-10 w-80 bg-bg-surface/70 p-6 rounded-2xl border border-border-color/50 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all animate-in slide-in-from-right-8">
           <button 
             type="button"
             onClick={() => setSelectedNode(null)}
-            className="absolute top-4 right-4 text-text-secondary hover:text-text-primary"
+            className="absolute top-4 right-4 text-text-secondary hover:text-accent-cyan transition-colors"
           >
             ✕
           </button>

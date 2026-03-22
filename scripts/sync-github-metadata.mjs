@@ -188,6 +188,16 @@ async function main() {
   }
 
   await saveState(state);
+
+  // 同步完成后自动重新生成索引
+  console.log('\n📝 重新生成工具索引...');
+  const { execSync } = await import('node:child_process');
+  try {
+    execSync('node scripts/generate-tools-index.mjs', { stdio: 'inherit' });
+    console.log('✅ 索引生成完成！');
+  } catch (error) {
+    console.error('❌ 索引生成失败:', error.message);
+  }
 }
 
 await main();
