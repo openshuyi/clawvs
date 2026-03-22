@@ -31,11 +31,11 @@ export default function LogPage() {
         ))}
       </section>
       <div className="ui-panel-strong rounded-xl p-4 text-sm">
-        <p className="font-medium text-[color:var(--accent-orange)]">自动化运营建议</p>
+        <p className="font-medium text-accent-orange">自动化运营建议</p>
         <p className="mt-2">
           可以用 OpenClaw 监控竞品仓库 Release，一旦有更新自动生成解读卡，并在此页发布。
         </p>
-        <Link href="/arena" className="mt-3 inline-flex text-sm font-medium text-[color:var(--accent-cyan)] hover:brightness-110">
+        <Link href="/arena" className="mt-3 inline-flex text-sm font-medium text-accent-cyan hover:brightness-110">
           回到对比竞技场 →
         </Link>
       </div>

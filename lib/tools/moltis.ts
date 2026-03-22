@@ -1,0 +1,35 @@
+import type { ToolProfile } from '@/lib/tools/types';
+
+export const moltis: ToolProfile = {
+  slug: 'moltis',
+  name: 'Moltis',
+  tagline: '多模态桌面Agent，支持语音、视觉多模态交互',
+  summary: 'Moltis 是 OpenClaw 生态中的增强版产品，专注于多模态桌面自动化。它不仅支持传统的 Shell 和 Desktop 控制能力，还集成了语音识别、计算机视觉、自然语言处理等多模态能力，能够通过语音指令、手势识别、视觉理解等多种方式与桌面环境交互，为用户提供更自然、更智能的自动化体验。',
+  vendor: 'OpenClaw 社区',
+  sourceType: '开源',
+  region: '全球',
+  primaryCategory: 'OpenClaw 生态',
+  tags: ['桌面控制', 'Shell 执行', '自部署', '本地优先', '开源'],
+  homepageUrl: 'https://github.com/openclaw/moltis',
+  githubUrl: 'https://github.com/openclaw/moltis',
+  docsUrl: 'https://docs.openclaw.org/moltis',
+  githubStars: 2500,
+  primaryLanguage: 'Python',
+  pricing: '免费开源',
+  license: 'Apache-2.0',
+  focus: '多模态桌面自动化Agent',
+  deployment: '本地部署、Docker、Kubernetes',
+  modelSupport: ['GPT-4o', 'Claude 3.5', 'DeepSeek R1', 'Qwen-VL', 'Gemini Pro Vision'],
+  connectivity: ['OpenAI API', 'Anthropic API', '本地模型', '语音识别API', '视觉API'],
+  scenarios: ['语音控制桌面操作', '视觉识别自动操作', '多模态任务编排', '无障碍辅助', '智能办公自动化', '游戏辅助'],
+  gfwStatus: '需要代理',
+  pitfalls: [
+    '多模态功能需要额外的API调用',
+    '语音识别准确率受环境影响',
+    '视觉理解能力有限',
+    '资源占用较高'
+  ],
+  benchmark: { successRate: 85, avgDurationMin: 2.5, retries: 3 },
+  community: { stars: '2.5k', release: '2024-06', trend: '上升' },
+  rating: { security: 4.2, speed: 4.1, flexibility: 4.5, stability: 4.0, docs: 4.3 },
+};

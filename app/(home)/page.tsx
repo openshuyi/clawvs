@@ -41,7 +41,7 @@ export default function HomePage() {
       <section className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="ui-title text-2xl font-semibold">核心对比面板</h2>
-          <Link href="/arena" className="text-sm text-[color:var(--accent-cyan)] transition hover:brightness-110">
+          <Link href="/arena" className="text-sm text-accent-cyan transition hover:brightness-110">
             查看完整版 →
           </Link>
         </div>
@@ -55,8 +55,8 @@ export default function HomePage() {
             {gfwMatrix.map((item) => (
               <div key={item.name} className="ui-panel rounded-md p-3">
                 <div className="flex items-center justify-between gap-3">
-                  <p className="font-medium text-[color:var(--text-primary)]">{item.name}</p>
-                  <span className="rounded px-2 py-0.5 text-xs text-[color:var(--accent-orange)]">{item.status}</span>
+                  <p className="font-medium text-text-primary">{item.name}</p>
+                  <span className="rounded px-2 py-0.5 text-xs text-accent-orange">{item.status}</span>
                 </div>
                 <p className="ui-muted mt-1">{item.reason}</p>
               </div>
@@ -69,7 +69,7 @@ export default function HomePage() {
           <div className="mt-4 space-y-3">
             {promptSimulation.outputs.map((item) => (
               <div key={item.tool} className="ui-panel rounded-md p-3">
-                <p className="text-sm font-medium text-[color:var(--accent-cyan)]">{item.tool}</p>
+                <p className="text-sm font-medium text-accent-cyan">{item.tool}</p>
                 <p className="ui-subtitle mt-1 font-mono text-xs">{item.command}</p>
                 <p className="ui-muted mt-2 text-xs">风险提示：{item.risk}</p>
               </div>
@@ -82,13 +82,13 @@ export default function HomePage() {
         <h2 className="ui-title text-2xl font-semibold">热门工具档案</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {tools.slice(0, 3).map((tool) => (
-            <article key={tool.slug} className="ui-panel rounded-xl p-5">
-              <p className="text-xs uppercase tracking-wider text-[color:var(--accent-cyan)]">{tool.name}</p>
+            <article key={tool.slug} className="ui-panel rounded-xl p-5 ui-card-hover">
+              <p className="text-xs uppercase tracking-wider text-accent-cyan">{tool.name}</p>
               <h3 className="ui-title mt-2 text-lg font-semibold">{tool.tagline}</h3>
               <p className="ui-muted mt-2 text-sm leading-6">{tool.summary}</p>
               <Link
                 href={`/tools/${tool.slug}`}
-                className="mt-4 inline-flex text-sm font-medium text-[color:var(--accent-orange)] transition hover:brightness-110"
+                className="mt-4 inline-flex text-sm font-medium text-accent-orange transition hover:brightness-110"
               >
                 查看深度档案 →
               </Link>
@@ -108,17 +108,17 @@ export default function HomePage() {
             <Link
               key={item.href}
               href={item.href}
-              className="ui-panel rounded-md p-3 transition hover:border-[color:var(--accent-cyan)]"
+              className="ui-panel rounded-md p-3 transition hover:border-accent-cyan ui-card-hover"
             >
-              <p className="text-sm font-medium text-[color:var(--text-primary)]">{item.label}</p>
+              <p className="text-sm font-medium text-text-primary">{item.label}</p>
               <p className="ui-muted mt-1 text-xs">{item.desc}</p>
             </Link>
           ))}
         </div>
       </section>
       <section className="ui-panel-strong rounded-xl p-5 text-sm">
-        <p className="font-medium text-[color:var(--accent-orange)]">SEO 核心词</p>
-        <p className="mt-2">
+        <p className="font-medium text-accent-orange">SEO 核心词</p>
+        <p className="mt-2 text-text-primary">
           OpenClaw alternatives · AI Agent comparison · OpenInterpreter vs OpenClaw · Anthropic Computer Use vs OpenClaw
         </p>
       </section>
@@ -127,7 +127,7 @@ export default function HomePage() {
       </p>
       <p className="ui-muted text-xs">
         文档中心仍可在
-        <Link href="/docs" className="mx-1 text-[color:var(--accent-cyan)] hover:brightness-110">
+        <Link href="/docs" className="mx-1 text-accent-cyan hover:brightness-110">
           /docs
         </Link>{' '}
         查看。

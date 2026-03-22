@@ -14,6 +14,7 @@ function getSystemTheme(): ThemeMode {
 
 function applyTheme(theme: ThemeMode) {
   document.documentElement.setAttribute('data-theme', theme);
+  document.documentElement.classList.toggle('dark', theme === 'dark');
 }
 
 export function ThemeToggle() {

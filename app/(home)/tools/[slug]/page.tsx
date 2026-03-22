@@ -133,15 +133,15 @@ export default async function ToolDetailPage({ params }: Props) {
           <div className="mt-4 grid grid-cols-3 gap-3 text-center text-sm">
             <div className="ui-panel rounded-md p-3">
               <p className="ui-muted">成功率</p>
-              <p className="mt-1 text-xl font-semibold text-[color:var(--accent-cyan)]">{tool.benchmark.successRate}%</p>
+              <p className="mt-1 text-xl font-semibold text-accent-cyan">{tool.benchmark.successRate}%</p>
             </div>
             <div className="ui-panel rounded-md p-3">
               <p className="ui-muted">平均耗时</p>
-              <p className="mt-1 text-xl font-semibold text-[color:var(--accent-cyan)]">{tool.benchmark.avgDurationMin}m</p>
+              <p className="mt-1 text-xl font-semibold text-accent-cyan">{tool.benchmark.avgDurationMin}m</p>
             </div>
             <div className="ui-panel rounded-md p-3">
               <p className="ui-muted">重试次数</p>
-              <p className="mt-1 text-xl font-semibold text-[color:var(--accent-cyan)]">{tool.benchmark.retries}</p>
+              <p className="mt-1 text-xl font-semibold text-accent-cyan">{tool.benchmark.retries}</p>
             </div>
           </div>
         </article>
@@ -162,12 +162,12 @@ export default async function ToolDetailPage({ params }: Props) {
             <div key={key} className="space-y-1">
               <div className="ui-subtitle flex items-center justify-between text-sm">
                 <span>{key}</span>
-                <span>{value.toFixed(1)}</span>
+                <span>{(value as number).toFixed(1)}</span>
               </div>
-              <div className="h-2 rounded-full bg-[color:var(--border-color)]">
+              <div className="h-2 rounded-full bg-border-color">
                 <div
-                  className="h-2 rounded-full bg-gradient-to-r from-[color:var(--accent-cyan)] to-[color:var(--accent-orange)]"
-                  style={{ width: `${value * 10}%` }}
+                  className="h-2 rounded-full bg-gradient-to-r from-accent-cyan to-accent-orange"
+                  style={{ width: `${(value as number) * 10}%` }}
                 />
               </div>
             </div>

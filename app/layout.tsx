@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="zh-CN" data-theme="dark" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
+    <html lang="zh-CN" suppressHydrationWarning className={cn('font-sans', geist.variable)}>
       <body className="flex min-h-screen flex-col">
         <RootProvider>{children}</RootProvider>
       </body>

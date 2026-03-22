@@ -45,8 +45,8 @@ export function ComparisonArena({ compact = false }: { compact?: boolean }) {
                 onClick={() => toggleTool(slug)}
                 className={`rounded-md border px-3 py-1.5 text-xs font-medium transition ${
                   active
-                    ? 'border-[color:var(--accent-cyan)] bg-[color:var(--accent-cyan-soft)] text-[color:var(--accent-cyan)]'
-                    : 'border-[color:var(--border-color)] bg-transparent text-[color:var(--text-secondary)] hover:border-[color:var(--accent-cyan)]'
+                    ? 'border-accent-cyan bg-accent-cyan-soft text-accent-cyan'
+                    : 'border-border-color bg-transparent text-text-secondary hover:border-accent-cyan'
                 }`}
               >
                 {toolNameMap[slug]}
@@ -54,12 +54,12 @@ export function ComparisonArena({ compact = false }: { compact?: boolean }) {
             );
           })}
         </div>
-        <label className="inline-flex items-center gap-2 text-sm text-[color:var(--text-secondary)]">
+        <label className="inline-flex items-center gap-2 text-sm text-text-secondary">
           <input
             type="checkbox"
             checked={showDiffOnly}
             onChange={(event) => setShowDiffOnly(event.target.checked)}
-            className="h-4 w-4 rounded border-[color:var(--border-color)] bg-transparent accent-[color:var(--accent-orange)]"
+            className="h-4 w-4 rounded border-border-color bg-transparent accent-accent-orange"
           />
           仅显示差异项
         </label>
@@ -67,14 +67,14 @@ export function ComparisonArena({ compact = false }: { compact?: boolean }) {
 
       <div className="ui-panel overflow-x-auto rounded-xl">
         <table className="min-w-full border-collapse text-left text-sm">
-          <thead className="bg-[color:color-mix(in_oklab,var(--bg-surface-strong)_88%,transparent)] text-[color:var(--text-secondary)]">
+          <thead className="bg-[color:color-mix(in_oklab,var(--bg-surface-strong)_88%,transparent)] text-text-secondary">
             <tr>
-              <th className="min-w-[180px] border-b border-[color:var(--border-color)] px-4 py-3 font-semibold">维度</th>
-              <th className="min-w-[220px] border-b border-[color:var(--border-color)] px-4 py-3 font-semibold">说明</th>
+              <th className="min-w-[180px] border-b border-border-color px-4 py-3 font-semibold">维度</th>
+              <th className="min-w-[220px] border-b border-border-color px-4 py-3 font-semibold">说明</th>
               {selectedTools.map((tool) => (
                 <th
                   key={tool}
-                  className="min-w-[180px] border-b border-[color:var(--border-color)] px-4 py-3 font-semibold text-[color:var(--accent-cyan)]"
+                  className="min-w-[180px] border-b border-border-color px-4 py-3 font-semibold text-accent-cyan"
                 >
                   {toolNameMap[tool]}
                 </th>
@@ -84,14 +84,14 @@ export function ComparisonArena({ compact = false }: { compact?: boolean }) {
           <tbody>
             {(compact ? rows.slice(0, 5) : rows).map((row) => (
               <tr key={row.label} className="align-top">
-                <td className="border-b border-[color:var(--border-color)] px-4 py-3 font-medium text-[color:var(--text-primary)]">
+                <td className="border-b border-border-color px-4 py-3 font-medium text-text-primary">
                   {row.label}
                 </td>
-                <td className="border-b border-[color:var(--border-color)] px-4 py-3 text-[color:var(--text-muted)]">{row.detail}</td>
+                <td className="border-b border-border-color px-4 py-3 text-text-muted">{row.detail}</td>
                 {selectedTools.map((tool) => (
                   <td
                     key={`${row.label}-${tool}`}
-                    className="border-b border-[color:var(--border-color)] px-4 py-3 text-[color:var(--text-secondary)]"
+                    className="border-b border-border-color px-4 py-3 text-text-secondary"
                   >
                     {row.values[tool]}
                   </td>
