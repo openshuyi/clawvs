@@ -1,3 +1,27 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+
+@theme {
+  --color-bg: #121212;
+  --color-bg-soft: #181818;
+  --color-accent-cyan: #19f5ff;
+  --color-accent-orange: #ff8a1f;
+}
+
+@layer base {
+  body {
+    background: var(--color-bg);
+    color: #f5f5f5;
+  }
+
+  code,
+  pre,
+  .font-mono {
+    font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent-cyan) 30%, transparent);
+  }
+}
