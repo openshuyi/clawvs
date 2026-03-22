@@ -11,14 +11,14 @@ export default function ArenaPage() {
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 py-10 md:px-8 md:py-14">
       <header className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.16em] text-cyan-200">The Arena</p>
-        <h1 className="text-3xl font-semibold text-white md:text-4xl">动态对比矩阵</h1>
-        <p className="max-w-4xl text-sm leading-7 text-zinc-300 md:text-base">
+        <p className="ui-kicker text-xs">The Arena</p>
+        <h1 className="ui-title text-3xl font-semibold md:text-4xl">动态对比矩阵</h1>
+        <p className="ui-subtitle max-w-4xl text-sm leading-7 md:text-base">
           聚焦权限、连接性、模型兼容、部署难度与离线能力五大维度，支持多工具对照和差异过滤。
         </p>
-        <div className="flex flex-wrap gap-2 text-xs text-zinc-400 md:text-sm">
+        <div className="flex flex-wrap gap-2 text-xs md:text-sm">
           {siteStats.map((item) => (
-            <span key={item} className="rounded border border-white/15 px-2 py-1">
+            <span key={item} className="ui-chip rounded px-2 py-1">
               {item}
             </span>
           ))}

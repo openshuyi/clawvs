@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ThemeToggle } from '@/components/site/theme-toggle';
 
 const navItems = [
   { href: '/', label: 'Arena' },
@@ -9,41 +10,46 @@ const navItems = [
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,#1e1e1e_0%,#121212_35%,#0b0b0b_100%)] text-white">
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#101010]/85 backdrop-blur">
+    <div className="min-h-screen text-[color:var(--text-primary)]">
+      <header className="sticky top-0 z-50 border-b border-[color:var(--border-color)] bg-[color:color-mix(in_oklab,var(--bg-surface)_90%,transparent)] backdrop-blur">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-5 py-4 md:px-8">
-          <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-wide">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-cyan-400/70 bg-cyan-400/10 text-cyan-300">
+          <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-[0.08em]">
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-[color:var(--accent-cyan)] bg-[color:var(--accent-cyan-soft)] text-[color:var(--accent-cyan)]">
               CV
             </span>
             <span>Claw VS</span>
           </Link>
-          <nav className="hidden items-center gap-5 text-sm text-zinc-200 md:flex">
+          <nav className="hidden items-center gap-5 text-sm text-[color:var(--text-secondary)] md:flex">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className="transition hover:text-cyan-300">
+              <Link
+                key={item.href}
+                href={item.href}
+                className="relative transition hover:text-[color:var(--accent-cyan)] after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-[color:var(--accent-cyan)] after:transition-all hover:after:w-full"
+              >
                 {item.label}
               </Link>
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Link
               href="/tools"
-              className="rounded-md border border-cyan-400/40 px-3 py-1.5 text-xs font-medium text-cyan-200 transition hover:border-cyan-300"
+              className="ui-btn-cyan rounded-md px-3 py-1.5 text-xs font-medium transition hover:brightness-110"
             >
               搜索工具
             </Link>
             <Link
               href="/log"
-              className="rounded-md border border-orange-400/50 bg-orange-400/10 px-3 py-1.5 text-xs font-medium text-orange-200 transition hover:bg-orange-400/20"
+              className="ui-btn-orange rounded-md px-3 py-1.5 text-xs font-medium transition hover:brightness-110"
             >
-              提交新工具
+              行业动态
             </Link>
           </div>
         </div>
       </header>
       <main>{children}</main>
-      <footer className="border-t border-white/10 bg-[#0c0c0c]">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-5 py-8 text-sm text-zinc-400 md:px-8">
+      <footer className="mt-16 border-t border-[color:var(--border-color)] bg-[color:color-mix(in_oklab,var(--bg-surface)_78%,transparent)]">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-5 py-8 text-sm text-[color:var(--text-muted)] md:px-8">
           <p>本站由 AI 驱动，人类监督。</p>
           <p>数据持续更新，结论基于公开信息与标准化实测流程。</p>
         </div>

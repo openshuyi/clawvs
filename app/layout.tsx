@@ -1,17 +1,7 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import './global.css';
-import { Inter, JetBrains_Mono } from 'next/font/google';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
-
-const inter = Inter({
-  subsets: ['latin'],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://clawvs.dev'),
@@ -24,8 +14,8 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="zh-CN" className={`${inter.className} ${jetbrainsMono.variable}`} suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col bg-[#121212]">
+    <html lang="zh-CN" data-theme="dark" suppressHydrationWarning>
+      <body className="flex min-h-screen flex-col">
         <RootProvider>{children}</RootProvider>
       </body>
     </html>

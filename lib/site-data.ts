@@ -1,219 +1,24 @@
+import { primaryCategories, toolTags, tools, type PrimaryCategory, type ToolProfile, type ToolSlug, type ToolTag } from '@/lib/tools';
+
+export const arenaToolOrder = ['openclaw', 'openinterpreter', 'plandex', 'anthropic-computer-use', 'crewai'] as const;
+
+export type ArenaToolSlug = (typeof arenaToolOrder)[number];
+export { tools };
+export type { ToolProfile, ToolSlug };
+export { primaryCategories, toolTags };
+export type { PrimaryCategory, ToolTag };
+
 export const siteStats = [
-  '已收录 42 个 Agent 工具',
-  '今日更新 2 个版本',
-  '本周新增 8 条兼容性结论',
-  '实测任务累计 1,280 次',
-];
-
-export type ToolSlug =
-  | 'openclaw'
-  | 'openinterpreter'
-  | 'plandex'
-  | 'anthropic-computer-use'
-  | 'crewai';
-
-export type ToolProfile = {
-  slug: ToolSlug;
-  name: string;
-  tagline: string;
-  summary: string;
-  focus: string;
-  deployment: string;
-  modelSupport: string[];
-  connectivity: string[];
-  gfwStatus: '直连可用' | '需要代理' | '强依赖海外服务';
-  pitfalls: string[];
-  benchmark: {
-    successRate: number;
-    avgDurationMin: number;
-    retries: number;
-  };
-  community: {
-    stars: string;
-    release: string;
-    trend: string;
-  };
-  rating: {
-    security: number;
-    speed: number;
-    flexibility: number;
-    stability: number;
-    docs: number;
-  };
-};
-
-export const tools: ToolProfile[] = [
-  {
-    slug: 'openclaw',
-    name: 'OpenClaw',
-    tagline: '桌面 + Shell 的全栈自动化 Agent',
-    summary: '适合需要真实操作系统控制能力的自动化团队。',
-    focus: '桌面控制、命令执行、跨流程编排',
-    deployment: 'Docker 与脚本化部署都可行，云端需处理网络出口策略。',
-    modelSupport: ['GPT-4o', 'Claude 3.5', 'DeepSeek R1'],
-    connectivity: ['可选 Discord 通道', 'Tailscale 内网穿透', '本地 Agent 网关'],
-    gfwStatus: '需要代理',
-    pitfalls: [
-      '海外网络波动时首次连接耗时较高',
-      '桌面权限需要额外加固审计策略',
-      '混合云场景建议拆分执行与调度节点',
-    ],
-    benchmark: {
-      successRate: 86,
-      avgDurationMin: 7.8,
-      retries: 1.3,
-    },
-    community: {
-      stars: '18.4k',
-      release: 'v0.19.2',
-      trend: '近 30 天活跃提交稳定增长',
-    },
-    rating: {
-      security: 8.2,
-      speed: 8.4,
-      flexibility: 9.1,
-      stability: 8.1,
-      docs: 7.8,
-    },
-  },
-  {
-    slug: 'openinterpreter',
-    name: 'OpenInterpreter',
-    tagline: '命令行优先的个人 AI 终端助手',
-    summary: '上手快，适合单机开发辅助和脚本型任务。',
-    focus: '本地命令执行、代码解释、轻量自动化',
-    deployment: '本地 pip 安装最便捷，企业化治理能力中等。',
-    modelSupport: ['GPT-4o', 'Claude 3.5', '本地 LLM'],
-    connectivity: ['本地运行', '可选云模型 API'],
-    gfwStatus: '直连可用',
-    pitfalls: [
-      '复杂多步骤任务时需要人工分段引导',
-      '长期运行会话需手动管理上下文',
-      '团队协作能力弱于编排型框架',
-    ],
-    benchmark: {
-      successRate: 79,
-      avgDurationMin: 6.2,
-      retries: 1.9,
-    },
-    community: {
-      stars: '57.2k',
-      release: 'v0.5.6',
-      trend: '社区热度高，生态插件丰富',
-    },
-    rating: {
-      security: 7.5,
-      speed: 8.6,
-      flexibility: 7.9,
-      stability: 7.4,
-      docs: 8.3,
-    },
-  },
-  {
-    slug: 'plandex',
-    name: 'Plandex',
-    tagline: '面向复杂开发任务的计划驱动 Agent',
-    summary: '强调任务分解和长链路执行的一致性。',
-    focus: '多阶段计划、代码库级重构、任务恢复',
-    deployment: 'CLI 安装快，团队部署需要配置统一状态存储。',
-    modelSupport: ['GPT-4o', 'Claude 3.5', 'DeepSeek R1'],
-    connectivity: ['本地模式', '远程执行节点'],
-    gfwStatus: '直连可用',
-    pitfalls: [
-      '计划层级过深时执行时间拉长',
-      '首次接入需要定义项目级约束模板',
-      '并行任务策略需要经验调参',
-    ],
-    benchmark: {
-      successRate: 83,
-      avgDurationMin: 9.4,
-      retries: 1.4,
-    },
-    community: {
-      stars: '13.7k',
-      release: 'v1.11.0',
-      trend: '企业用户增长明显',
-    },
-    rating: {
-      security: 8.1,
-      speed: 7.5,
-      flexibility: 8.9,
-      stability: 8.3,
-      docs: 7.7,
-    },
-  },
-  {
-    slug: 'anthropic-computer-use',
-    name: 'Anthropic Computer Use',
-    tagline: '模型原生桌面操作能力',
-    summary: '交互能力强，适合复杂 GUI 自动化原型验证。',
-    focus: '视觉理解、界面操作、跨应用流程',
-    deployment: '主要依赖云端能力，私有化路径受限。',
-    modelSupport: ['Claude 3.5', 'Claude Sonnet 系列'],
-    connectivity: ['Anthropic API', '云端推理'],
-    gfwStatus: '强依赖海外服务',
-    pitfalls: [
-      '网络策略和成本控制是关键风险',
-      '受服务区域与合规条件限制',
-      '离线场景适配困难',
-    ],
-    benchmark: {
-      successRate: 88,
-      avgDurationMin: 6.9,
-      retries: 1.2,
-    },
-    community: {
-      stars: '官方能力集成',
-      release: '2026-Q1 更新',
-      trend: '企业试点增长快',
-    },
-    rating: {
-      security: 8.4,
-      speed: 8.9,
-      flexibility: 8.1,
-      stability: 8.2,
-      docs: 8.0,
-    },
-  },
-  {
-    slug: 'crewai',
-    name: 'CrewAI',
-    tagline: '多 Agent 协作编排框架',
-    summary: '适合搭建角色化、多任务分工的企业工作流。',
-    focus: '角色分工、任务路由、流程治理',
-    deployment: 'Python 生态友好，生产环境建议容器化。',
-    modelSupport: ['GPT-4o', 'Claude 3.5', 'Gemini', '本地 LLM'],
-    connectivity: ['本地或云端均可', '可接入企业内部工具'],
-    gfwStatus: '直连可用',
-    pitfalls: [
-      '流程设计不当会引起链路冗余',
-      '多角色提示词治理成本较高',
-      '可观测性体系需要额外建设',
-    ],
-    benchmark: {
-      successRate: 81,
-      avgDurationMin: 8.6,
-      retries: 1.6,
-    },
-    community: {
-      stars: '31.5k',
-      release: 'v0.88.1',
-      trend: '企业编排场景热度持续提升',
-    },
-    rating: {
-      security: 8.0,
-      speed: 7.8,
-      flexibility: 9.0,
-      stability: 7.9,
-      docs: 8.1,
-    },
-  },
+  `已收录 ${tools.length} 个 Agent 工具`,
+  '覆盖开源与闭源产品全景',
+  '支持国内外生态检索与筛选',
+  '所有产品均提供独立详情页',
 ];
 
 export type ComparisonRow = {
   label: string;
   detail: string;
-  values: Record<ToolSlug, string>;
+  values: Record<ArenaToolSlug, string>;
 };
 
 export const comparisonRows: ComparisonRow[] = [
@@ -373,7 +178,7 @@ export const logItems = [
 export type QuizOption = {
   label: string;
   value: string;
-  weight: Record<ToolSlug, number>;
+  weight: Record<ArenaToolSlug, number>;
 };
 
 export type QuizQuestion = {
@@ -495,14 +300,6 @@ export const quizQuestions: QuizQuestion[] = [
       },
     ],
   },
-];
-
-export const arenaToolOrder: ToolSlug[] = [
-  'openclaw',
-  'openinterpreter',
-  'plandex',
-  'anthropic-computer-use',
-  'crewai',
 ];
 
 export function getTool(slug: string) {
