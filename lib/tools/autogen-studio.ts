@@ -11,7 +11,7 @@ export const autogenStudio: ToolProfile = {
   primaryCategory: '多 Agent 协作框架',
   tags: ['Agent 协作', '开源', '可视化编排', '开发工具', '企业流程'],
   homepageUrl: null,
-  githubUrl: 'https://github.com/microsoft/autogenstudio',
+  githubUrl: 'https://github.com/microsoft/autogen',
   docsUrl: 'https://microsoft.github.io/autogen',
   githubStars: null,
   primaryLanguage: null,

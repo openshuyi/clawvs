@@ -11,7 +11,7 @@ export const agentsThudm: ToolProfile = {
   primaryCategory: '多 Agent 协作框架',
   tags: ['Agent 协作', '开源', '开发工具', '多模态'],
   homepageUrl: 'https://agents.thudm.ai',
-  githubUrl: 'https://github.com/THUDM/agents',
+  githubUrl: null,
   docsUrl: 'https://docs.agents.thudm.ai',
   githubStars: null,
   primaryLanguage: null,

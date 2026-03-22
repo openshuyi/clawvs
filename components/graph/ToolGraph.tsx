@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo, useCallback, useId } from 'react';
 import ForceGraph3D from './ForceGraph3D';
+import ForceGraph2D from './ForceGraph2D';
 import { tools } from '@/lib/tools';
 import { ToolProfile, primaryCategories, toolTags } from '@/lib/tools/types';
 import * as THREE from 'three';
@@ -34,6 +35,20 @@ export function ToolGraph() {
   const [hoverNode, setHoverNode] = useState<Node | null>(null);
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [autoRotate, setAutoRotate] = useState(true);
+  const [viewMode, setViewMode] = useState<'2d' | '3d'>('3d');
+  
+  // New toggles
+  const [layoutMode, setLayoutMode] = useState<'force' | 'dag'>('force');
+  const [sizeMapping, setSizeMapping] = useState(true);
+  const [enableEffects, setEnableEffects] = useState(true);
+  const [dimOthersOnHover, setDimOthersOnHover] = useState(false);
+  const [fixNodesOnDrag, setFixNodesOnDrag] = useState(false);
+  const [showBloomConfig, setShowBloomConfig] = useState(false);
+  
+  // Bloom parameters
+  const [bloomStrength, setBloomStrength] = useState(0.2);
+  const [bloomRadius, setBloomRadius] = useState(1.5);
+  const [bloomThreshold, setBloomThreshold] = useState(0.1);
 
   // Filters
   const [filterCategory, setFilterCategory] = useState<string>('All');
@@ -41,6 +56,14 @@ export function ToolGraph() {
   const categoryId = useId();
   const sourceTypeId = useId();
   const autoRotateId = useId();
+  const layoutModeId = useId();
+  const sizeMappingId = useId();
+  const effectsId = useId();
+  const dimHoverId = useId();
+  const fixDragId = useId();
+  const bloomStrengthId = useId();
+  const bloomRadiusId = useId();
+  const bloomThresholdId = useId();
 
   // Handle resize
   useEffect(() => {
@@ -82,12 +105,20 @@ export function ToolGraph() {
     const tagSet = new Set<string>();
 
     filteredTools.forEach((tool) => {
+      // Calculate size based on stars. 
+      // Log scale ensures massive star projects don't overwhelm, but we give a better baseline.
+      const starCount = tool.githubStars || 0;
+      // Size logic: base size 4, max size ~16 based on log(stars)
+      const calculatedSize = sizeMapping 
+        ? (starCount > 0 ? 4 + Math.min(12, Math.log10(starCount) * 2.5) : 4)
+        : 6;
+
       // Tool Node
       nodes.push({
         id: tool.slug,
         name: tool.name,
         group: 'tool',
-        val: tool.githubStars ? Math.max(2, Math.min(10, Math.log10(tool.githubStars))) : 2,
+        val: calculatedSize,
         tool,
         color: tool.sourceType === '开源' ? '#10b981' : tool.sourceType === '闭源' ? '#f59e0b' : '#3b82f6',
       });
@@ -132,11 +163,16 @@ export function ToolGraph() {
     });
 
     return { nodes, links };
-  }, [filterCategory, filterSourceType]);
+  }, [filterCategory, filterSourceType, sizeMapping]);
 
   const renderNode = useCallback((node: any) => {
-    const isHighlighted = highlightNodes.has(node.id) || highlightNodes.size === 0;
-    const opacity = isHighlighted ? 1 : 0.1;
+    const isHighlighted = highlightNodes.has(node.id) || selectedNode?.id === node.id;
+    const isGlobalHighlight = highlightNodes.size > 0 || selectedNode !== null;
+    
+    let opacity = 1;
+    if (dimOthersOnHover && isGlobalHighlight && !isHighlighted) {
+      opacity = 0.1;
+    }
     
     if (node.group === 'category') {
       const sprite = new SpriteText(node.name);
@@ -158,14 +194,15 @@ export function ToolGraph() {
         transparent: true, 
         opacity,
         emissive: node.color,
-        emissiveIntensity: isHighlighted ? 0.5 : 0
+        emissiveIntensity: enableEffects && isHighlighted ? 0.6 : (enableEffects ? 0.2 : 0)
       });
       return new THREE.Mesh(geometry, material);
     }
-  }, [highlightNodes]);
+  }, [highlightNodes, dimOthersOnHover, selectedNode, enableEffects]);
 
   // Auto Rotate Effect
   useEffect(() => {
+    if (viewMode !== '3d') return;
     const timer = setTimeout(() => {
       if (fgRef.current && fgRef.current.controls()) {
         fgRef.current.controls().autoRotate = autoRotate;
@@ -173,23 +210,33 @@ export function ToolGraph() {
       }
     }, 500);
     return () => clearTimeout(timer);
-  }, [autoRotate]);
+  }, [autoRotate, viewMode]);
 
   // Bloom Effect
   useEffect(() => {
-    if (fgRef.current) {
-      const bloomPass = new UnrealBloomPass(
-        new THREE.Vector2(window.innerWidth, window.innerHeight),
-        1.5,
-        0.4,
-        0.85
-      );
-      bloomPass.strength = 1.2;
-      bloomPass.radius = 1;
-      bloomPass.threshold = 0.1;
-      fgRef.current.postProcessingComposer().addPass(bloomPass);
+    if (viewMode !== '3d') return;
+    
+    if (fgRef.current && fgRef.current.postProcessingComposer) {
+      const composer = fgRef.current.postProcessingComposer();
+      // Remove old passes
+      while(composer.passes.length > 1) {
+        composer.removePass(composer.passes[composer.passes.length - 1]);
+      }
+      
+      if (enableEffects) {
+        const bloomPass = new UnrealBloomPass(
+          new THREE.Vector2(window.innerWidth, window.innerHeight),
+          1.5,
+          0.4,
+          0.85
+        );
+        bloomPass.strength = bloomStrength;
+        bloomPass.radius = bloomRadius;
+        bloomPass.threshold = bloomThreshold;
+        composer.addPass(bloomPass);
+      }
     }
-  }, []);
+  }, [viewMode, enableEffects, bloomStrength, bloomRadius, bloomThreshold]);
 
   // Hover Interaction
   const handleNodeHover = (node: Node | null) => {
@@ -210,50 +257,99 @@ export function ToolGraph() {
     setHoverNode(node || null);
     setHighlightNodes(new Set(highlightNodes));
     setHighlightLinks(new Set(highlightLinks));
+    
+    // Disable auto-rotate when hovering for better inspection
+    if (node && autoRotate) {
+      if (fgRef.current && fgRef.current.controls) {
+        const controls = fgRef.current.controls();
+        if (controls) controls.autoRotate = false;
+      }
+    } else if (!node && autoRotate) {
+      if (fgRef.current && fgRef.current.controls) {
+        const controls = fgRef.current.controls();
+        if (controls) controls.autoRotate = true;
+      }
+    }
   };
 
   // Drag Interaction
   const handleNodeDragEnd = useCallback((node: any) => {
-    node.fx = node.x;
-    node.fy = node.y;
-    node.fz = node.z;
-  }, []);
+    if (fixNodesOnDrag) {
+      node.fx = node.x;
+      node.fy = node.y;
+      node.fz = node.z;
+    }
+  }, [fixNodesOnDrag]);
+  // Click Interaction (Focus)
   const handleNodeClick = useCallback((node: Node) => {
     setSelectedNode(node);
-    if (fgRef.current && node.x !== undefined && node.y !== undefined && node.z !== undefined) {
-      // Aim at node from outside it
-      const distance = 40;
-      const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+    if (fgRef.current && node.x !== undefined && node.y !== undefined) {
+      if (viewMode === '3d' && node.z !== undefined) {
+        // Aim at node from outside it
+        const distance = 40;
+        const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
 
-      fgRef.current.cameraPosition(
-        { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
-        node, // lookAt ({ x, y, z })
-        1000 // ms transition duration (speeded up)
-      );
+        fgRef.current.cameraPosition(
+          { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
+          node, // lookAt ({ x, y, z })
+          1000 // ms transition duration (speeded up)
+        );
+      } else if (viewMode === '2d') {
+        fgRef.current.centerAt(node.x, node.y, 1000);
+        fgRef.current.zoom(4, 1000);
+      }
     }
-  }, []);
+  }, [viewMode]);
 
   return (
     <div ref={containerRef} className="relative w-full h-[calc(100vh-73px)] overflow-hidden bg-black">
-      {/* 3D Graph */}
+      {/* Graph Canvas */}
       {dimensions.width > 0 && (
-        <ForceGraph3D
-          ref={fgRef}
-          width={dimensions.width}
-          height={dimensions.height}
-          graphData={graphData}
-        nodeLabel="name"
-        nodeThreeObject={renderNode}
-          linkColor={(link: any) => highlightLinks.has(link) ? '#ffffff' : 'rgba(255,255,255,0.2)'}
-          linkWidth={(link) => (highlightLinks.has(link as any) ? 2 : 0.5)}
-          linkDirectionalParticles={(link) => (highlightLinks.has(link as any) ? 4 : 0)}
-          linkDirectionalParticleWidth={2}
-          onNodeHover={handleNodeHover as any}
-          onNodeClick={handleNodeClick as any}
-          onNodeDragEnd={handleNodeDragEnd as any}
-          backgroundColor="#000000"
-        showNavInfo={false}
-      />
+        viewMode === '3d' ? (
+          <ForceGraph3D
+            ref={fgRef}
+            width={dimensions.width}
+            height={dimensions.height}
+            graphData={graphData}
+            nodeLabel="name"
+            nodeThreeObject={renderNode}
+            linkColor={(link: any) => highlightLinks.has(link) ? '#ffffff' : 'rgba(255,255,255,0.4)'}
+            linkWidth={(link) => (highlightLinks.has(link as any) ? 2 : 0.8)}
+            linkDirectionalParticles={(link) => (highlightLinks.has(link as any) ? 4 : 0)}
+            linkDirectionalParticleWidth={2}
+            onNodeHover={handleNodeHover as any}
+            onNodeClick={handleNodeClick as any}
+            onNodeDragEnd={handleNodeDragEnd as any}
+            backgroundColor="#000000"
+            showNavInfo={false}
+            dagMode={layoutMode === 'dag' ? 'td' : undefined}
+            dagLevelDistance={layoutMode === 'dag' ? 50 : undefined}
+          />
+        ) : (
+          <ForceGraph2D
+            ref={fgRef}
+            width={dimensions.width}
+            height={dimensions.height}
+            graphData={graphData}
+            nodeLabel="name"
+            nodeRelSize={4}
+            nodeVal={(node: any) => node.val}
+            nodeColor={(node: any) => {
+              const isHighlighted = highlightNodes.has(node.id) || highlightNodes.size === 0;
+              return isHighlighted ? node.color : 'rgba(255,255,255,0.1)';
+            }}
+            linkColor={(link: any) => highlightLinks.has(link) ? '#ffffff' : 'rgba(255,255,255,0.3)'}
+            linkWidth={(link) => (highlightLinks.has(link as any) ? 2 : 0.8)}
+            linkDirectionalParticles={(link) => (highlightLinks.has(link as any) ? 4 : 0)}
+            linkDirectionalParticleWidth={2}
+            onNodeHover={handleNodeHover as any}
+            onNodeClick={handleNodeClick as any}
+            onNodeDragEnd={handleNodeDragEnd as any}
+            backgroundColor="#000000"
+            dagMode={layoutMode === 'dag' ? 'td' : undefined}
+            dagLevelDistance={layoutMode === 'dag' ? 50 : undefined}
+          />
+        )
       )}
 
       {/* Overlay UI - Controls */}
@@ -295,18 +391,183 @@ export function ToolGraph() {
 
         <div className="h-px w-full bg-border-color/30 my-1"></div>
 
-        <div className="flex items-center gap-3">
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input 
-              type="checkbox" 
-              id={autoRotateId} 
-              className="sr-only peer"
-              checked={autoRotate}
-              onChange={(e) => setAutoRotate(e.target.checked)}
-            />
-            <div className="w-9 h-5 bg-bg-subtle peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-secondary after:border-border-color after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent-cyan"></div>
-          </label>
-          <label htmlFor={autoRotateId} className="text-sm font-medium text-text-primary cursor-pointer">自动旋转 (Auto Rotate)</label>
+        {/* Toggles */}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between gap-3">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input 
+                type="checkbox" 
+                id={autoRotateId} 
+                className="sr-only peer"
+                checked={autoRotate}
+                onChange={(e) => setAutoRotate(e.target.checked)}
+                disabled={viewMode === '2d'}
+              />
+              <div className={`w-9 h-5 bg-bg-subtle peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-secondary after:border-border-color after:border after:rounded-full after:h-4 after:w-4 after:transition-all ${viewMode === '3d' ? 'peer-checked:bg-accent-cyan' : 'opacity-50 cursor-not-allowed'}`}></div>
+            </label>
+            <label htmlFor={autoRotateId} className={`text-sm font-medium flex-1 ${viewMode === '3d' ? 'text-text-primary cursor-pointer' : 'text-text-secondary cursor-not-allowed'}`}>自动旋转 (Auto Rotate)</label>
+          </div>
+
+          <div className="flex items-center justify-between gap-3">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input 
+                type="checkbox" 
+                id={sizeMappingId} 
+                className="sr-only peer"
+                checked={sizeMapping}
+                onChange={(e) => setSizeMapping(e.target.checked)}
+              />
+              <div className="w-9 h-5 bg-bg-subtle peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-secondary after:border-border-color after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent-cyan"></div>
+            </label>
+            <label htmlFor={sizeMappingId} className="text-sm font-medium flex-1 text-text-primary cursor-pointer">大小映射 (Size by Stars)</label>
+          </div>
+
+          <div className="flex items-center justify-between gap-3">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input 
+                type="checkbox" 
+                id={effectsId} 
+                className="sr-only peer"
+                checked={enableEffects}
+                onChange={(e) => setEnableEffects(e.target.checked)}
+                disabled={viewMode === '2d'}
+              />
+              <div className={`w-9 h-5 bg-bg-subtle peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-secondary after:border-border-color after:border after:rounded-full after:h-4 after:w-4 after:transition-all ${viewMode === '3d' ? 'peer-checked:bg-accent-cyan' : 'opacity-50 cursor-not-allowed'}`}></div>
+            </label>
+            <label htmlFor={effectsId} className={`text-sm font-medium flex-1 ${viewMode === '3d' ? 'text-text-primary cursor-pointer' : 'text-text-secondary cursor-not-allowed'}`}>发光特效 (Bloom FX)</label>
+          </div>
+
+          <div className="flex items-center justify-between gap-3">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input 
+                type="checkbox" 
+                id={dimHoverId} 
+                className="sr-only peer"
+                checked={dimOthersOnHover}
+                onChange={(e) => setDimOthersOnHover(e.target.checked)}
+              />
+              <div className="w-9 h-5 bg-bg-subtle peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-secondary after:border-border-color after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent-cyan"></div>
+            </label>
+            <label htmlFor={dimHoverId} className="text-sm font-medium flex-1 text-text-primary cursor-pointer">悬停变暗 (Dim on Hover)</label>
+          </div>
+
+          <div className="flex items-center justify-between gap-3">
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input 
+                type="checkbox" 
+                id={fixDragId} 
+                className="sr-only peer"
+                checked={fixNodesOnDrag}
+                onChange={(e) => setFixNodesOnDrag(e.target.checked)}
+              />
+              <div className="w-9 h-5 bg-bg-subtle peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-secondary after:border-border-color after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent-cyan"></div>
+            </label>
+            <label htmlFor={fixDragId} className="text-sm font-medium flex-1 text-text-primary cursor-pointer">拖拽固定 (Fix on Drag)</label>
+          </div>
+        </div>
+
+        {enableEffects && viewMode === '3d' && (
+          <>
+            <div className="h-px w-full bg-border-color/30 my-1"></div>
+            <div className="flex flex-col gap-2">
+              <button 
+                type="button"
+                onClick={() => setShowBloomConfig(!showBloomConfig)}
+                className="flex items-center justify-between text-xs font-medium text-text-secondary uppercase tracking-wider mb-1 hover:text-text-primary transition-colors"
+              >
+                <span>特效参数 (Bloom Config)</span>
+                <span className={`transform transition-transform ${showBloomConfig ? 'rotate-180' : ''}`}>▼</span>
+              </button>
+              
+              {showBloomConfig && (
+                <div className="flex flex-col gap-3 animate-in slide-in-from-top-2 fade-in duration-200">
+                  <div className="flex flex-col gap-1">
+                    <div className="flex justify-between text-xs">
+                      <label htmlFor={bloomStrengthId} className="text-text-primary">强度 (Strength)</label>
+                      <span className="text-text-secondary">{bloomStrength.toFixed(1)}</span>
+                    </div>
+                    <input 
+                      id={bloomStrengthId}
+                      type="range" 
+                      min="0" max="3" step="0.1" 
+                      value={bloomStrength} 
+                      onChange={(e) => setBloomStrength(parseFloat(e.target.value))}
+                      className="w-full accent-accent-cyan cursor-pointer"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <div className="flex justify-between text-xs">
+                      <label htmlFor={bloomRadiusId} className="text-text-primary">范围 (Radius)</label>
+                      <span className="text-text-secondary">{bloomRadius.toFixed(1)}</span>
+                    </div>
+                    <input 
+                      id={bloomRadiusId}
+                      type="range" 
+                      min="0" max="2" step="0.1" 
+                      value={bloomRadius} 
+                      onChange={(e) => setBloomRadius(parseFloat(e.target.value))}
+                      className="w-full accent-accent-cyan cursor-pointer"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <div className="flex justify-between text-xs">
+                      <label htmlFor={bloomThresholdId} className="text-text-primary">阈值 (Threshold)</label>
+                      <span className="text-text-secondary">{bloomThreshold.toFixed(2)}</span>
+                    </div>
+                    <input 
+                      id={bloomThresholdId}
+                      type="range" 
+                      min="0" max="1" step="0.05" 
+                      value={bloomThreshold} 
+                      onChange={(e) => setBloomThreshold(parseFloat(e.target.value))}
+                      className="w-full accent-accent-cyan cursor-pointer"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
+        <div className="h-px w-full bg-border-color/30 my-1"></div>
+
+        {/* Modes */}
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center bg-bg-subtle/80 rounded-lg p-1 border border-border-color/50">
+            <button
+              type="button"
+              className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${layoutMode === 'force' ? 'bg-accent-cyan text-white shadow-sm' : 'text-text-secondary hover:text-text-primary'}`}
+              onClick={() => setLayoutMode('force')}
+            >
+              Force
+            </button>
+            <button
+              type="button"
+              className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${layoutMode === 'dag' ? 'bg-accent-cyan text-white shadow-sm' : 'text-text-secondary hover:text-text-primary'}`}
+              onClick={() => setLayoutMode('dag')}
+            >
+              DAG (树状)
+            </button>
+          </div>
+
+          <div className="flex items-center bg-bg-subtle/80 rounded-lg p-1 border border-border-color/50">
+            <button
+              type="button"
+              className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${viewMode === '2d' ? 'bg-accent-cyan text-white shadow-sm' : 'text-text-secondary hover:text-text-primary'}`}
+              onClick={() => setViewMode('2d')}
+            >
+              2D
+            </button>
+            <button
+              type="button"
+              className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${viewMode === '3d' ? 'bg-accent-cyan text-white shadow-sm' : 'text-text-secondary hover:text-text-primary'}`}
+              onClick={() => setViewMode('3d')}
+            >
+              3D
+            </button>
+          </div>
         </div>
       </div>
 

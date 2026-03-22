@@ -11,7 +11,7 @@ export const uivision: ToolProfile = {
   primaryCategory: 'Computer Use / 桌面自动化',
   tags: ['桌面自动化', '计算机视觉', 'RPA', '开源', '浏览器自动化'],
   homepageUrl: 'https://uivision.com',
-  githubUrl: 'https://github.com/A9T9/UIVision',
+  githubUrl: 'https://github.com/A9T9/RPA',
   docsUrl: 'https://uivision.com/docs',
   githubStars: null,
   primaryLanguage: null,
