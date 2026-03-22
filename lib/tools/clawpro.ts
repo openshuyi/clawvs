@@ -14,7 +14,7 @@ export const clawpro: ToolProfile = {
   githubUrl: null,
   docsUrl: 'https://docs.clawpro.ai',
   githubStars: null,
-  primaryLanguage: 'TypeScript',
+  primaryLanguage: null,
   pricing: '订阅制',
   license: '商业许可',
   focus: '企业级桌面自动化框架',

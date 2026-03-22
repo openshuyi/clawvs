@@ -1,19 +1,22 @@
 # clawvs
 
-This is a Next.js application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+🌐 **网站地址**: [https://clawvs.tupu.work](https://clawvs.tupu.work)
 
-Run development server:
+这是一个使用 [Create Fumadocs](https://github.com/fuma-nama/fumadocs) 生成的 Next.js 应用。
+
+## 本地开发
+
+启动开发服务器：
 
 ```bash
 npm run dev
-# or
+# 或者
 pnpm dev
-# or
+# 或者
 yarn dev
 ```
 
-Open http://localhost:3000 with your browser to see the result.
+在浏览器中打开 http://localhost:3000 查看结果。
 
 ## Explore
 

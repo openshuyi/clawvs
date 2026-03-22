@@ -14,7 +14,7 @@ export const computeruse: ToolProfile = {
   githubUrl: null,
   docsUrl: 'https://docs.anthropic.com/claude/docs/computer-use',
   githubStars: null,
-  primaryLanguage: 'API',
+  primaryLanguage: null,
   pricing: '按量付费',
   license: '专有',
   focus: 'Computer Use API',

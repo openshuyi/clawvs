@@ -5,6 +5,7 @@ import { Logo } from '@/components/site/logo';
 const navItems = [
   { href: '/', label: 'Arena' },
   { href: '/tools', label: 'Tool Intelligence' },
+  { href: '/graph', label: '3D Graph' },
   { href: '/choose', label: 'Help Me Choose' },
   { href: '/log', label: 'The Log' },
 ];
