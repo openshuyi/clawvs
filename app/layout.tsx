@@ -2,6 +2,10 @@ import { RootProvider } from 'fumadocs-ui/provider/next';
 import './global.css';
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://clawvs.dev'),
@@ -14,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="zh-CN" data-theme="dark" suppressHydrationWarning>
+    <html lang="zh-CN" data-theme="dark" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body className="flex min-h-screen flex-col">
         <RootProvider>{children}</RootProvider>
       </body>

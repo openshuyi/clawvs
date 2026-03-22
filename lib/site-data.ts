@@ -9,10 +9,10 @@ export { primaryCategories, toolTags };
 export type { PrimaryCategory, ToolTag };
 
 export const siteStats = [
-  `已收录 ${tools.length} 个 Agent 工具`,
-  '覆盖开源与闭源产品全景',
-  '支持国内外生态检索与筛选',
-  '所有产品均提供独立详情页',
+  `已收录 ${tools.length} 个核心产品（开源 9 / 商业 8）`,
+  '竞品调研覆盖 299 个相关产品',
+  '覆盖 Computer Use / Code Agent / 多 Agent 协作',
+  '支持 Stars、语言、地域与开源状态筛选',
 ];
 
 export type ComparisonRow = {

@@ -2,11 +2,13 @@ export type ToolSlug = string;
 
 export const primaryCategories = [
   'OpenClaw 生态',
+  'OpenClaw 云服务',
   'Computer Use / 桌面自动化',
   'Code Agent / 开发助手',
   '通用任务执行 Agent',
   '多 Agent 协作框架',
   '应用平台 / 工作流平台',
+  'RPA 自动化',
 ] as const;
 
 export type PrimaryCategory = (typeof primaryCategories)[number];
