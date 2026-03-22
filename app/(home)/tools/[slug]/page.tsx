@@ -30,62 +30,89 @@ export default async function ToolDetailPage({ params }: Props) {
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-5 py-10 md:px-8 md:py-14">
-      <header className="ui-panel-strong space-y-3 rounded-2xl p-6">
-        <p className="ui-kicker text-xs">Tool Intelligence</p>
-        <h1 className="ui-title text-3xl font-semibold md:text-4xl">{tool.name}</h1>
-        <p className="ui-subtitle text-base">{tool.tagline}</p>
-        <p className="ui-subtitle max-w-4xl text-sm leading-7">{tool.summary}</p>
-        <div className="flex flex-wrap gap-2 text-xs">
-          <span className="ui-chip rounded px-2 py-1">{tool.primaryCategory}</span>
-          <span className="ui-chip rounded px-2 py-1">{tool.sourceType}</span>
-          <span className="ui-chip rounded px-2 py-1">{tool.region}</span>
-          <span className="ui-chip rounded px-2 py-1">{tool.vendor}</span>
-          <span className="ui-chip rounded px-2 py-1">{tool.pricing}</span>
+      <header className="ui-panel-strong space-y-4 rounded-none p-8">
+        <div className="flex items-center gap-2">
+          <div className="h-2 w-2 bg-accent-cyan shadow-[0_0_8px_var(--accent-cyan)]" />
+          <p className="ui-kicker text-xs font-mono tracking-widest">System.Profile // {tool.slug}</p>
         </div>
-        <div className="flex flex-wrap gap-2 text-xs">
+        <h1 className="ui-title text-4xl font-bold tracking-wide md:text-5xl uppercase">{tool.name}</h1>
+        <p className="text-accent-cyan text-lg font-mono tracking-wide">{tool.tagline}</p>
+        <p className="ui-subtitle max-w-4xl text-sm leading-7">{tool.summary}</p>
+        <div className="flex flex-wrap gap-2 text-xs pt-2">
+          <span className="ui-chip px-3 py-1 font-mono uppercase bg-accent-orange-soft text-accent-orange border-accent-orange/30">{tool.primaryCategory}</span>
+          <span className="ui-chip px-3 py-1 font-mono uppercase">{tool.sourceType}</span>
+          <span className="ui-chip px-3 py-1 font-mono uppercase">{tool.region}</span>
+          <span className="ui-chip px-3 py-1 font-mono uppercase">{tool.vendor}</span>
+          <span className="ui-chip px-3 py-1 font-mono uppercase">{tool.pricing}</span>
+        </div>
+        <div className="flex flex-wrap gap-2 text-xs pt-1">
           {tool.tags.map((tag) => (
-            <span key={tag} className="ui-chip rounded px-2 py-1">
-              {tag}
+            <span key={tag} className="ui-chip px-2 py-1 font-mono text-text-muted">
+              #{tag}
             </span>
           ))}
         </div>
       </header>
 
       <section className="grid gap-4 md:grid-cols-3">
-        <article className="ui-panel rounded-xl p-5 md:col-span-2">
-          <h2 className="ui-title text-lg font-semibold">避坑指南</h2>
-          <ul className="ui-subtitle mt-3 space-y-2 text-sm">
+        <article className="ui-panel ui-card-hover rounded-none p-6 md:col-span-2">
+          <div className="flex items-center gap-2 mb-4 border-b border-border-color/30 pb-2">
+            <span className="text-accent-orange font-mono">[{'!'}]</span>
+            <h2 className="ui-title text-lg font-semibold font-mono tracking-wide">避坑指南_PITFALLS</h2>
+          </div>
+          <ul className="ui-subtitle space-y-3 text-sm">
             {tool.pitfalls.map((pitfall) => (
-              <li key={pitfall} className="ui-panel rounded-md px-3 py-2">
-                {pitfall}
+              <li key={pitfall} className="flex items-start gap-3 ui-panel rounded-none px-4 py-3 bg-bg-surface/50 border-border-color/30 transition-colors hover:border-accent-orange/50 hover:bg-accent-orange-soft/10">
+                <span className="text-accent-orange font-mono mt-0.5">{'>'}</span>
+                <span>{pitfall}</span>
               </li>
             ))}
           </ul>
         </article>
-        <article className="ui-panel rounded-xl p-5">
-          <h2 className="ui-title text-lg font-semibold">产品信息</h2>
-          <p className="ui-subtitle mt-3 text-sm">厂商：{tool.vendor}</p>
-          <p className="ui-subtitle mt-2 text-sm">授权：{tool.license}</p>
-          <p className="ui-subtitle mt-2 text-sm">定价：{tool.pricing}</p>
-          <p className="ui-subtitle mt-2 text-sm">GitHub Stars：{tool.githubStars === null ? '-' : tool.githubStars.toLocaleString('en-US')}</p>
-          <p className="ui-subtitle mt-2 text-sm">主要语言：{tool.primaryLanguage ?? '-'}</p>
-          <div className="mt-3 flex flex-wrap gap-2">
+        <article className="ui-panel ui-card-hover rounded-none p-6">
+          <div className="flex items-center gap-2 mb-4 border-b border-border-color/30 pb-2">
+            <span className="text-accent-cyan font-mono">{'//'}</span>
+            <h2 className="ui-title text-lg font-semibold font-mono tracking-wide">产品信息_INFO</h2>
+          </div>
+          <div className="space-y-3 font-mono text-xs ui-subtitle">
+            <div className="flex justify-between border-b border-border-color/20 pb-2">
+              <span className="text-text-muted">VENDOR</span>
+              <span className="text-text-primary text-right">{tool.vendor}</span>
+            </div>
+            <div className="flex justify-between border-b border-border-color/20 pb-2">
+              <span className="text-text-muted">LICENSE</span>
+              <span className="text-text-primary text-right">{tool.license}</span>
+            </div>
+            <div className="flex justify-between border-b border-border-color/20 pb-2">
+              <span className="text-text-muted">PRICING</span>
+              <span className="text-text-primary text-right">{tool.pricing}</span>
+            </div>
+            <div className="flex justify-between border-b border-border-color/20 pb-2">
+              <span className="text-text-muted">STARS</span>
+              <span className="text-text-primary text-right">{tool.githubStars === null ? '-' : tool.githubStars.toLocaleString('en-US')}</span>
+            </div>
+            <div className="flex justify-between pb-2">
+              <span className="text-text-muted">LANG</span>
+              <span className="text-text-primary text-right">{tool.primaryLanguage ?? '-'}</span>
+            </div>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2">
             <Link
               href={tool.homepageUrl}
               target="_blank"
               rel="noreferrer"
-              className="ui-btn-cyan inline-flex rounded-md px-3 py-1.5 text-xs"
+              className="ui-btn-cyan inline-flex rounded-none px-4 py-2 text-xs font-mono uppercase tracking-wider"
             >
-              官网
+              [ 官网_WEBSITE ]
             </Link>
             {tool.githubUrl ? (
               <Link
                 href={tool.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="ui-btn-cyan inline-flex rounded-md px-3 py-1.5 text-xs"
+                className="ui-btn-cyan inline-flex rounded-none px-4 py-2 text-xs font-mono uppercase tracking-wider"
               >
-                GitHub
+                [ GITHUB ]
               </Link>
             ) : null}
             {tool.docsUrl ? (
@@ -93,9 +120,9 @@ export default async function ToolDetailPage({ params }: Props) {
                 href={tool.docsUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="ui-btn-cyan inline-flex rounded-md px-3 py-1.5 text-xs"
+                className="ui-btn-cyan inline-flex rounded-none px-4 py-2 text-xs font-mono uppercase tracking-wider"
               >
-                文档
+                [ 文档_DOCS ]
               </Link>
             ) : null}
           </div>
@@ -103,23 +130,45 @@ export default async function ToolDetailPage({ params }: Props) {
       </section>
 
       <section className="grid gap-4 md:grid-cols-3">
-        <article className="ui-panel rounded-xl p-5 md:col-span-2">
-          <h2 className="ui-title text-lg font-semibold">部署与网络</h2>
-          <p className="ui-subtitle mt-3 text-sm leading-6">{tool.deployment}</p>
-          <p className="ui-subtitle mt-3 text-sm">GFW 兼容：{tool.gfwStatus}</p>
-          <div className="mt-3 flex flex-wrap gap-2 text-xs">
-            {tool.connectivity.map((item) => (
-              <span key={item} className="ui-chip rounded px-2 py-1">
-                {item}
-              </span>
-            ))}
+        <article className="ui-panel ui-card-hover rounded-none p-6 md:col-span-2">
+          <div className="flex items-center gap-2 mb-4 border-b border-border-color/30 pb-2">
+            <span className="text-accent-cyan font-mono">{'//'}</span>
+            <h2 className="ui-title text-lg font-semibold font-mono tracking-wide">部署与网络_DEPLOYMENT</h2>
+          </div>
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs font-mono text-text-muted mb-1">ENVIRONMENT</p>
+              <p className="ui-subtitle text-sm leading-6 ui-panel p-3 bg-bg-surface/50 border-border-color/30">{tool.deployment}</p>
+            </div>
+            <div>
+              <p className="text-xs font-mono text-text-muted mb-1">GFW_STATUS</p>
+              <p className="ui-subtitle text-sm ui-panel p-3 bg-bg-surface/50 border-border-color/30">
+                <span className={tool.gfwStatus.includes('直连') ? 'text-accent-cyan' : 'text-accent-orange'}>
+                  [{tool.gfwStatus}]
+                </span>
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-mono text-text-muted mb-2">CONNECTIVITY</p>
+              <div className="flex flex-wrap gap-2 text-xs">
+                {tool.connectivity.map((item) => (
+                  <span key={item} className="ui-chip px-3 py-1 font-mono bg-bg-surface/50 border-border-color/30 hover:border-accent-cyan/50 hover:text-accent-cyan transition-colors">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </article>
-        <article className="ui-panel rounded-xl p-5">
-          <h2 className="ui-title text-lg font-semibold">典型场景</h2>
-          <ul className="mt-3 space-y-2">
+        <article className="ui-panel ui-card-hover rounded-none p-6">
+          <div className="flex items-center gap-2 mb-4 border-b border-border-color/30 pb-2">
+            <span className="text-accent-cyan font-mono">{'//'}</span>
+            <h2 className="ui-title text-lg font-semibold font-mono tracking-wide">典型场景_SCENARIOS</h2>
+          </div>
+          <ul className="space-y-2">
             {tool.scenarios.map((item) => (
-              <li key={item} className="ui-chip rounded px-2 py-1 text-xs">
+              <li key={item} className="ui-chip px-3 py-2 text-sm flex items-center gap-2 border-border-color/30 bg-bg-surface/50 hover:border-accent-cyan/50 hover:text-accent-cyan transition-colors">
+                <span className="text-accent-cyan text-xs">{'*'}</span>
                 {item}
               </li>
             ))}
@@ -128,45 +177,63 @@ export default async function ToolDetailPage({ params }: Props) {
       </section>
 
       <section className="grid gap-4 md:grid-cols-2">
-        <article className="ui-panel rounded-xl p-5">
-          <h2 className="ui-title text-lg font-semibold">性能实测</h2>
-          <div className="mt-4 grid grid-cols-3 gap-3 text-center text-sm">
-            <div className="ui-panel rounded-md p-3">
-              <p className="ui-muted">成功率</p>
-              <p className="mt-1 text-xl font-semibold text-accent-cyan">{tool.benchmark.successRate}%</p>
+        <article className="ui-panel ui-card-hover rounded-none p-6">
+          <div className="flex items-center gap-2 mb-4 border-b border-border-color/30 pb-2">
+            <span className="text-accent-cyan font-mono">{'//'}</span>
+            <h2 className="ui-title text-lg font-semibold font-mono tracking-wide">性能实测_BENCHMARK</h2>
+          </div>
+          <div className="grid grid-cols-3 gap-3 text-center text-sm">
+            <div className="ui-panel rounded-none p-4 bg-bg-surface/50 border-border-color/30 flex flex-col items-center justify-center transition-colors hover:border-accent-cyan/50 hover:bg-accent-cyan-soft/10">
+              <p className="ui-muted font-mono text-xs mb-2">SUCCESS_RATE</p>
+              <p className="text-2xl font-bold text-accent-cyan">{tool.benchmark.successRate}<span className="text-sm ml-1">%</span></p>
             </div>
-            <div className="ui-panel rounded-md p-3">
-              <p className="ui-muted">平均耗时</p>
-              <p className="mt-1 text-xl font-semibold text-accent-cyan">{tool.benchmark.avgDurationMin}m</p>
+            <div className="ui-panel rounded-none p-4 bg-bg-surface/50 border-border-color/30 flex flex-col items-center justify-center transition-colors hover:border-accent-cyan/50 hover:bg-accent-cyan-soft/10">
+              <p className="ui-muted font-mono text-xs mb-2">AVG_DURATION</p>
+              <p className="text-2xl font-bold text-accent-cyan">{tool.benchmark.avgDurationMin}<span className="text-sm ml-1">m</span></p>
             </div>
-            <div className="ui-panel rounded-md p-3">
-              <p className="ui-muted">重试次数</p>
-              <p className="mt-1 text-xl font-semibold text-accent-cyan">{tool.benchmark.retries}</p>
+            <div className="ui-panel rounded-none p-4 bg-bg-surface/50 border-border-color/30 flex flex-col items-center justify-center transition-colors hover:border-accent-cyan/50 hover:bg-accent-cyan-soft/10">
+              <p className="ui-muted font-mono text-xs mb-2">RETRIES</p>
+              <p className="text-2xl font-bold text-accent-cyan">{tool.benchmark.retries}</p>
             </div>
           </div>
         </article>
-        <article className="ui-panel rounded-xl p-5">
-          <h2 className="ui-title text-lg font-semibold">社区热度</h2>
-          <div className="ui-subtitle mt-3 space-y-2 text-sm">
-            <p>GitHub Stars：{tool.community.stars}</p>
-            <p>最新版本：{tool.community.release}</p>
-            <p>趋势：{tool.community.trend}</p>
+        <article className="ui-panel ui-card-hover rounded-none p-6">
+          <div className="flex items-center gap-2 mb-4 border-b border-border-color/30 pb-2">
+            <span className="text-accent-cyan font-mono">{'//'}</span>
+            <h2 className="ui-title text-lg font-semibold font-mono tracking-wide">社区热度_COMMUNITY</h2>
+          </div>
+          <div className="space-y-4 font-mono text-xs ui-subtitle">
+            <div className="flex justify-between items-center ui-panel p-3 bg-bg-surface/50 border-border-color/30 transition-colors hover:border-accent-cyan/50 hover:text-accent-cyan">
+              <span className="text-text-muted">STARS</span>
+              <span className="text-text-primary text-base font-semibold">{tool.community.stars}</span>
+            </div>
+            <div className="flex justify-between items-center ui-panel p-3 bg-bg-surface/50 border-border-color/30 transition-colors hover:border-accent-cyan/50 hover:text-accent-cyan">
+              <span className="text-text-muted">RELEASE</span>
+              <span className="text-text-primary text-base font-semibold">{tool.community.release}</span>
+            </div>
+            <div className="flex justify-between items-center ui-panel p-3 bg-bg-surface/50 border-border-color/30 transition-colors hover:border-accent-cyan/50 hover:text-accent-cyan">
+              <span className="text-text-muted">TREND</span>
+              <span className="text-accent-cyan text-base font-semibold">{tool.community.trend}</span>
+            </div>
           </div>
         </article>
       </section>
 
-      <section className="ui-panel rounded-xl p-5">
-        <h2 className="ui-title text-lg font-semibold">用户口碑雷达</h2>
-        <div className="mt-4 space-y-3">
+      <section className="ui-panel ui-card-hover rounded-none p-6">
+        <div className="flex items-center gap-2 mb-6 border-b border-border-color/30 pb-2">
+          <span className="text-accent-cyan font-mono">{'//'}</span>
+          <h2 className="ui-title text-lg font-semibold font-mono tracking-wide">用户口碑雷达_RATING</h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
           {Object.entries(tool.rating).map(([key, value]) => (
-            <div key={key} className="space-y-1">
-              <div className="ui-subtitle flex items-center justify-between text-sm">
-                <span>{key}</span>
-                <span>{(value as number).toFixed(1)}</span>
+            <div key={key} className="space-y-2">
+              <div className="ui-subtitle flex items-center justify-between text-xs font-mono">
+                <span className="uppercase tracking-widest">{key}</span>
+                <span className="text-accent-cyan font-semibold">{(value as number).toFixed(1)} / 10</span>
               </div>
-              <div className="h-2 rounded-full bg-border-color">
+              <div className="h-1.5 rounded-none bg-bg-surface-strong/50 border border-border-color/30 relative overflow-hidden">
                 <div
-                  className="h-2 rounded-full bg-gradient-to-r from-accent-cyan to-accent-orange"
+                  className="absolute top-0 left-0 h-full bg-accent-cyan shadow-[0_0_10px_var(--accent-cyan)] transition-all duration-1000"
                   style={{ width: `${(value as number) * 10}%` }}
                 />
               </div>

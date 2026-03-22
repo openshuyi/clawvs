@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/site/theme-toggle';
+import { Logo } from '@/components/site/logo';
 
 const navItems = [
   { href: '/', label: 'Arena' },
@@ -13,10 +14,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen text-text-primary">
       <header className="sticky top-0 z-50 border-b border-border-color bg-bg-surface/90 backdrop-blur">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-5 py-4 md:px-8">
-          <Link href="/" className="group flex items-center gap-2 text-lg font-semibold tracking-[0.08em]">
-            <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-md border border-accent-cyan bg-accent-cyan-soft text-accent-cyan shadow-[0_0_8px_color-mix(in_oklab,var(--accent-cyan)_50%,transparent)] transition-all group-hover:bg-accent-cyan group-hover:text-bg-main group-hover:shadow-[0_0_15px_var(--accent-cyan)]">
-              CV
-            </span>
+          <Link href="/" className="group flex items-center gap-3 text-lg font-semibold tracking-[0.08em] transition-opacity hover:opacity-80">
+            <Logo className="h-10 w-10 transition-transform group-hover:scale-105 group-hover:drop-shadow-[0_0_10px_var(--accent-cyan)]" />
             <span className="uppercase tracking-widest text-text-primary transition-colors group-hover:text-accent-cyan">
               Claw<span className="text-accent-orange">VS</span>
             </span>

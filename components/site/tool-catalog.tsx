@@ -326,58 +326,58 @@ export function ToolCatalog() {
         viewMode === 'card' ? (
           <div className="grid gap-4 md:grid-cols-2">
             {filteredTools.map((tool) => (
-              <Card key={tool.slug} className="group relative overflow-hidden border-border bg-card/90 shadow-sm transition-all hover:border-accent-cyan hover:bg-card ui-card-hover">
+              <Card key={tool.slug} className="ui-panel group relative overflow-hidden transition-all hover:border-accent-cyan ui-card-hover rounded-none">
                 <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-accent-cyan/10 opacity-0 blur-2xl transition-opacity group-hover:opacity-100" />
                 <CardHeader className="relative space-y-3 pb-4">
                   <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant="secondary" className="font-mono text-[10px] uppercase tracking-wider">{tool.sourceType}</Badge>
-                    <Badge variant="outline" className="font-mono text-[10px] uppercase tracking-wider bg-background">{tool.region}</Badge>
-                    <Badge variant="outline" className="font-mono text-[10px] uppercase tracking-wider bg-background">{tool.vendor}</Badge>
+                    <Badge variant="secondary" className="ui-chip font-mono text-[10px] uppercase tracking-wider bg-accent-cyan-soft text-accent-cyan border-accent-cyan/30">{tool.sourceType}</Badge>
+                    <Badge variant="outline" className="ui-chip font-mono text-[10px] uppercase tracking-wider">{tool.region}</Badge>
+                    <Badge variant="outline" className="ui-chip font-mono text-[10px] uppercase tracking-wider">{tool.vendor}</Badge>
                   </div>
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
                       <div className="h-1.5 w-1.5 bg-accent-cyan shadow-[0_0_8px_var(--accent-cyan)]" />
                       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-cyan">{tool.name}</p>
                     </div>
-                    <h2 className="text-lg font-bold leading-snug tracking-wide group-hover:text-accent-cyan transition-colors">{tool.tagline}</h2>
+                    <h2 className="text-lg font-bold leading-snug tracking-wide group-hover:text-accent-cyan transition-colors ui-title">{tool.tagline}</h2>
                   </div>
                 </CardHeader>
                 <CardContent className="relative space-y-4">
-                  <p className="text-sm leading-relaxed text-muted-foreground">{tool.summary}</p>
+                  <p className="text-sm leading-relaxed ui-subtitle">{tool.summary}</p>
                   <div className="flex flex-wrap gap-1.5">
-                    <Badge variant="default" className="bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20">{tool.primaryCategory}</Badge>
+                    <Badge variant="default" className="ui-chip bg-accent-orange-soft text-accent-orange border-accent-orange/30 hover:bg-accent-orange-soft/80">{tool.primaryCategory}</Badge>
                     {tool.tags.slice(0, 3).map((tag) => (
-                      <Badge key={tag} variant="outline" className="border-border/60 bg-background/50 text-muted-foreground">
+                      <Badge key={tag} variant="outline" className="ui-chip text-text-muted">
                         {tag}
                       </Badge>
                     ))}
                   </div>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-t border-border/50 pt-4 font-mono text-[11px] text-muted-foreground">
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2 border-t border-border-color/50 pt-4 font-mono text-[11px] ui-muted">
                     <div className="flex justify-between">
                       <span className="opacity-70">DEPLOY</span>
-                      <span className="text-foreground font-medium">{tool.deployment}</span>
+                      <span className="text-text-primary font-medium">{tool.deployment}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="opacity-70">NETWORK</span>
-                      <span className="text-foreground font-medium">{tool.gfwStatus}</span>
+                      <span className="text-text-primary font-medium">{tool.gfwStatus}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="opacity-70">STARS</span>
-                      <span className="text-foreground font-medium">{tool.githubStars === null ? '-' : tool.githubStars.toLocaleString('en-US')}</span>
+                      <span className="text-text-primary font-medium">{tool.githubStars === null ? '-' : tool.githubStars.toLocaleString('en-US')}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="opacity-70">LANG</span>
-                      <span className="text-foreground font-medium">{tool.primaryLanguage ?? '-'}</span>
+                      <span className="text-text-primary font-medium">{tool.primaryLanguage ?? '-'}</span>
                     </div>
                   </div>
                 </CardContent>
-                <CardFooter className="relative flex-wrap justify-between gap-3 border-t border-border/50 bg-muted/30 pt-4">
+                <CardFooter className="relative flex-wrap justify-between gap-3 border-t border-border-color/50 bg-bg-surface-strong/30 pt-4">
                   <div className="flex flex-wrap gap-2">
                     <Link
                       href={tool.homepageUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className={cn(buttonVariants({ variant: 'outline', size: 'xs' }), 'h-7 font-mono text-[10px] uppercase bg-background hover:border-accent-cyan hover:text-accent-cyan')}
+                      className="ui-chip px-3 py-1 font-mono text-[10px] uppercase hover:border-accent-cyan hover:text-accent-cyan transition-colors"
                     >
                       [ 官网 ]
                     </Link>
@@ -386,7 +386,7 @@ export function ToolCatalog() {
                         href={tool.githubUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className={cn(buttonVariants({ variant: 'outline', size: 'xs' }), 'h-7 font-mono text-[10px] uppercase bg-background hover:border-accent-cyan hover:text-accent-cyan')}
+                        className="ui-chip px-3 py-1 font-mono text-[10px] uppercase hover:border-accent-cyan hover:text-accent-cyan transition-colors"
                       >
                         [ GitHub ]
                       </Link>
@@ -396,7 +396,7 @@ export function ToolCatalog() {
                         href={tool.docsUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className={cn(buttonVariants({ variant: 'outline', size: 'xs' }), 'h-7 font-mono text-[10px] uppercase bg-background hover:border-accent-cyan hover:text-accent-cyan')}
+                        className="ui-chip px-3 py-1 font-mono text-[10px] uppercase hover:border-accent-cyan hover:text-accent-cyan transition-colors"
                       >
                         [ 文档 ]
                       </Link>
@@ -410,21 +410,21 @@ export function ToolCatalog() {
             ))}
           </div>
         ) : (
-          <Card className="border-border/60 bg-card/75 shadow-sm">
+          <Card className="ui-panel rounded-none">
             <CardContent className="p-0">
               <Table>
-                <TableHeader className="bg-muted/40">
+                <TableHeader className="bg-bg-surface-strong/40">
                 {table.getHeaderGroups().map((headerGroup) => (
-                    <TableRow key={headerGroup.id}>
+                    <TableRow key={headerGroup.id} className="border-border-color/60 hover:bg-transparent">
                     {headerGroup.headers.map((header) => (
-                        <TableHead key={header.id} className="h-12 border-b border-border/60 px-4">
+                        <TableHead key={header.id} className="h-12 border-b border-border-color/60 px-4 text-text-secondary">
                         {header.isPlaceholder ? null : header.column.getCanSort() ? (
                             <Button
                             type="button"
                             variant="ghost"
                             size="sm"
                             onClick={() => header.column.toggleSorting(header.column.getIsSorted() === 'asc')}
-                            className="h-7 px-2 font-semibold"
+                            className="h-7 px-2 font-semibold hover:bg-accent-cyan-soft hover:text-accent-cyan"
                           >
                             {flexRender(header.column.columnDef.header, header.getContext())}
                               {getSortIcon(header.column.getIsSorted())}
@@ -439,9 +439,9 @@ export function ToolCatalog() {
                 </TableHeader>
                 <TableBody>
                 {table.getRowModel().rows.map((row) => (
-                    <TableRow key={row.id} className="align-top">
+                    <TableRow key={row.id} className="align-top border-border-color/60 hover:bg-bg-surface-strong/30 transition-colors">
                     {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id} className="border-b border-border/60 px-4 py-3 text-muted-foreground">
+                        <TableCell key={cell.id} className="border-b border-border-color/60 px-4 py-3 text-text-primary">
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </TableCell>
                     ))}
@@ -453,15 +453,15 @@ export function ToolCatalog() {
           </Card>
         )
       ) : (
-        <Card className="border-border/60 bg-card/75 shadow-sm">
+        <Card className="ui-panel rounded-none">
           <CardHeader>
-            <CardTitle className="text-base">没有匹配结果</CardTitle>
+            <CardTitle className="text-base ui-title">没有匹配结果</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">尝试调整关键词，或者清空筛选条件查看全部产品。</p>
+            <p className="text-sm ui-subtitle">尝试调整关键词，或者清空筛选条件查看全部产品。</p>
           </CardContent>
-          <CardFooter className="border-t border-border/60 bg-transparent">
-            <Button type="button" variant="outline" onClick={clearFilters}>
+          <CardFooter className="border-t border-border-color/60 bg-transparent">
+            <Button type="button" variant="outline" onClick={clearFilters} className="ui-chip hover:border-accent-cyan hover:text-accent-cyan">
               查看全部产品
             </Button>
           </CardFooter>
