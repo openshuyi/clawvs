@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 export const revalidate = false;
 
-export async function GET(_req: Request, { params }: RouteContext<'/llms.mdx/docs/[[...slug]]'>) {
+export async function GET(_req: Request, { params }: RouteContext<'/llms-mdx/docs/[[...slug]]'>) {
   const { slug } = await params;
   const page = source.getPage(slug);
   if (!page) notFound();
@@ -16,5 +16,6 @@ export async function GET(_req: Request, { params }: RouteContext<'/llms.mdx/doc
 }
 
 export function generateStaticParams() {
-  return source.generateParams();
+  // 过滤掉空 slug，避免静态导出时文件/目录冲突
+  return source.generateParams().filter((p) => p.slug && p.slug.length > 0);
 }

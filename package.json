@@ -7,7 +7,7 @@
     "prebuild": "bun run tools:index:generate",
     "predev": "bun run tools:index:generate",
     "pretypes:check": "bun run tools:index:generate",
-    "build": "next build",
+    "build": "rm -rf out && next build",
     "dev": "next dev",
     "start": "next start",
     "sync:github": "node scripts/sync-github-metadata.mjs",
