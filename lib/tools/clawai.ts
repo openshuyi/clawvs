@@ -11,7 +11,7 @@ export const clawai: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['桌面控制', 'Shell 执行', 'AI 增强', 'RAG', '多模态'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawai',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawai',
   githubStars: null,
   primaryLanguage: null,

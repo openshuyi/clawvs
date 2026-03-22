@@ -11,7 +11,7 @@ export const clawdata: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['数据自动化', '开源', 'ETL', '数据管道', '企业流程'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawdata',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawdata',
   githubStars: null,
   primaryLanguage: null,

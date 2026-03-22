@@ -11,7 +11,7 @@ export const clawcli: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['CLI 工具', '开源', '开发工具', '命令行'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawcli',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawcli',
   githubStars: null,
   primaryLanguage: null,

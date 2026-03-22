@@ -11,7 +11,7 @@ export const clawsdk: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['SDK', '开源', '开发工具', '多语言', 'API 集成'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawsdk',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawsdk',
   githubStars: null,
   primaryLanguage: null,

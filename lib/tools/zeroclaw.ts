@@ -11,7 +11,7 @@ export const zeroclaw: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['桌面控制', 'Shell 执行', '开源', '自部署', '本地优先'],
   homepageUrl: 'https://zeroclaw.ai',
-  githubUrl: 'https://github.com/openclaw/zeroclaw',
+  githubUrl: null,
   docsUrl: 'https://docs.zeroclaw.ai',
   githubStars: null,
   primaryLanguage: null,

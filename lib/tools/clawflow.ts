@@ -11,7 +11,7 @@ export const clawflow: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['工作流编排', '开源', '可视化编排', '分布式', '企业流程'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawflow',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawflow',
   githubStars: null,
   primaryLanguage: null,

@@ -11,7 +11,7 @@ export const clawmonitor: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['监控告警', '开源', '运维自动化', 'DevOps', '数据分析'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawmonitor',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawmonitor',
   githubStars: null,
   primaryLanguage: null,

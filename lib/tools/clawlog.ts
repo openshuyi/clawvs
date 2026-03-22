@@ -11,7 +11,7 @@ export const clawlog: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['日志服务', '开源', '可观测性', '企业流程', '运维自动化'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawlog',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawlog',
   githubStars: null,
   primaryLanguage: null,

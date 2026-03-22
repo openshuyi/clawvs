@@ -11,7 +11,7 @@ export const clawmetrics: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['指标监控', '开源', '可观测性', 'Prometheus', '运维自动化'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawmetrics',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawmetrics',
   githubStars: null,
   primaryLanguage: null,

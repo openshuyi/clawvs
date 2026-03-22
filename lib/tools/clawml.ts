@@ -11,7 +11,7 @@ export const clawml: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['机器学习', '开源', '数据自动化', 'MLOps', 'Python'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawml',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawml',
   githubStars: null,
   primaryLanguage: null,

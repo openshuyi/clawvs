@@ -11,7 +11,7 @@ export const clawops: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['Shell 执行', '开源', '运维自动化', 'DevOps', '监控'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawops',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawops',
   githubStars: null,
   primaryLanguage: null,

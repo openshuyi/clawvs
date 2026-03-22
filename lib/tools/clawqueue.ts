@@ -11,7 +11,7 @@ export const clawqueue: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['任务队列', '开源', '异步处理', '分布式', '企业流程'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawqueue',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawqueue',
   githubStars: null,
   primaryLanguage: null,

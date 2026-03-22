@@ -11,7 +11,7 @@ export const openfang: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['桌面控制', 'Shell 执行', '开源', '自部署', '企业流程'],
   homepageUrl: 'https://openfang.ai',
-  githubUrl: 'https://github.com/openclaw/openfang',
+  githubUrl: null,
   docsUrl: 'https://docs.openfang.ai',
   githubStars: null,
   primaryLanguage: null,

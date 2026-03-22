@@ -11,7 +11,7 @@ export const clawbridge: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['Agent 协作', '开源', '连接器', '多模态', '企业流程'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawbridge',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawbridge',
   githubStars: null,
   primaryLanguage: null,

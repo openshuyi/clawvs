@@ -11,7 +11,7 @@ export const clawsecrets: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['密钥管理', '开源', '安全', '企业流程', '运维自动化'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawsecrets',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawsecrets',
   githubStars: null,
   primaryLanguage: null,

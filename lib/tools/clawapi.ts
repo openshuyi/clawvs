@@ -11,7 +11,7 @@ export const clawapi: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['API 服务', '开源', '网关', '企业流程', 'REST'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawapi',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawapi',
   githubStars: null,
   primaryLanguage: null,

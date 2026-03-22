@@ -11,7 +11,7 @@ export const clawconfig: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['配置管理', '开源', '企业流程', '多环境', '运维自动化'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawconfig',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawconfig',
   githubStars: null,
   primaryLanguage: null,

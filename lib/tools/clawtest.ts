@@ -11,7 +11,7 @@ export const clawtest: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['测试自动化', '开源', 'CI/CD', '开发工具', '质量保障'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawtest',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawtest',
   githubStars: null,
   primaryLanguage: null,

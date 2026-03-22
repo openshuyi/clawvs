@@ -11,7 +11,7 @@ export const clawbot: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['RPA', '开源', '机器人', '企业流程', '任务调度'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawbot',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawbot',
   githubStars: null,
   primaryLanguage: null,

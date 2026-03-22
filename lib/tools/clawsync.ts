@@ -11,7 +11,7 @@ export const clawsync: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['数据同步', '开源', '分布式', '实时', '企业流程'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawsync',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawsync',
   githubStars: null,
   primaryLanguage: null,

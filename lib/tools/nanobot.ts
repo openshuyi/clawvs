@@ -11,7 +11,7 @@ export const nanobot: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['Shell 执行', '开源', '自部署', '本地优先'],
   homepageUrl: 'https://nanobot.ai',
-  githubUrl: 'https://github.com/openclaw/nanobot',
+  githubUrl: null,
   docsUrl: 'https://docs.nanobot.ai',
   githubStars: null,
   primaryLanguage: null,

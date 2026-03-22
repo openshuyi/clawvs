@@ -11,7 +11,7 @@ export const clawcache: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['缓存服务', '开源', '性能优化', '分布式', '企业流程'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawcache',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawcache',
   githubStars: null,
   primaryLanguage: null,

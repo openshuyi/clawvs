@@ -11,7 +11,7 @@ export const picoclaw: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['桌面控制', '开源', '自部署', '本地优先'],
   homepageUrl: 'https://picoclaw.ai',
-  githubUrl: 'https://github.com/openclaw/picoclaw',
+  githubUrl: null,
   docsUrl: 'https://docs.picoclaw.ai',
   githubStars: null,
   primaryLanguage: null,

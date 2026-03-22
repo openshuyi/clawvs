@@ -11,7 +11,7 @@ export const clawtrace: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['链路追踪', '开源', '可观测性', 'OpenTelemetry', '运维自动化'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawtrace',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawtrace',
   githubStars: null,
   primaryLanguage: null,

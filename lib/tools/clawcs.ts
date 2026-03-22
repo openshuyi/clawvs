@@ -11,7 +11,7 @@ export const clawcs: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['桌面控制', 'Shell 执行', '开源', 'C#', '.NET'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawcs',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawcs',
   githubStars: null,
   primaryLanguage: null,

@@ -11,7 +11,7 @@ export const clawjs: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['桌面控制', 'Shell 执行', '开源', 'JavaScript', 'TypeScript'],
   homepageUrl: 'https://github.com/openclaw/clawjs',
-  githubUrl: 'https://github.com/openclaw/clawjs',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.org/clawjs',
   githubStars: null,
   primaryLanguage: null,

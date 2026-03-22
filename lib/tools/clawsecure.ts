@@ -11,7 +11,7 @@ export const clawsecure: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['安全审计', '开源', '漏洞检测', '合规', '企业流程'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawsecure',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawsecure',
   githubStars: null,
   primaryLanguage: null,

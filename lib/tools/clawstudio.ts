@@ -11,7 +11,7 @@ export const clawstudio: ToolProfile = {
   primaryCategory: 'OpenClaw 生态',
   tags: ['可视化编排', '开源', '开发工具', 'IDE', '低代码'],
   homepageUrl: 'https://openclaw.ai',
-  githubUrl: 'https://github.com/openclaw/clawstudio',
+  githubUrl: null,
   docsUrl: 'https://docs.openclaw.ai/clawstudio',
   githubStars: null,
   primaryLanguage: null,
