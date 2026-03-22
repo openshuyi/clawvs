@@ -10,7 +10,7 @@ const config = {
   reactStrictMode: true,
   output: 'export',
   distDir: 'out',
-  basePath: isGitHubPages ? '/clawvs' : '',
+  // basePath: isGitHubPages ? '/clawvs' : '',
   trailingSlash: true,
   images: {
     unoptimized: true,
