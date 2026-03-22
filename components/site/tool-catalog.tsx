@@ -8,7 +8,7 @@ import {
   type SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { ArrowDown, ArrowUp, ArrowUpDown, Search } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpDown, Globe, Github, BookOpen, Search } from 'lucide-react';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
@@ -58,7 +58,7 @@ export function ToolCatalog() {
   const [regionFilter, setRegionFilter] = useState<RegionFilter>('全部');
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('全部');
   const [tagFilter, setTagFilter] = useState<TagFilter>('全部');
-  const [viewMode, setViewMode] = useState<ViewMode>('card');
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [sortBy, setSortBy] = useState<SortBy>('默认');
   const [tableSorting, setTableSorting] = useState<SortingState>([]);
 
@@ -118,10 +118,10 @@ export function ToolCatalog() {
         accessorKey: 'name',
         header: '工具',
         cell: ({ row }) => (
-          <div className="min-w-0">
+          <Link href={`/tools/${row.original.slug}`} className="block min-w-0 hover:text-accent-cyan transition-colors">
             <p className="truncate text-sm font-semibold">{row.original.name}</p>
             <p className="mt-1 line-clamp-1 text-xs text-muted-foreground">{row.original.tagline}</p>
-          </div>
+          </Link>
         ),
       },
       {
@@ -166,15 +166,16 @@ export function ToolCatalog() {
         header: '链接',
         enableSorting: false,
         cell: ({ row }) => (
-          <div className="flex flex-wrap items-center gap-1.5 text-xs">
+          <div className="flex items-center gap-1">
             {row.original.homepageUrl && (
               <Link
                 href={row.original.homepageUrl}
                 target="_blank"
                 rel="noreferrer"
-                className={cn(buttonVariants({ variant: 'outline', size: 'xs' }))}
+                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'size-7')}
+                title="官网"
               >
-                Website
+                <Globe className="size-4" />
               </Link>
             )}
             {row.original.githubUrl ? (
@@ -182,9 +183,10 @@ export function ToolCatalog() {
                 href={row.original.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className={cn(buttonVariants({ variant: 'outline', size: 'xs' }))}
+                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'size-7')}
+                title="GitHub"
               >
-                GitHub
+                <Github className="size-4" />
               </Link>
             ) : null}
             {row.original.docsUrl ? (
@@ -192,22 +194,13 @@ export function ToolCatalog() {
                 href={row.original.docsUrl}
                 target="_blank"
                 rel="noreferrer"
-                className={cn(buttonVariants({ variant: 'outline', size: 'xs' }))}
+                className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'size-7')}
+                title="文档"
               >
-                文档
+                <BookOpen className="size-4" />
               </Link>
             ) : null}
           </div>
-        ),
-      },
-      {
-        id: 'profile',
-        header: '档案',
-        enableSorting: false,
-        cell: ({ row }) => (
-          <Link href={`/tools/${row.original.slug}`} className={cn(buttonVariants({ size: 'xs' }))}>
-            查看
-          </Link>
         ),
       },
     ],
