@@ -1,77 +1,175 @@
 import { actiona } from '@/lib/tools/actiona';
+import { activepieces } from '@/lib/tools/activepieces';
+import { agentLlm } from '@/lib/tools/agent-llm';
+import { agentProtocol } from '@/lib/tools/agent-protocol';
 import { agentS } from '@/lib/tools/agent-s';
+import { agentevals } from '@/lib/tools/agentevals';
+import { agentgpt } from '@/lib/tools/agentgpt';
+import { agently } from '@/lib/tools/agently';
+import { agentsThudm } from '@/lib/tools/agents-thudm';
+import { agentscope } from '@/lib/tools/agentscope';
+import { agentsflex } from '@/lib/tools/agentsflex';
+import { agenttuning } from '@/lib/tools/agenttuning';
+import { agentverse } from '@/lib/tools/agentverse';
 import { aider } from '@/lib/tools/aider';
+import { andi } from '@/lib/tools/andi';
 import { anthropicComputerUse } from '@/lib/tools/anthropic-computer-use';
+import { anythingllm } from '@/lib/tools/anythingllm';
+import { arcSearch } from '@/lib/tools/arc-search';
 import { arkclaw } from '@/lib/tools/arkclaw';
+import { askcodi } from '@/lib/tools/askcodi';
+import { autogenStudio } from '@/lib/tools/autogen-studio';
 import { autogen } from '@/lib/tools/autogen';
 import { autoglm } from '@/lib/tools/autoglm';
+import { autogluon } from '@/lib/tools/autogluon';
 import { autogpt } from '@/lib/tools/autogpt';
 import { autohotkey } from '@/lib/tools/autohotkey';
+import { automationAnywhere } from '@/lib/tools/automation-anywhere';
 import { azureclaw } from '@/lib/tools/azureclaw';
 import { babyagi } from '@/lib/tools/babyagi';
 import { baichuanclaw } from '@/lib/tools/baichuanclaw';
 import { baiduComateAgent } from '@/lib/tools/baidu-comate-agent';
+import { bardeen } from '@/lib/tools/bardeen';
 import { bedrockclaw } from '@/lib/tools/bedrockclaw';
+import { bito } from '@/lib/tools/bito';
+import { bluePrism } from '@/lib/tools/blue-prism';
+import { braveLeo } from '@/lib/tools/brave-leo';
 import { browseruse } from '@/lib/tools/browseruse';
+import { camel } from '@/lib/tools/camel';
+import { characterAI } from '@/lib/tools/character-ai';
+import { chatgpt } from '@/lib/tools/chatgpt';
+import { claudeAI } from '@/lib/tools/claude-ai';
+import { clawai } from '@/lib/tools/clawai';
+import { clawapi } from '@/lib/tools/clawapi';
+import { clawbot } from '@/lib/tools/clawbot';
+import { clawbridge } from '@/lib/tools/clawbridge';
+import { clawcache } from '@/lib/tools/clawcache';
+import { clawcli } from '@/lib/tools/clawcli';
+import { clawconfig } from '@/lib/tools/clawconfig';
+import { clawcs } from '@/lib/tools/clawcs';
+import { clawdata } from '@/lib/tools/clawdata';
+import { clawdocs } from '@/lib/tools/clawdocs';
+import { clawflow } from '@/lib/tools/clawflow';
 import { clawgo } from '@/lib/tools/clawgo';
+import { clawhub } from '@/lib/tools/clawhub';
 import { clawjava } from '@/lib/tools/clawjava';
 import { clawjs } from '@/lib/tools/clawjs';
 import { clawlite } from '@/lib/tools/clawlite';
+import { clawlog } from '@/lib/tools/clawlog';
+import { clawmetrics } from '@/lib/tools/clawmetrics';
+import { clawml } from '@/lib/tools/clawml';
+import { clawmonitor } from '@/lib/tools/clawmonitor';
+import { clawops } from '@/lib/tools/clawops';
 import { clawpro } from '@/lib/tools/clawpro';
+import { clawqueue } from '@/lib/tools/clawqueue';
 import { clawrs } from '@/lib/tools/clawrs';
+import { clawsdk } from '@/lib/tools/clawsdk';
+import { clawsecrets } from '@/lib/tools/clawsecrets';
+import { clawsecure } from '@/lib/tools/clawsecure';
+import { clawstudio } from '@/lib/tools/clawstudio';
+import { clawsync } from '@/lib/tools/clawsync';
+import { clawtest } from '@/lib/tools/clawtest';
+import { clawtrace } from '@/lib/tools/clawtrace';
 import { cline } from '@/lib/tools/cline';
 import { cloudflareclaw } from '@/lib/tools/cloudflareclaw';
+import { codiumai } from '@/lib/tools/codacy';
 import { codegeex } from '@/lib/tools/codegeex';
 import { codellama } from '@/lib/tools/codellama';
+import { codesandboxAI } from '@/lib/tools/codesandbox-ai';
+import { cognosys } from '@/lib/tools/cognosys';
 import { computeruse } from '@/lib/tools/computeruse';
 import { continuedev } from '@/lib/tools/continuedev';
 import { copaw } from '@/lib/tools/copaw';
+import { copilot } from '@/lib/tools/copilot';
 import { copilotcli } from '@/lib/tools/copilotcli';
 import { coze } from '@/lib/tools/coze';
 import { crewai } from '@/lib/tools/crewai';
 import { cursorAgent } from '@/lib/tools/cursor-agent';
+import { danswer } from '@/lib/tools/danswer';
+import { databricks } from '@/lib/tools/databricks';
 import { deepseekcoder } from '@/lib/tools/deepseekcoder';
 import { devin } from '@/lib/tools/devin';
 import { devon } from '@/lib/tools/devon';
 import { dify } from '@/lib/tools/dify';
 import { digitaloceanclaw } from '@/lib/tools/digitaloceanclaw';
 import { dobaoclaw } from '@/lib/tools/dobaoclaw';
+import { fastgpt } from '@/lib/tools/fastgpt';
 import { fauxpilot } from '@/lib/tools/fauxpilot';
+import { flowise } from '@/lib/tools/flowise';
 import { flyclaw } from '@/lib/tools/flyclaw';
 import { gcpclaw } from '@/lib/tools/gcpclaw';
-import { agentgpt } from '@/lib/tools/general-agent-products';
+import { gemini } from '@/lib/tools/gemini';
+import { githubCopilotWorkspace } from '@/lib/tools/github-copilot-workspace';
 import { glmclaw } from '@/lib/tools/glmclaw';
 import { gptengineer } from '@/lib/tools/gpt-engineer';
+import { gptResearcher } from '@/lib/tools/gpt-researcher';
+import { gpt4all } from '@/lib/tools/gpt4all';
+import { gpt4free } from '@/lib/tools/gpt4free';
 import { guiagent } from '@/lib/tools/guiagent';
+import { gumloop } from '@/lib/tools/gumloop';
+import { haystack } from '@/lib/tools/haystack';
 import { herokuclaw } from '@/lib/tools/herokuclaw';
 import { hunyuanclaw } from '@/lib/tools/hunyuanclaw';
 import { ibmclaw } from '@/lib/tools/ibmclaw';
+import { ifttt } from '@/lib/tools/ifttt';
 import { instructcode } from '@/lib/tools/instructcode';
+import { jan } from '@/lib/tools/jan';
+import { jetbrainsAI } from '@/lib/tools/jetbrains-ai';
+import { khoj } from '@/lib/tools/khoj';
 import { kimiclaw } from '@/lib/tools/kimiclaw';
+import { komo } from '@/lib/tools/komo';
 import { langchain } from '@/lib/tools/langchain';
+import { langflow } from '@/lib/tools/langflow';
 import { langgraph } from '@/lib/tools/langgraph';
+import { langserve } from '@/lib/tools/langserve';
+import { librechat } from '@/lib/tools/librechat';
+import { llamaindex } from '@/lib/tools/llamaindex';
+import { localgpt } from '@/lib/tools/localgpt';
+import { magical } from '@/lib/tools/magical';
+import { make } from '@/lib/tools/make';
 import { manus } from '@/lib/tools/manus';
 import { maxclaw } from '@/lib/tools/maxclaw';
+import { maxkb } from '@/lib/tools/maxkb';
+import { memgpt } from '@/lib/tools/memgpt';
 import { metagpt } from '@/lib/tools/metagpt';
+import { miniagents } from '@/lib/tools/miniage';
 import { miniclaw } from '@/lib/tools/miniclaw';
+import { mintlify } from '@/lib/tools/mintlify';
 import { modelartsclaw } from '@/lib/tools/modelartsclaw';
 import { moltis } from '@/lib/tools/moltis';
 import { mongodbclaw } from '@/lib/tools/mongodbclaw';
+import { multion } from '@/lib/tools/multion';
+import { mutableAI } from '@/lib/tools/mutable-ai';
+import { n8n } from '@/lib/tools/n8n';
 import { nanobot } from '@/lib/tools/nanobot';
 import { nutjs } from '@/lib/tools/nutjs';
+import { ollama } from '@/lib/tools/ollama';
 import { omniparser } from '@/lib/tools/omniparser';
 import { openadapt } from '@/lib/tools/openadapt';
+import { openassistant } from '@/lib/tools/openassistant';
 import { openclaw } from '@/lib/tools/openclaw';
 import { openfang } from '@/lib/tools/openfang';
 import { openhands } from '@/lib/tools/openhands';
 import { openinterpreter } from '@/lib/tools/openinterpreter';
 import { openrpa } from '@/lib/tools/openrpa';
+import { openwebui } from '@/lib/tools/openwebui';
 import { oracleclaw } from '@/lib/tools/oracleclaw';
 import { panguclaw } from '@/lib/tools/panguclaw';
 import { pearai } from '@/lib/tools/pearai';
+import { perplexica } from '@/lib/tools/perplexica';
+import { perplexity } from '@/lib/tools/perplexity';
+import { phidata } from '@/lib/tools/phidata';
+import { phind } from '@/lib/tools/phind';
+import { pi } from '@/lib/tools/pi';
 import { picoclaw } from '@/lib/tools/picoclaw';
+import { pieces } from '@/lib/tools/pieces';
+import { pipedream } from '@/lib/tools/pipedream';
 import { plandex } from '@/lib/tools/plandex';
 import { playwright } from '@/lib/tools/playwright';
+import { poe } from '@/lib/tools/poe';
+import { powerAutomate } from '@/lib/tools/power-automate';
+import { praisonai } from '@/lib/tools/praisonai';
+import { privategpt } from '@/lib/tools/privategpt';
 import { puppeteer } from '@/lib/tools/puppeteer';
 import { pyautogui } from '@/lib/tools/pyautogui';
 import { pyclaw } from '@/lib/tools/pyclaw';
@@ -99,25 +197,39 @@ import { sikulix } from '@/lib/tools/sikulix';
 import { skyvern } from '@/lib/tools/skyvern';
 import { smoldeveloper } from '@/lib/tools/smoldeveloper';
 import { snowflakeclaw } from '@/lib/tools/snowflakeclaw';
+import { sourcegraphCody } from '@/lib/tools/sourcegraph-cody';
 import { sparkclaw } from '@/lib/tools/sparkclaw';
+import { stackblitz } from '@/lib/tools/stackblitz';
 import { stagehand } from '@/lib/tools/stagehand';
 import { starcoder } from '@/lib/tools/starcoder';
 import { stepclaw } from '@/lib/tools/stepclaw';
 import { supabaseclaw } from '@/lib/tools/supabaseclaw';
+import { superagi } from '@/lib/tools/superagi';
+import { swarm } from '@/lib/tools/swarm';
 import { sweep } from '@/lib/tools/sweep';
 import { tabby } from '@/lib/tools/tabby';
 import { tagui } from '@/lib/tools/tagui';
+import { taskweaver } from '@/lib/tools/taskweaver';
 import { ticlaw } from '@/lib/tools/ticlaw';
 import { tongyiclaw } from '@/lib/tools/tongyiclaw';
+import { tray } from '@/lib/tools/tray';
+import { uagents } from '@/lib/tools/uagents';
 import { ufo } from '@/lib/tools/ufo';
+import { uipath } from '@/lib/tools/uipath';
 import { uivision } from '@/lib/tools/uivision';
+import { v0 } from '@/lib/tools/v0';
 import { vercelclaw } from '@/lib/tools/vercelclaw';
 import { wenxinclaw } from '@/lib/tools/wenxinclaw';
+import { windsurf } from '@/lib/tools/windsurf';
 import { wizardcoder } from '@/lib/tools/wizardcoder';
+import { workato } from '@/lib/tools/workato';
 import { workdayclaw } from '@/lib/tools/workdayclaw';
 import { xarm } from '@/lib/tools/xarm';
 import { xinghuoclaw } from '@/lib/tools/xinghuoclaw';
 import { yanxiclaw } from '@/lib/tools/yanxiclaw';
+import { youcom } from '@/lib/tools/youcom';
+import { zapierCentral } from '@/lib/tools/zapier-central';
+import { zapier } from '@/lib/tools/zapier';
 import { zeroclaw } from '@/lib/tools/zeroclaw';
 
 export { type ToolProfile, type ToolSlug } from '@/lib/tools/types';
@@ -125,79 +237,177 @@ export { primaryCategories, toolTags, type PrimaryCategory, type ToolTag } from 
 
 export const tools = [
   actiona,
+  activepieces,
+  agentLlm,
+  agentProtocol,
   agentS,
+  agentevals,
+  agentgpt,
+  agently,
+  agentsThudm,
+  agentscope,
+  agentsflex,
+  agenttuning,
+  agentverse,
   aider,
+  andi,
   anthropicComputerUse,
+  anythingllm,
+  arcSearch,
   arkclaw,
+  askcodi,
+  autogenStudio,
   autogen,
   autoglm,
+  autogluon,
   autogpt,
   autohotkey,
+  automationAnywhere,
   azureclaw,
   babyagi,
   baichuanclaw,
   baiduComateAgent,
+  bardeen,
   bedrockclaw,
+  bito,
+  bluePrism,
+  braveLeo,
   browseruse,
+  camel,
+  characterAI,
+  chatgpt,
+  claudeAI,
+  clawai,
+  clawapi,
+  clawbot,
+  clawbridge,
+  clawcache,
+  clawcli,
+  clawconfig,
+  clawcs,
+  clawdata,
+  clawdocs,
+  clawflow,
   clawgo,
+  clawhub,
   clawjava,
   clawjs,
   clawlite,
+  clawlog,
+  clawmetrics,
+  clawml,
+  clawmonitor,
+  clawops,
   clawpro,
+  clawqueue,
   clawrs,
+  clawsdk,
+  clawsecrets,
+  clawsecure,
+  clawstudio,
+  clawsync,
+  clawtest,
+  clawtrace,
   cline,
   cloudflareclaw,
+  codiumai,
   codegeex,
   codellama,
+  codesandboxAI,
+  cognosys,
   computeruse,
   continuedev,
   copaw,
+  copilot,
   copilotcli,
   coze,
   crewai,
   cursorAgent,
+  danswer,
+  databricks,
   deepseekcoder,
   devin,
   devon,
   dify,
   digitaloceanclaw,
   dobaoclaw,
+  fastgpt,
   fauxpilot,
+  flowise,
   flyclaw,
   gcpclaw,
-  agentgpt,
+  gemini,
+  githubCopilotWorkspace,
   glmclaw,
   gptengineer,
+  gptResearcher,
+  gpt4all,
+  gpt4free,
   guiagent,
+  gumloop,
+  haystack,
   herokuclaw,
   hunyuanclaw,
   ibmclaw,
+  ifttt,
   instructcode,
+  jan,
+  jetbrainsAI,
+  khoj,
   kimiclaw,
+  komo,
   langchain,
+  langflow,
   langgraph,
+  langserve,
+  librechat,
+  llamaindex,
+  localgpt,
+  magical,
+  make,
   manus,
   maxclaw,
+  maxkb,
+  memgpt,
   metagpt,
+  miniagents,
   miniclaw,
+  mintlify,
   modelartsclaw,
   moltis,
   mongodbclaw,
+  multion,
+  mutableAI,
+  n8n,
   nanobot,
   nutjs,
+  ollama,
   omniparser,
   openadapt,
+  openassistant,
   openclaw,
   openfang,
   openhands,
   openinterpreter,
   openrpa,
+  openwebui,
   oracleclaw,
   panguclaw,
   pearai,
+  perplexica,
+  perplexity,
+  phidata,
+  phind,
+  pi,
   picoclaw,
+  pieces,
+  pipedream,
   plandex,
   playwright,
+  poe,
+  powerAutomate,
+  praisonai,
+  privategpt,
   puppeteer,
   pyautogui,
   pyclaw,
@@ -225,24 +435,38 @@ export const tools = [
   skyvern,
   smoldeveloper,
   snowflakeclaw,
+  sourcegraphCody,
   sparkclaw,
+  stackblitz,
   stagehand,
   starcoder,
   stepclaw,
   supabaseclaw,
+  superagi,
+  swarm,
   sweep,
   tabby,
   tagui,
+  taskweaver,
   ticlaw,
   tongyiclaw,
+  tray,
+  uagents,
   ufo,
+  uipath,
   uivision,
+  v0,
   vercelclaw,
   wenxinclaw,
+  windsurf,
   wizardcoder,
+  workato,
   workdayclaw,
   xarm,
   xinghuoclaw,
   yanxiclaw,
+  youcom,
+  zapierCentral,
+  zapier,
   zeroclaw,
 ];

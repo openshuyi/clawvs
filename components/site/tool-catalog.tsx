@@ -167,14 +167,16 @@ export function ToolCatalog() {
         enableSorting: false,
         cell: ({ row }) => (
           <div className="flex flex-wrap items-center gap-1.5 text-xs">
-            <Link
-              href={row.original.homepageUrl}
-              target="_blank"
-              rel="noreferrer"
-              className={cn(buttonVariants({ variant: 'outline', size: 'xs' }))}
-            >
-              官网
-            </Link>
+            {row.original.homepageUrl && (
+              <Link
+                href={row.original.homepageUrl}
+                target="_blank"
+                rel="noreferrer"
+                className={cn(buttonVariants({ variant: 'outline', size: 'xs' }))}
+              >
+                Website
+              </Link>
+            )}
             {row.original.githubUrl ? (
               <Link
                 href={row.original.githubUrl}
@@ -373,14 +375,16 @@ export function ToolCatalog() {
                 </CardContent>
                 <CardFooter className="relative flex-wrap justify-between gap-3 border-t border-border-color/50 bg-bg-surface-strong/30 pt-4">
                   <div className="flex flex-wrap gap-2">
-                    <Link
-                      href={tool.homepageUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="ui-chip px-3 py-1 font-mono text-[10px] uppercase hover:border-accent-cyan hover:text-accent-cyan transition-colors"
-                    >
-                      [ 官网 ]
-                    </Link>
+                    {tool.homepageUrl && (
+                      <Link
+                        href={tool.homepageUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ui-chip px-3 py-1 font-mono text-[10px] uppercase hover:border-accent-cyan hover:text-accent-cyan transition-colors"
+                      >
+                        [ 官网 ]
+                      </Link>
+                    )}
                     {tool.githubUrl ? (
                       <Link
                         href={tool.githubUrl}

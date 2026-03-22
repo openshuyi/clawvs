@@ -97,14 +97,16 @@ export default async function ToolDetailPage({ params }: Props) {
             </div>
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
-            <Link
-              href={tool.homepageUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="ui-btn-cyan inline-flex rounded-none px-4 py-2 text-xs font-mono uppercase tracking-wider"
-            >
-              [ 官网_WEBSITE ]
-            </Link>
+            {tool.homepageUrl ? (
+              <Link
+                href={tool.homepageUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="ui-btn-cyan inline-flex rounded-none px-4 py-2 text-xs font-mono uppercase tracking-wider"
+              >
+                [ 官网_WEBSITE ]
+              </Link>
+            ) : null}
             {tool.githubUrl ? (
               <Link
                 href={tool.githubUrl}

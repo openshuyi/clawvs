@@ -1,0 +1,43 @@
+<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .cyan { stroke: #00f0ff; stroke-width: 4; stroke-linejoin: bevel; }
+    .orange { stroke: #ff7a00; stroke-width: 4; stroke-linejoin: bevel; }
+    .cyan-fill { fill: #00f0ff; }
+    .orange-fill { fill: #ff7a00; }
+    .dark-accent { stroke: #475569; stroke-width: 2; }
+    .glow-cyan { filter: drop-shadow(0 0 6px rgba(0,240,255,0.7)); }
+    .glow-orange { filter: drop-shadow(0 0 6px rgba(255,122,0,0.7)); }
+    .bg-cyan { fill: rgba(0, 240, 255, 0.15); }
+    .bg-orange { fill: rgba(255, 122, 0, 0.15); }
+  </style>
+
+  <!-- Outer Targeting Reticle Frame -->
+  <path class="dark-accent" d="M 10 35 L 10 10 L 35 10 M 85 10 L 110 10 L 110 35 M 110 85 L 110 110 L 85 110 M 35 110 L 10 110 L 10 85" />
+  <path class="dark-accent" d="M 20 20 L 100 20 L 100 100 L 20 100 Z" stroke-dasharray="4 4" opacity="0.3" />
+
+  <!-- Center Connection Joint (Base of the Crayfish Claw) -->
+  <circle cx="25" cy="60" r="12" fill="#0f172a" class="cyan" />
+  <circle cx="25" cy="60" r="4" class="cyan-fill glow-cyan" />
+  <circle cx="25" cy="60" r="18" class="dark-accent" stroke-dasharray="2 4" />
+
+  <!-- Upper Huge Pincer (Cyan) - Main Claw -->
+  <path class="cyan bg-cyan glow-cyan" d="M 30 50 L 30 25 L 60 15 L 105 25 L 85 45 L 75 38 L 60 50 L 45 42 Z" />
+
+  <!-- Lower Smaller Pincer (Orange) - Dactyl -->
+  <path class="orange bg-orange glow-orange" d="M 30 70 L 40 95 L 85 100 L 70 80 L 55 85 Z" />
+
+  <!-- Cyber / Circuit Lines / Whiskers -->
+  <path class="cyan" d="M 60 15 L 60 5" />
+  <path class="orange" d="M 40 95 L 40 105" />
+  <path class="cyan" d="M 105 25 L 115 25" />
+  
+  <!-- Tech Nodes -->
+  <rect x="55" y="13" width="10" height="4" class="cyan-fill glow-cyan" />
+  <rect x="35" y="93" width="10" height="4" class="orange-fill glow-orange" />
+  
+  <!-- Abstract 'V' 'S' Core Element inside the claw gap -->
+  <path class="cyan glow-cyan" d="M 65 60 L 75 70 L 85 60" stroke-width="3" />
+  
+  <!-- Hacker text / Identity -->
+  <text x="12" y="106" fill="#475569" font-family="monospace" font-size="7" font-weight="bold" letter-spacing="1">OPEN.CLAW</text>
+</svg>
