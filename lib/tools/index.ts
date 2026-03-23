@@ -1,5 +1,6 @@
 import { actiona } from '@/lib/tools/actiona';
 import { activepieces } from '@/lib/tools/activepieces';
+import { adoptAi } from '@/lib/tools/adopt-ai';
 import { agentLlm } from '@/lib/tools/agent-llm';
 import { agentProtocol } from '@/lib/tools/agent-protocol';
 import { agentS } from '@/lib/tools/agent-s';
@@ -25,6 +26,7 @@ import { autogluon } from '@/lib/tools/autogluon';
 import { autogpt } from '@/lib/tools/autogpt';
 import { autohotkey } from '@/lib/tools/autohotkey';
 import { automationAnywhere } from '@/lib/tools/automation-anywhere';
+import { awesomeOpenclaw } from '@/lib/tools/awesome-openclaw';
 import { azureclaw } from '@/lib/tools/azureclaw';
 import { babyagi } from '@/lib/tools/babyagi';
 import { baichuanclaw } from '@/lib/tools/baichuanclaw';
@@ -56,7 +58,6 @@ import { clawhub } from '@/lib/tools/clawhub';
 import { clawjava } from '@/lib/tools/clawjava';
 import { clawjs } from '@/lib/tools/clawjs';
 import { clawlite } from '@/lib/tools/clawlite';
-import { clawmetrics } from '@/lib/tools/clawmetrics';
 import { clawmetry } from '@/lib/tools/clawmetry';
 import { clawml } from '@/lib/tools/clawml';
 import { clawops } from '@/lib/tools/clawops';
@@ -113,6 +114,7 @@ import { hunyuanclaw } from '@/lib/tools/hunyuanclaw';
 import { ibmclaw } from '@/lib/tools/ibmclaw';
 import { ifttt } from '@/lib/tools/ifttt';
 import { instructcode } from '@/lib/tools/instructcode';
+import { ironclaw } from '@/lib/tools/ironclaw';
 import { jan } from '@/lib/tools/jan';
 import { jetbrainsAI } from '@/lib/tools/jetbrains-ai';
 import { khoj } from '@/lib/tools/khoj';
@@ -132,22 +134,25 @@ import { maxclaw } from '@/lib/tools/maxclaw';
 import { maxkb } from '@/lib/tools/maxkb';
 import { memgpt } from '@/lib/tools/memgpt';
 import { metagpt } from '@/lib/tools/metagpt';
+import { microclaw } from '@/lib/tools/microclaw';
 import { miniagents } from '@/lib/tools/miniage';
 import { miniclaw } from '@/lib/tools/miniclaw';
 import { mintlify } from '@/lib/tools/mintlify';
 import { modelartsclaw } from '@/lib/tools/modelartsclaw';
 import { moltis } from '@/lib/tools/moltis';
+import { moltworker } from '@/lib/tools/moltworker';
 import { mongodbclaw } from '@/lib/tools/mongodbclaw';
 import { multion } from '@/lib/tools/multion';
 import { mutableAI } from '@/lib/tools/mutable-ai';
 import { n8n } from '@/lib/tools/n8n';
 import { nanobot } from '@/lib/tools/nanobot';
+import { nanoclaw } from '@/lib/tools/nanoclaw';
+import { nullclaw } from '@/lib/tools/nullclaw';
 import { nutjs } from '@/lib/tools/nutjs';
 import { ollama } from '@/lib/tools/ollama';
 import { omniparser } from '@/lib/tools/omniparser';
 import { openadapt } from '@/lib/tools/openadapt';
 import { openassistant } from '@/lib/tools/openassistant';
-import { awesomeOpenclaw } from '@/lib/tools/awesome-openclaw';
 import { clawconfig } from '@/lib/tools/openclaw-config';
 import { openclawSkills } from '@/lib/tools/openclaw-skills';
 import { openclaw } from '@/lib/tools/openclaw';
@@ -164,10 +169,10 @@ import { perplexity } from '@/lib/tools/perplexity';
 import { pgclaw } from '@/lib/tools/pgclaw';
 import { phidata } from '@/lib/tools/phidata';
 import { phind } from '@/lib/tools/phind';
-import { pinchchat } from '@/lib/tools/pinchchat';
 import { pi } from '@/lib/tools/pi';
 import { picoclaw } from '@/lib/tools/picoclaw';
 import { pieces } from '@/lib/tools/pieces';
+import { pinchchat } from '@/lib/tools/pinchchat';
 import { pipedream } from '@/lib/tools/pipedream';
 import { plandex } from '@/lib/tools/plandex';
 import { playwright } from '@/lib/tools/playwright';
@@ -189,6 +194,7 @@ import { robotframework } from '@/lib/tools/robotframework';
 import { robotgo } from '@/lib/tools/robotgo';
 import { roocode } from '@/lib/tools/roocode';
 import { rpapython } from '@/lib/tools/rpapython';
+import { rylenaAwesomeOpenclaw } from '@/lib/tools/rylena-awesome-openclaw';
 import { salesforceclaw } from '@/lib/tools/salesforceclaw';
 import { sapclaw } from '@/lib/tools/sapclaw';
 import { screenpilot } from '@/lib/tools/screenpilot';
@@ -219,6 +225,7 @@ import { taskweaver } from '@/lib/tools/taskweaver';
 import { ticlaw } from '@/lib/tools/ticlaw';
 import { tongyiclaw } from '@/lib/tools/tongyiclaw';
 import { tray } from '@/lib/tools/tray';
+import { trustclaw } from '@/lib/tools/trustclaw';
 import { uagents } from '@/lib/tools/uagents';
 import { ufo } from '@/lib/tools/ufo';
 import { uipath } from '@/lib/tools/uipath';
@@ -244,6 +251,7 @@ export { primaryCategories, toolTags, type PrimaryCategory, type ToolTag } from 
 export const tools = [
   actiona,
   activepieces,
+  adoptAi,
   agentLlm,
   agentProtocol,
   agentS,
@@ -269,6 +277,7 @@ export const tools = [
   autogpt,
   autohotkey,
   automationAnywhere,
+  awesomeOpenclaw,
   azureclaw,
   babyagi,
   baichuanclaw,
@@ -300,7 +309,6 @@ export const tools = [
   clawjava,
   clawjs,
   clawlite,
-  clawmetrics,
   clawmetry,
   clawml,
   clawops,
@@ -357,6 +365,7 @@ export const tools = [
   ibmclaw,
   ifttt,
   instructcode,
+  ironclaw,
   jan,
   jetbrainsAI,
   khoj,
@@ -376,22 +385,25 @@ export const tools = [
   maxkb,
   memgpt,
   metagpt,
+  microclaw,
   miniagents,
   miniclaw,
   mintlify,
   modelartsclaw,
   moltis,
+  moltworker,
   mongodbclaw,
   multion,
   mutableAI,
   n8n,
   nanobot,
+  nanoclaw,
+  nullclaw,
   nutjs,
   ollama,
   omniparser,
   openadapt,
   openassistant,
-  awesomeOpenclaw,
   clawconfig,
   openclawSkills,
   openclaw,
@@ -408,10 +420,10 @@ export const tools = [
   pgclaw,
   phidata,
   phind,
-  pinchchat,
   pi,
   picoclaw,
   pieces,
+  pinchchat,
   pipedream,
   plandex,
   playwright,
@@ -433,6 +445,7 @@ export const tools = [
   robotgo,
   roocode,
   rpapython,
+  rylenaAwesomeOpenclaw,
   salesforceclaw,
   sapclaw,
   screenpilot,
@@ -463,6 +476,7 @@ export const tools = [
   ticlaw,
   tongyiclaw,
   tray,
+  trustclaw,
   uagents,
   ufo,
   uipath,
