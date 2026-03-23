@@ -49,8 +49,11 @@ async function loadState() {
       const status = clean(parts[3]);
       const stars = clean(parts[4]);
       const language = clean(parts[5]);
-      const error = clean(parts[6]);
-      state.records[fileName] = { date, github_url, status, stars, language, error };
+      const lastCommitDate = clean(parts[6]);
+      const latestVersion = clean(parts[7]);
+      const lastReleaseDate = clean(parts[8]);
+      const error = clean(parts[9]);
+      state.records[fileName] = { date, github_url, status, stars, language, lastCommitDate, latestVersion, lastReleaseDate, error };
     }
   } catch {
     // 文件不存在
@@ -59,7 +62,7 @@ async function loadState() {
 }
 
 async function saveState(state) {
-  const lines = ['fileName,date,github_url,status,stars,language,error'];
+  const lines = ['fileName,date,github_url,status,stars,language,lastCommitDate,latestVersion,lastReleaseDate,error'];
   for (const [fileName, record] of Object.entries(state.records)) {
     lines.push([
       escapeCSV(fileName),
@@ -68,6 +71,9 @@ async function saveState(state) {
       escapeCSV(record.status),
       escapeCSV(record.stars),
       escapeCSV(record.language),
+      escapeCSV(record.lastCommitDate),
+      escapeCSV(record.latestVersion),
+      escapeCSV(record.lastReleaseDate),
       escapeCSV(record.error),
     ].join(','));
   }
@@ -99,15 +105,36 @@ function parseGithubRepo(githubUrl) {
 }
 
 async function fetchRepoMeta(repoPath) {
-  const response = await fetch(`https://api.github.com/repos/${repoPath}`, { headers });
+  const repoUrl = `https://api.github.com/repos/${repoPath}`;
+  
+  // Fetch main repo info
+  const response = await fetch(repoUrl, { headers });
   if (!response.ok) {
-    return { stars: null, language: null };
+    return { stars: null, language: null, lastCommitDate: null, latestVersion: null, lastReleaseDate: null };
   }
   const data = await response.json();
-  return {
+  
+  const meta = {
     stars: typeof data.stargazers_count === 'number' ? data.stargazers_count : null,
     language: typeof data.language === 'string' ? data.language : null,
+    lastCommitDate: data.pushed_at || data.updated_at || null,
+    latestVersion: null,
+    lastReleaseDate: null,
   };
+
+  // Fetch latest release
+  try {
+    const releaseResponse = await fetch(`${repoUrl}/releases/latest`, { headers });
+    if (releaseResponse.ok) {
+      const releaseData = await releaseResponse.json();
+      meta.latestVersion = releaseData.tag_name || releaseData.name || null;
+      meta.lastReleaseDate = releaseData.published_at || releaseData.created_at || null;
+    }
+  } catch (e) {
+    // ignore release fetch error
+  }
+
+  return meta;
 }
 
 function upsertField(content, key, valueLiteral) {
@@ -145,6 +172,9 @@ async function main() {
     const repoPath = parseGithubRepo(githubUrl);
     let stars = null;
     let language = null;
+    let lastCommitDate = null;
+    let latestVersion = null;
+    let lastReleaseDate = null;
     let status = 'success';
     let error = null;
 
@@ -155,6 +185,9 @@ async function main() {
         const meta = await fetchRepoMeta(repoPath);
         stars = meta.stars;
         language = meta.language;
+        lastCommitDate = meta.lastCommitDate;
+        latestVersion = meta.latestVersion;
+        lastReleaseDate = meta.lastReleaseDate;
         if (stars === null && language === null) {
           status = 'no_data';
         }
@@ -167,6 +200,9 @@ async function main() {
     let next = source;
     next = upsertField(next, 'githubStars', stars === null ? 'null' : String(stars));
     next = upsertField(next, 'primaryLanguage', language === null ? 'null' : JSON.stringify(language));
+    next = upsertField(next, 'lastCommitDate', lastCommitDate === null ? 'null' : JSON.stringify(lastCommitDate));
+    next = upsertField(next, 'latestVersion', latestVersion === null ? 'null' : JSON.stringify(latestVersion));
+    next = upsertField(next, 'lastReleaseDate', lastReleaseDate === null ? 'null' : JSON.stringify(lastReleaseDate));
 
     if (next !== source) {
       await writeFile(filePath, next, 'utf8');
@@ -179,6 +215,9 @@ async function main() {
       status,
       stars: stars ?? '',
       language: language ?? '',
+      lastCommitDate: lastCommitDate ?? '',
+      latestVersion: latestVersion ?? '',
+      lastReleaseDate: lastReleaseDate ?? '',
       error: error ?? '',
     };
 
