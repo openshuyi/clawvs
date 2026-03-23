@@ -16,7 +16,7 @@ export const agentgpt: ToolProfile = {
   lastReleaseDate: "2023-11-02T00:14:25Z",
   latestVersion: "v.1.0.0",
   lastCommitDate: "2025-04-29T01:19:32Z",
-  githubStars: 35869,
+  githubStars: 35871,
   primaryLanguage: "TypeScript",
   pricing: '免费开源，云服务付费',
   license: 'GPL-3.0',

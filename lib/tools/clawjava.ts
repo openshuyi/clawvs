@@ -16,7 +16,7 @@ export const clawjava: ToolProfile = {
   lastReleaseDate: null,
   latestVersion: null,
   lastCommitDate: "2026-03-23T08:01:01Z",
-  githubStars: 187,
+  githubStars: 190,
   primaryLanguage: "Java",
   pricing: '免费开源',
   license: 'Apache-2.0',

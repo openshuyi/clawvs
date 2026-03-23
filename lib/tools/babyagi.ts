@@ -16,7 +16,7 @@ export const babyagi: ToolProfile = {
   lastReleaseDate: null,
   latestVersion: null,
   lastCommitDate: "2026-01-31T05:05:45Z",
-  githubStars: 22205,
+  githubStars: 22206,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

@@ -2,15 +2,16 @@
 
 import {
   type ColumnDef,
+  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
   type SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { ArrowDown, ArrowUp, ArrowUpDown, Globe, Github, BookOpen, Search } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpDown, Globe, Github, BookOpen, Search, Columns3, RotateCcw, LayoutGrid, List } from 'lucide-react';
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,6 +23,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
 import {
   Table,
   TableBody,
@@ -53,6 +62,9 @@ function getSortIcon(state: false | 'asc' | 'desc') {
 }
 
 export function ToolCatalog() {
+  const CONFIG_KEY = 'clawvs-tool-catalog-config-v1';
+
+  // Default states
   const [query, setQuery] = useState('');
   const [sourceFilter, setSourceFilter] = useState<SourceFilter>('全部');
   const [regionFilter, setRegionFilter] = useState<RegionFilter>('全部');
@@ -61,6 +73,44 @@ export function ToolCatalog() {
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [sortBy, setSortBy] = useState<SortBy>('默认');
   const [tableSorting, setTableSorting] = useState<SortingState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    vendor: false,
+    gfwStatus: false,
+    pricing: false,
+    deployment: false,
+  });
+  
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(CONFIG_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.query !== undefined) setQuery(parsed.query);
+        if (parsed.sourceFilter) setSourceFilter(parsed.sourceFilter);
+        if (parsed.regionFilter) setRegionFilter(parsed.regionFilter);
+        if (parsed.categoryFilter) setCategoryFilter(parsed.categoryFilter);
+        if (parsed.tagFilter) setTagFilter(parsed.tagFilter);
+        if (parsed.sortBy) setSortBy(parsed.sortBy);
+        if (parsed.viewMode) setViewMode(parsed.viewMode);
+        if (parsed.columnVisibility) setColumnVisibility(parsed.columnVisibility);
+      }
+    } catch (e) {
+      console.error('Failed to load table config', e);
+    }
+    setIsMounted(true);
+  }, []);
+
+  // Save to localStorage when state changes
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem(CONFIG_KEY, JSON.stringify({
+        query, sourceFilter, regionFilter, categoryFilter, tagFilter, sortBy, viewMode, columnVisibility
+      }));
+    }
+  }, [query, sourceFilter, regionFilter, categoryFilter, tagFilter, sortBy, viewMode, columnVisibility, isMounted]);
 
   const filteredTools = useMemo(() => {
     const keyword = query.trim().toLowerCase();
@@ -101,6 +151,12 @@ export function ToolCatalog() {
     setTagFilter('全部');
     setSortBy('默认');
     setTableSorting([]);
+    setColumnVisibility({
+      vendor: false,
+      gfwStatus: false,
+      pricing: false,
+      deployment: false,
+    });
   }
 
   const hasActiveFilters =
@@ -138,6 +194,26 @@ export function ToolCatalog() {
         accessorKey: 'region',
         header: '地区',
         cell: ({ row }) => <Badge variant="outline">{row.original.region}</Badge>,
+      },
+      {
+        accessorKey: 'vendor',
+        header: '厂商',
+        cell: ({ row }) => <span className="text-muted-foreground">{row.original.vendor}</span>,
+      },
+      {
+        accessorKey: 'gfwStatus',
+        header: '网络',
+        cell: ({ row }) => <Badge variant="outline">{row.original.gfwStatus}</Badge>,
+      },
+      {
+        accessorKey: 'pricing',
+        header: '定价',
+        cell: ({ row }) => <span className="text-muted-foreground">{row.original.pricing}</span>,
+      },
+      {
+        accessorKey: 'deployment',
+        header: '部署',
+        cell: ({ row }) => <span className="text-muted-foreground truncate max-w-[150px] block" title={row.original.deployment}>{row.original.deployment}</span>,
       },
       {
         id: 'successRate',
@@ -212,90 +288,81 @@ export function ToolCatalog() {
     columns,
     state: {
       sorting: tableSorting,
+      columnVisibility,
     },
     onSortingChange: setTableSorting,
+    onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
 
   return (
     <section className="space-y-6">
-      <div className="ui-panel p-5 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h3 className="ui-kicker">筛选与排序 {'//'} FILTERS</h3>
-          <div className="flex items-center gap-2">
-            <Badge variant="outline" className="ui-chip font-mono">
-              MATCH: {filteredTools.length} / {tools.length}
-            </Badge>
-            {hasActiveFilters ? (
-              <Button type="button" variant="outline" size="sm" onClick={clearFilters} className="font-mono text-xs uppercase">
-                [ CLEAR ]
-              </Button>
-            ) : null}
+      <div className="ui-panel p-3 rounded-xl flex flex-col xl:flex-row gap-3 items-center justify-between">
+        {/* Left side: Search & Filters inline */}
+        <div className="flex flex-1 w-full items-center gap-2 overflow-x-auto custom-scrollbar pb-1 xl:pb-0">
+          <div className="relative shrink-0 w-48 xl:w-64">
+            <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="搜索工具、厂商..."
+              className="pl-9 h-9 font-mono text-xs rounded-md border-border/60 bg-transparent focus-visible:ring-accent-cyan"
+            />
           </div>
-        </div>
-        <div className="relative">
-          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="搜索工具名、厂商、能力关键词..."
-            className="pl-9 font-mono rounded-none border-border/60 bg-transparent focus-visible:ring-accent-cyan"
-          />
-        </div>
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5 font-mono text-sm">
+          
           <Select value={sourceFilter} onValueChange={(value) => setSourceFilter(value as SourceFilter)}>
-            <SelectTrigger className="w-full rounded-none border-border/60 bg-transparent">
-              <SelectValue placeholder="全部类型" />
+            <SelectTrigger className="h-9 w-[110px] shrink-0 font-mono text-xs rounded-md border-border/60 bg-transparent">
+              <SelectValue placeholder="类型" />
             </SelectTrigger>
-            <SelectContent className="rounded-none border-border/60">
+            <SelectContent className="rounded-md border-border/60">
               <SelectItem value="全部">全部类型</SelectItem>
               <SelectItem value="开源">开源</SelectItem>
               <SelectItem value="闭源">闭源</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={regionFilter} onValueChange={(value) => setRegionFilter(value as RegionFilter)}>
-            <SelectTrigger className="w-full rounded-none border-border/60 bg-transparent">
-              <SelectValue placeholder="全部地区" />
+
+          <Select value={categoryFilter} onValueChange={(value) => setCategoryFilter(value as CategoryFilter)}>
+            <SelectTrigger className="h-9 w-[140px] shrink-0 font-mono text-xs rounded-md border-border/60 bg-transparent">
+              <SelectValue placeholder="分类" />
             </SelectTrigger>
-            <SelectContent className="rounded-none border-border/60">
+            <SelectContent className="rounded-md border-border/60 max-h-[300px]">
+              <SelectItem value="全部">全部主分类</SelectItem>
+              {primaryCategories.map((item) => (
+                <SelectItem key={item} value={item}>{item}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={regionFilter} onValueChange={(value) => setRegionFilter(value as RegionFilter)}>
+            <SelectTrigger className="h-9 w-[100px] shrink-0 font-mono text-xs rounded-md border-border/60 bg-transparent">
+              <SelectValue placeholder="地区" />
+            </SelectTrigger>
+            <SelectContent className="rounded-md border-border/60">
               <SelectItem value="全部">全部地区</SelectItem>
               <SelectItem value="国内">国内</SelectItem>
               <SelectItem value="海外">海外</SelectItem>
               <SelectItem value="全球">全球</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={categoryFilter} onValueChange={(value) => setCategoryFilter(value as CategoryFilter)}>
-            <SelectTrigger className="w-full rounded-none border-border/60 bg-transparent">
-              <SelectValue placeholder="全部主分类" />
-            </SelectTrigger>
-            <SelectContent className="rounded-none border-border/60">
-              <SelectItem value="全部">全部主分类</SelectItem>
-              {primaryCategories.map((item) => (
-                <SelectItem key={item} value={item}>
-                  {item}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+
           <Select value={tagFilter} onValueChange={(value) => setTagFilter(value as TagFilter)}>
-            <SelectTrigger className="w-full rounded-none border-border/60 bg-transparent">
-              <SelectValue placeholder="全部标签" />
+            <SelectTrigger className="h-9 w-[110px] shrink-0 font-mono text-xs rounded-md border-border/60 bg-transparent">
+              <SelectValue placeholder="标签" />
             </SelectTrigger>
-            <SelectContent className="rounded-none border-border/60">
+            <SelectContent className="rounded-md border-border/60 max-h-[300px]">
               <SelectItem value="全部">全部标签</SelectItem>
               {toolTags.map((item) => (
-                <SelectItem key={item} value={item}>
-                  {item}
-                </SelectItem>
+                <SelectItem key={item} value={item}>{item}</SelectItem>
               ))}
             </SelectContent>
           </Select>
+
           <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortBy)}>
-            <SelectTrigger className="w-full rounded-none border-border/60 bg-transparent">
-              <SelectValue placeholder="默认排序" />
+            <SelectTrigger className="h-9 w-[120px] shrink-0 font-mono text-xs rounded-md border-border/60 bg-transparent">
+              <SelectValue placeholder="排序" />
             </SelectTrigger>
-            <SelectContent className="rounded-none border-border/60">
+            <SelectContent className="rounded-md border-border/60">
               <SelectItem value="默认">默认排序</SelectItem>
               <SelectItem value="名称 A-Z">名称 A-Z</SelectItem>
               <SelectItem value="成功率高到低">成功率高到低</SelectItem>
@@ -304,16 +371,50 @@ export function ToolCatalog() {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-border/30">
-          <div className="flex flex-wrap gap-2">
-            <span className="ui-chip px-2 py-1 text-[10px] uppercase font-mono tracking-wider">VIEW: CARD / LIST</span>
+
+        {/* Right side: Tools */}
+        <div className="flex items-center gap-2 shrink-0 border-t xl:border-t-0 xl:border-l border-border-color pt-3 xl:pt-0 pl-0 xl:pl-3 w-full xl:w-auto justify-between xl:justify-end">
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="ui-chip font-mono text-xs px-2 h-9 flex items-center justify-center">
+              {filteredTools.length}/{tools.length}
+            </Badge>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), "h-9 text-xs gap-1.5 font-mono rounded-md border-border/60")}>
+                <Columns3 className="size-3.5" />
+                列配置
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-bg-surface border-border-color/60 shadow-xl backdrop-blur-md">
+                <DropdownMenuLabel className="text-xs text-text-muted">显示/隐藏列</DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-border-color/50" />
+                {table.getAllLeafColumns().filter(col => typeof col.accessorFn !== 'undefined' || col.id === 'links' || ['vendor', 'gfwStatus', 'pricing', 'deployment'].includes(col.id)).map(column => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize text-xs cursor-pointer focus:bg-accent-cyan/10 focus:text-accent-cyan"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                    >
+                      {typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id}
+                    </DropdownMenuCheckboxItem>
+                  )
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as ViewMode)}>
+              <TabsList className="h-9 p-0.5 bg-bg-surface-strong border border-border-color/60 rounded-md">
+                <TabsTrigger value="list" className="text-xs px-2.5 h-7 data-[state=active]:bg-accent-cyan data-[state=active]:text-bg-main rounded-sm"><List className="size-3.5" /></TabsTrigger>
+                <TabsTrigger value="card" className="text-xs px-2.5 h-7 data-[state=active]:bg-accent-cyan data-[state=active]:text-bg-main rounded-sm"><LayoutGrid className="size-3.5" /></TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
-          <Tabs value={viewMode} onValueChange={(value) => setViewMode(value as ViewMode)}>
-            <TabsList className="rounded-none h-8 bg-transparent border border-border/60 p-0">
-              <TabsTrigger value="card" className="rounded-none h-full data-[state=active]:bg-accent-cyan/10 data-[state=active]:text-accent-cyan data-[state=active]:border-b-2 data-[state=active]:border-b-accent-cyan">卡片</TabsTrigger>
-              <TabsTrigger value="list" className="rounded-none h-full data-[state=active]:bg-accent-cyan/10 data-[state=active]:text-accent-cyan data-[state=active]:border-b-2 data-[state=active]:border-b-accent-cyan">列表</TabsTrigger>
-            </TabsList>
-          </Tabs>
+
+          {(hasActiveFilters || Object.values(columnVisibility).some(v => !v)) && (
+            <Button type="button" variant="ghost" size="icon" onClick={clearFilters} className="h-9 w-9 text-text-muted hover:text-accent-orange transition-colors" title="重置所有条件">
+              <RotateCcw className="size-4" />
+            </Button>
+          )}
         </div>
       </div>
 

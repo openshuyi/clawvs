@@ -16,7 +16,7 @@ export const aider: ToolProfile = {
   lastReleaseDate: "2025-08-09T17:42:19Z",
   latestVersion: "v0.86.0",
   lastCommitDate: "2026-03-17T01:21:34Z",
-  githubStars: 42269,
+  githubStars: 42277,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

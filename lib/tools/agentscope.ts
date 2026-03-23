@@ -16,7 +16,7 @@ export const agentscope: ToolProfile = {
   lastReleaseDate: "2026-03-13T08:27:32Z",
   latestVersion: "v1.0.17",
   lastCommitDate: "2026-03-23T08:08:56Z",
-  githubStars: 18670,
+  githubStars: 18712,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

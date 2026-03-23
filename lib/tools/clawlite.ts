@@ -15,7 +15,7 @@ export const clawlite: ToolProfile = {
   docsUrl: 'https://github.com/eobarretooo/ClawLite#readme',
   lastReleaseDate: null,
   latestVersion: null,
-  lastCommitDate: "2026-03-23T09:04:59Z",
+  lastCommitDate: "2026-03-23T11:02:02Z",
   githubStars: 31,
   primaryLanguage: "Python",
   pricing: '免费开源',

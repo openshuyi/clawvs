@@ -16,7 +16,7 @@ export const anythingllm: ToolProfile = {
   lastReleaseDate: "2026-03-18T16:57:50Z",
   latestVersion: "v1.11.2",
   lastCommitDate: "2026-03-21T04:02:30Z",
-  githubStars: 56609,
+  githubStars: 56616,
   primaryLanguage: "JavaScript",
   pricing: '免费开源，云服务付费',
   license: 'MIT',

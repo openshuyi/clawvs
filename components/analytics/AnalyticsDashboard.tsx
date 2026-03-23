@@ -1,228 +1,203 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { 
-  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, 
-  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, 
-  BarChart, Bar, Legend, ResponsiveContainer, ZAxis, Cell
-} from 'recharts';
-import { tools } from '@/lib/tools';
-import { ToolProfile, primaryCategories } from '@/lib/tools/types';
-import { Database, TrendingUp, Shield, Activity, FileText } from 'lucide-react';
+import { tools as allTools } from '@/lib/tools';
+import { ToolProfile } from '@/lib/tools/types';
+import { DimensionSelector } from './DimensionSelector';
+import { FilterPanel } from './FilterPanel';
+import { BubbleChart } from './BubbleChart';
+import { DetailPanel } from './DetailPanel';
+import { ComparePanel } from './ComparePanel';
+import {
+  DimensionConfig,
+  FilterState,
+  DEFAULT_DIMENSION_CONFIG,
+} from './types';
+import { Database, BarChart3 } from 'lucide-react';
 
-const COLORS = ['#00f0ff', '#ff3c00', '#10b981', '#8b5cf6', '#ec4899'];
+// 获取所有可用标签
+const getAllTags = () => {
+  const tags = new Set<string>();
+  allTools.forEach(tool => {
+    tool.tags.forEach(tag => tags.add(tag as string));
+  });
+  return Array.from(tags).sort();
+};
+
+// 默认筛选状态
+const DEFAULT_FILTER_STATE: FilterState = {
+  categories: [],
+  sourceTypes: [],
+  regions: [],
+  tags: [],
+  minRating: 0,
+  starsRange: [0, 100000],
+};
 
 export function AnalyticsDashboard() {
-  const [selectedSlugs, setSelectedSlugs] = useState<string[]>([
-    'openclaw', 'openinterpreter', 'anthropic-computer-use'
-  ]);
+  // 维度配置状态
+  const [dimensionConfig, setDimensionConfig] = useState<DimensionConfig>(DEFAULT_DIMENSION_CONFIG);
+  
+  // 筛选状态
+  const [filterState, setFilterState] = useState<FilterState>(DEFAULT_FILTER_STATE);
+  
+  // 选中的工具详情
+  const [selectedTool, setSelectedTool] = useState<ToolProfile | null>(null);
+  
+  // 比较列表
+  const [compareTools, setCompareTools] = useState<ToolProfile[]>([]);
 
-  // Handle Tool Selection
-  const toggleTool = (slug: string) => {
-    if (selectedSlugs.includes(slug)) {
-      if (selectedSlugs.length > 1) {
-        setSelectedSlugs(selectedSlugs.filter(s => s !== slug));
+  // 筛选后的工具列表
+  const filteredTools = useMemo(() => {
+    return allTools.filter(tool => {
+      // 分类筛选
+      if (filterState.categories.length > 0 && 
+          !filterState.categories.includes(tool.primaryCategory)) {
+        return false;
       }
-    } else {
-      if (selectedSlugs.length < 5) {
-        setSelectedSlugs([...selectedSlugs, slug]);
+      
+      // 来源类型筛选
+      if (filterState.sourceTypes.length > 0 && 
+          !filterState.sourceTypes.includes(tool.sourceType)) {
+        return false;
       }
+      
+      // 地区筛选
+      if (filterState.regions.length > 0 && 
+          !filterState.regions.includes(tool.region)) {
+        return false;
+      }
+      
+      // 标签筛选
+      if (filterState.tags.length > 0 &&
+          !filterState.tags.some(tag => tool.tags.includes(tag as any))) {
+        return false;
+      }
+      
+      // 最低评分筛选
+      const avgRating = (
+        tool.rating.security +
+        tool.rating.speed +
+        tool.rating.flexibility +
+        tool.rating.stability +
+        tool.rating.docs
+      ) / 5;
+      if (avgRating < filterState.minRating) {
+        return false;
+      }
+      
+      // Stars 范围筛选
+      const stars = tool.githubStars || 0;
+      if (stars < filterState.starsRange[0] || stars > filterState.starsRange[1]) {
+        return false;
+      }
+      
+      return true;
+    });
+  }, [filterState]);
+
+  // 处理维度配置变化
+  const handleDimensionChange = (config: DimensionConfig) => {
+    setDimensionConfig(config);
+  };
+
+  // 处理筛选变化
+  const handleFilterChange = (value: FilterState) => {
+    setFilterState(value);
+  };
+
+  // 处理选择工具
+  const handleSelectTool = (tool: ToolProfile) => {
+    setSelectedTool(tool);
+  };
+
+  // 处理添加到比较
+  const handleAddToCompare = (tool: ToolProfile) => {
+    if (!compareTools.find(t => t.slug === tool.slug) && compareTools.length < 5) {
+      setCompareTools([...compareTools, tool]);
     }
   };
 
-  const selectedTools = useMemo(() => {
-    return selectedSlugs.map(slug => tools.find(t => t.slug === slug)).filter(Boolean) as ToolProfile[];
-  }, [selectedSlugs]);
+  // 处理移除比较
+  const handleRemoveFromCompare = (slug: string) => {
+    setCompareTools(compareTools.filter(t => t.slug !== slug));
+  };
 
-  // Radar Chart Data (Multi-dimensional Comparison)
-  const radarData = useMemo(() => {
-    const dimensions = [
-      { key: 'security', label: '安全性' },
-      { key: 'speed', label: '响应速度' },
-      { key: 'flexibility', label: '灵活性' },
-      { key: 'stability', label: '稳定性' },
-      { key: 'docs', label: '文档生态' },
-    ];
+  // 处理清空比较
+  const handleClearCompare = () => {
+    setCompareTools([]);
+  };
 
-    return dimensions.map(dim => {
-      const dataPoint: any = { subject: dim.label, fullMark: 10 };
-      selectedTools.forEach(tool => {
-        dataPoint[tool.name] = tool.rating[dim.key as keyof typeof tool.rating] || 0;
-      });
-      return dataPoint;
-    });
-  }, [selectedTools]);
-
-  // Scatter Plot Data (Stars vs Success Rate)
-  const scatterData = useMemo(() => {
-    return tools.map(t => ({
-      name: t.name,
-      stars: t.githubStars && t.githubStars > 0 ? t.githubStars : 1, // Avoid log(0) error
-      successRate: t.benchmark?.successRate || 0,
-      category: t.primaryCategory,
-      avgRating: (t.rating.security + t.rating.speed + t.rating.flexibility + t.rating.stability + t.rating.docs) / 5
-    })).filter(t => t.successRate > 0);
-  }, []);
-
-  // Bar Chart Data (Category Distribution)
-  const barData = useMemo(() => {
-    const counts: Record<string, number> = {};
-    tools.forEach(t => {
-      counts[t.primaryCategory] = (counts[t.primaryCategory] || 0) + 1;
-    });
-    return Object.entries(counts)
-      .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 8); // Top 8 categories
-  }, []);
+  // 检查工具是否在比较中
+  const isInCompare = (tool: ToolProfile) => {
+    return compareTools.some(t => t.slug === tool.slug);
+  };
 
   return (
     <div className="flex flex-col gap-6 w-full">
-      {/* Tool Selector Panel */}
-      <div className="ui-panel p-6 rounded-2xl">
-        <h3 className="text-lg font-bold text-text-primary mb-4 flex items-center gap-2">
-          <Database className="size-5 text-accent-cyan" />
-          对比目标选择 <span className="text-xs font-normal text-text-secondary ml-2">(最多选 5 个)</span>
-        </h3>
-        <div className="flex flex-wrap gap-2 max-h-48 overflow-y-auto p-1 custom-scrollbar">
-          {tools.map(tool => {
-            const isSelected = selectedSlugs.includes(tool.slug);
-            return (
-              <button
-                type="button"
-                key={tool.slug}
-                onClick={() => toggleTool(tool.slug)}
-                disabled={!isSelected && selectedSlugs.length >= 5}
-                className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-all ${
-                  isSelected 
-                    ? 'bg-accent-cyan/20 border-accent-cyan text-accent-cyan shadow-[0_0_10px_rgba(0,240,255,0.2)]' 
-                    : 'bg-bg-surface-strong border-border-color text-text-secondary hover:border-text-primary disabled:opacity-30 disabled:cursor-not-allowed'
-                }`}
-              >
-                {tool.name}
-              </button>
-            );
-          })}
+      {/* 顶部控制栏 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* 维度选择器 */}
+        <div className="ui-panel p-4 rounded-2xl">
+          <h3 className="text-sm font-bold text-text-primary mb-3 flex items-center gap-2">
+            <BarChart3 className="w-4 h-4 text-accent-cyan" />
+            维度配置
+          </h3>
+          <DimensionSelector config={dimensionConfig} onChange={handleDimensionChange} />
+        </div>
+
+        {/* 筛选面板 */}
+        <div className="ui-panel p-4 rounded-2xl">
+          <FilterPanel
+            value={filterState}
+            onChange={handleFilterChange}
+            availableTags={getAllTags()}
+          />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Radar Chart Panel */}
-        <div className="ui-panel p-6 rounded-2xl min-h-[400px] flex flex-col relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-accent-cyan/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
-          <h3 className="text-lg font-bold text-text-primary mb-6 flex items-center gap-2">
-            <Activity className="size-5 text-accent-cyan" />
-            多维能力评估雷达
-          </h3>
-          <div className="flex-1 w-full min-h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
-                <PolarGrid stroke="rgba(255,255,255,0.1)" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
-                <PolarRadiusAxis angle={30} domain={[0, 10]} tick={{ fill: 'var(--text-muted)' }} tickCount={6} />
-                <RechartsTooltip 
-                  contentStyle={{ backgroundColor: 'rgba(10, 10, 10, 0.9)', borderColor: 'var(--border-color)', borderRadius: '8px', backdropFilter: 'blur(8px)' }}
-                  itemStyle={{ color: 'var(--text-primary)' }}
-                />
-                <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '20px' }} />
-                {selectedTools.map((tool, index) => (
-                  <Radar
-                    key={tool.slug}
-                    name={tool.name}
-                    dataKey={tool.name}
-                    stroke={COLORS[index % COLORS.length]}
-                    fill={COLORS[index % COLORS.length]}
-                    fillOpacity={0.3}
-                    isAnimationActive={true}
-                  />
-                ))}
-              </RadarChart>
-            </ResponsiveContainer>
+      {/* 主内容区 */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+        {/* 气泡图 - 占据 2 列 */}
+        <div className="xl:col-span-2 ui-panel p-4 rounded-2xl min-h-[500px] flex flex-col">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-bold text-text-primary flex items-center gap-2">
+              <Database className="w-4 h-4 text-accent-cyan" />
+              气泡图分析
+              <span className="text-xs font-normal text-text-secondary ml-2">
+                ({filteredTools.length} 个工具)
+              </span>
+            </h3>
+          </div>
+          <div className="flex-1 min-h-[400px]">
+            <BubbleChart
+              tools={filteredTools}
+              config={dimensionConfig}
+              onSelectTool={handleSelectTool}
+            />
           </div>
         </div>
 
-        {/* Bar Chart Panel */}
-        <div className="ui-panel p-6 rounded-2xl min-h-[400px] flex flex-col relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-accent-orange/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
-          <h3 className="text-lg font-bold text-text-primary mb-6 flex items-center gap-2">
-            <FileText className="size-5 text-accent-orange" />
-            热门领域分布 (Top 8)
-          </h3>
-          <div className="flex-1 w-full min-h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={barData} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="rgba(255,255,255,0.05)" />
-                <XAxis type="number" stroke="var(--text-muted)" fontSize={12} />
-                <YAxis dataKey="name" type="category" stroke="var(--text-secondary)" fontSize={11} width={120} />
-                <RechartsTooltip 
-                  cursor={{ fill: 'rgba(255,255,255,0.05)' }}
-                  contentStyle={{ backgroundColor: 'rgba(10, 10, 10, 0.9)', borderColor: 'var(--border-color)', borderRadius: '8px' }}
-                />
-                <Bar dataKey="count" fill="var(--accent-orange)" radius={[0, 4, 4, 0]} barSize={20}>
-                  {barData.map((entry, index) => (
-                    <Cell key={entry.name} fill={index === 0 ? 'var(--accent-cyan)' : 'var(--accent-orange)'} fillOpacity={0.8 + (0.2 * (barData.length - index) / barData.length)} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+        {/* 右侧面板区 */}
+        <div className="flex flex-col gap-4">
+          {/* 详情面板 */}
+          <div className="ui-panel p-4 rounded-2xl min-h-[300px]">
+            <DetailPanel
+              tool={selectedTool}
+              onClose={() => setSelectedTool(null)}
+              onAddToCompare={handleAddToCompare}
+              isInCompare={isInCompare(selectedTool!)}
+            />
           </div>
-        </div>
-      </div>
 
-      {/* Scatter Chart Panel */}
-      <div className="ui-panel p-6 rounded-2xl min-h-[500px] flex flex-col relative overflow-hidden">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-64 bg-accent-cyan/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
-        <div className="flex justify-between items-end mb-6">
-          <h3 className="text-lg font-bold text-text-primary flex items-center gap-2">
-            <TrendingUp className="size-5 text-accent-cyan" />
-            社区热度 vs 任务成功率 (景观图)
-          </h3>
-          <div className="text-xs text-text-secondary bg-bg-surface-strong px-3 py-1 rounded-md border border-border-color">
-            气泡大小代表综合评分
+          {/* 比较面板 */}
+          <div className="ui-panel p-4 rounded-2xl min-h-[250px] flex-1">
+            <ComparePanel
+              tools={compareTools}
+              onRemove={handleRemoveFromCompare}
+              onClear={handleClearCompare}
+            />
           </div>
-        </div>
-        <div className="flex-1 w-full min-h-[400px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis 
-                type="number" 
-                dataKey="stars" 
-                name="GitHub Stars" 
-                stroke="var(--text-muted)"
-                label={{ value: 'GitHub Stars', position: 'bottom', fill: 'var(--text-secondary)' }}
-                domain={['dataMin', 'dataMax']}
-                tickFormatter={(value) => value > 1000 ? `${(value/1000).toFixed(1)}k` : value}
-              />
-              <YAxis 
-                type="number" 
-                dataKey="successRate" 
-                name="Success Rate" 
-                unit="%" 
-                stroke="var(--text-muted)"
-                label={{ value: 'Success Rate (%)', angle: -90, position: 'left', fill: 'var(--text-secondary)' }}
-                domain={[0, 100]}
-              />
-              <ZAxis type="number" dataKey="avgRating" range={[60, 400]} name="综合评分" />
-              <RechartsTooltip 
-                cursor={{ strokeDasharray: '3 3' }}
-                contentStyle={{ backgroundColor: 'rgba(10, 10, 10, 0.9)', borderColor: 'var(--border-color)', borderRadius: '8px' }}
-                formatter={(value: any, name: any) => {
-                  const nameStr = String(name);
-                  if (nameStr === 'Success Rate') return [`${value}%`, '任务成功率'];
-                  if (nameStr === 'GitHub Stars') return [value, 'Stars'];
-                  if (nameStr === '综合评分') return [Number(value).toFixed(1), '综合评分'];
-                  return [value, nameStr];
-                }}
-                labelFormatter={() => ''}
-              />
-              <Scatter name="AI Agents" data={scatterData} fill="var(--accent-cyan)" fillOpacity={0.6}>
-                {scatterData.map((entry) => (
-                  <Cell key={entry.name} fill={entry.category === 'OpenClaw 生态' ? 'var(--accent-orange)' : 'var(--accent-cyan)'} />
-                ))}
-              </Scatter>
-            </ScatterChart>
-          </ResponsiveContainer>
         </div>
       </div>
     </div>

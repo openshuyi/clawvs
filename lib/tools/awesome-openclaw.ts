@@ -15,7 +15,7 @@ export const awesomeOpenclaw: ToolProfile = {
   docsUrl: 'https://github.com/SamurAIGPT/awesome-openclaw#readme',
   lastReleaseDate: null,
   latestVersion: null,
-  lastCommitDate: "2026-03-22T03:41:53Z",
+  lastCommitDate: "2026-03-23T09:30:29Z",
   githubStars: 817,
   primaryLanguage: null,
   pricing: '免费开源',

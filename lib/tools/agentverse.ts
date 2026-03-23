@@ -16,7 +16,7 @@ export const agentverse: ToolProfile = {
   lastReleaseDate: "2023-10-27T14:18:53Z",
   latestVersion: "v0.1.8.1",
   lastCommitDate: "2024-09-09T05:47:44Z",
-  githubStars: 4972,
+  githubStars: 4973,
   primaryLanguage: "JavaScript",
   pricing: '免费开源',
   license: 'Apache-2.0',

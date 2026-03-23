@@ -16,7 +16,7 @@ export const clawwork: ToolProfile = {
   lastReleaseDate: null,
   latestVersion: null,
   lastCommitDate: "2026-03-03T15:32:37Z",
-  githubStars: 7524,
+  githubStars: 7525,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

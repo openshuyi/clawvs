@@ -16,7 +16,7 @@ export const cline: ToolProfile = {
   lastReleaseDate: "2026-03-20T23:27:16Z",
   latestVersion: "v3.75.0",
   lastCommitDate: "2026-03-22T22:20:59Z",
-  githubStars: 59257,
+  githubStars: 59263,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'Apache-2.0',

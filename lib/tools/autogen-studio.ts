@@ -16,7 +16,7 @@ export const autogenStudio: ToolProfile = {
   lastReleaseDate: "2025-09-30T06:18:26Z",
   latestVersion: "python-v0.7.5",
   lastCommitDate: "2026-03-21T10:57:12Z",
-  githubStars: 56053,
+  githubStars: 56059,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

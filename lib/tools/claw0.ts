@@ -16,7 +16,7 @@ export const claw0: ToolProfile = {
   lastReleaseDate: null,
   latestVersion: null,
   lastCommitDate: "2026-03-18T10:58:44Z",
-  githubStars: 1260,
+  githubStars: 1269,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

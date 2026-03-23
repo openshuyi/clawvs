@@ -16,7 +16,7 @@ export const clawsec: ToolProfile = {
   lastReleaseDate: "2026-03-10T17:28:38Z",
   latestVersion: "clawsec-scanner-v0.0.2",
   lastCommitDate: "2026-03-23T06:23:27Z",
-  githubStars: 825,
+  githubStars: 827,
   primaryLanguage: "JavaScript",
   pricing: '免费开源',
   license: 'MIT',

@@ -15,7 +15,7 @@ export const clawmetry: ToolProfile = {
   docsUrl: 'https://github.com/vivekchand/clawmetry#readme',
   lastReleaseDate: "2026-03-22T22:59:04Z",
   latestVersion: "v0.12.72",
-  lastCommitDate: "2026-03-23T09:13:05Z",
+  lastCommitDate: "2026-03-23T10:14:36Z",
   githubStars: 183,
   primaryLanguage: "Python",
   pricing: '免费开源',

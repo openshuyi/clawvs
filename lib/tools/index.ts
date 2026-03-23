@@ -59,7 +59,6 @@ import { clawjava } from '@/lib/tools/clawjava';
 import { clawjs } from '@/lib/tools/clawjs';
 import { clawlite } from '@/lib/tools/clawlite';
 import { clawmetry } from '@/lib/tools/clawmetry';
-import { clawml } from '@/lib/tools/clawml';
 import { clawops } from '@/lib/tools/clawops';
 import { clawpro } from '@/lib/tools/clawpro';
 import { clawrs } from '@/lib/tools/clawrs';
@@ -310,7 +309,6 @@ export const tools = [
   clawjs,
   clawlite,
   clawmetry,
-  clawml,
   clawops,
   clawpro,
   clawrs,

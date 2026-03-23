@@ -16,7 +16,7 @@ export const agentS: ToolProfile = {
   lastReleaseDate: "2025-12-16T17:38:14Z",
   latestVersion: "v0.3.2",
   lastCommitDate: "2026-02-21T06:09:49Z",
-  githubStars: 10515,
+  githubStars: 10520,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',
