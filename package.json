@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "tools:check:url": "node scripts/check-urls.mjs",
+    "tools:sync:github": "node scripts/sync-github-metadata.mjs",
     "tools:index:generate": "node scripts/generate-tools-index.mjs",
     "prebuild": "bun run tools:index:generate",
     "predev": "bun run tools:index:generate",
@@ -10,7 +12,6 @@
     "build": "rm -rf out && next build",
     "dev": "next dev",
     "start": "next start",
-    "sync:github": "node scripts/sync-github-metadata.mjs",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
     "postinstall": "fumadocs-mdx"
   },

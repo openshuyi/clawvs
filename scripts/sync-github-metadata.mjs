@@ -17,7 +17,7 @@ if (githubToken) {
 }
 
 const today = new Date().toISOString().slice(0, 10);
-const stateFile = path.join(__dirname, `sync-github-metadata-${today}.csv`);
+const stateFile = path.join(__dirname, 'logs', `sync-github-metadata-${today}.csv`);
 
 function escapeCSV(value) {
   if (value === null || value === undefined) return '';
