@@ -147,6 +147,7 @@ import { ollama } from '@/lib/tools/ollama';
 import { omniparser } from '@/lib/tools/omniparser';
 import { openadapt } from '@/lib/tools/openadapt';
 import { openassistant } from '@/lib/tools/openassistant';
+import { awesomeOpenclaw } from '@/lib/tools/awesome-openclaw';
 import { clawconfig } from '@/lib/tools/openclaw-config';
 import { openclawSkills } from '@/lib/tools/openclaw-skills';
 import { openclaw } from '@/lib/tools/openclaw';
@@ -163,6 +164,7 @@ import { perplexity } from '@/lib/tools/perplexity';
 import { pgclaw } from '@/lib/tools/pgclaw';
 import { phidata } from '@/lib/tools/phidata';
 import { phind } from '@/lib/tools/phind';
+import { pinchchat } from '@/lib/tools/pinchchat';
 import { pi } from '@/lib/tools/pi';
 import { picoclaw } from '@/lib/tools/picoclaw';
 import { pieces } from '@/lib/tools/pieces';
@@ -389,6 +391,7 @@ export const tools = [
   omniparser,
   openadapt,
   openassistant,
+  awesomeOpenclaw,
   clawconfig,
   openclawSkills,
   openclaw,
@@ -405,6 +408,7 @@ export const tools = [
   pgclaw,
   phidata,
   phind,
+  pinchchat,
   pi,
   picoclaw,
   pieces,
