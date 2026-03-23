@@ -44,17 +44,26 @@ export function ToolGraph() {
   const [dimOthersOnHover, setDimOthersOnHover] = useState(false);
   const [fixNodesOnDrag, setFixNodesOnDrag] = useState(false);
   const [showBloomConfig, setShowBloomConfig] = useState(false);
+  const [showPhysicsConfig, setShowPhysicsConfig] = useState(false);
   
   // Bloom parameters
   const [bloomStrength, setBloomStrength] = useState(0.2);
   const [bloomRadius, setBloomRadius] = useState(1.5);
   const [bloomThreshold, setBloomThreshold] = useState(0.1);
 
+  // Physics parameters
+  const [chargeStrength, setChargeStrength] = useState(-120);
+  const [linkDistance, setLinkDistance] = useState(40);
+
+  // Color mapping
+  const [colorBy, setColorBy] = useState<'sourceType' | 'primaryCategory' | 'region'>('sourceType');
+
   // Filters
   const [filterCategory, setFilterCategory] = useState<string>('All');
   const [filterSourceType, setFilterSourceType] = useState<string>('All');
   const categoryId = useId();
   const sourceTypeId = useId();
+  const colorById = useId();
   const autoRotateId = useId();
   const layoutModeId = useId();
   const sizeMappingId = useId();
@@ -64,6 +73,8 @@ export function ToolGraph() {
   const bloomStrengthId = useId();
   const bloomRadiusId = useId();
   const bloomThresholdId = useId();
+  const chargeStrengthId = useId();
+  const linkDistanceId = useId();
 
   // Handle resize
   useEffect(() => {
@@ -104,6 +115,22 @@ export function ToolGraph() {
     const categorySet = new Set<string>();
     const tagSet = new Set<string>();
 
+    // Pre-calculate unique values for color mapping
+    const uniqueValues = Array.from(new Set(filteredTools.map(t => String(t[colorBy] || 'Unknown'))));
+    const colorPalette = [
+      '#00f0ff', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', 
+      '#3b82f6', '#f43f5e', '#14b8a6', '#f97316', '#eab308'
+    ];
+
+    const getToolColor = (tool: ToolProfile) => {
+      if (colorBy === 'sourceType') {
+        return tool.sourceType === '开源' ? '#10b981' : tool.sourceType === '闭源' ? '#f59e0b' : '#3b82f6';
+      }
+      const val = String(tool[colorBy] || 'Unknown');
+      const index = uniqueValues.indexOf(val);
+      return colorPalette[index % colorPalette.length];
+    };
+
     filteredTools.forEach((tool) => {
       // Calculate size based on stars. 
       // Log scale ensures massive star projects don't overwhelm, but we give a better baseline.
@@ -120,7 +147,7 @@ export function ToolGraph() {
         group: 'tool',
         val: calculatedSize,
         tool,
-        color: tool.sourceType === '开源' ? '#10b981' : tool.sourceType === '闭源' ? '#f59e0b' : '#3b82f6',
+        color: getToolColor(tool),
       });
 
       // Category Node & Link
@@ -163,7 +190,7 @@ export function ToolGraph() {
     });
 
     return { nodes, links };
-  }, [filterCategory, filterSourceType, sizeMapping]);
+  }, [filterCategory, filterSourceType, sizeMapping, colorBy]);
 
   const renderNode = useCallback((node: any) => {
     const isHighlighted = highlightNodes.has(node.id) || selectedNode?.id === node.id;
@@ -237,6 +264,27 @@ export function ToolGraph() {
       }
     }
   }, [viewMode, enableEffects, bloomStrength, bloomRadius, bloomThreshold]);
+
+  // Physics Effect
+  useEffect(() => {
+    // We reference viewMode here so eslint knows it's a dependency to re-run on remount
+    const is3D = viewMode === '3d';
+    if (fgRef.current && layoutMode === 'force') {
+      const chargeForce = fgRef.current.d3Force('charge');
+      if (chargeForce) {
+        chargeForce.strength(chargeStrength);
+      }
+      
+      const linkForce = fgRef.current.d3Force('link');
+      if (linkForce) {
+        linkForce.distance(linkDistance);
+      }
+
+      if (fgRef.current.d3ReheatSimulation) {
+        fgRef.current.d3ReheatSimulation();
+      }
+    }
+  }, [chargeStrength, linkDistance, layoutMode, viewMode]);
 
   // Hover Interaction
   const handleNodeHover = (node: Node | null) => {
@@ -353,10 +401,11 @@ export function ToolGraph() {
       )}
 
       {/* Overlay UI - Controls */}
-      <div className="absolute top-4 left-4 z-10 flex flex-col gap-4 bg-bg-surface/60 p-5 rounded-2xl border border-border-color/50 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+      <div className="absolute top-4 left-4 z-10 flex flex-col gap-4 ui-panel p-5 rounded-2xl w-72 max-h-[calc(100vh-100px)] overflow-y-auto">
         <h2 className="text-lg font-bold text-text-primary flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-accent-cyan shadow-[0_0_8px_var(--accent-cyan)]"></span>
-          图谱控制 (Graph Controls)
+          图谱控制
+
         </h2>
         
         <div className="flex flex-col gap-3 text-sm">
@@ -385,6 +434,22 @@ export function ToolGraph() {
               <option value="开源">开源 (Open Source)</option>
               <option value="闭源">闭源 (Closed Source)</option>
               <option value="部分开源">部分开源 (Partial)</option>
+            </select>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor={colorById} className="text-xs text-text-secondary uppercase tracking-wider">
+              Color By (着色)
+            </label>
+            <select 
+              id={colorById}
+              className="bg-bg-subtle text-sm text-text-primary rounded-md p-2 border border-border-color focus:border-accent-cyan outline-none transition"
+              value={colorBy}
+              onChange={(e) => setColorBy(e.target.value as any)}
+            >
+              <option value="sourceType">开源类型 (Source Type)</option>
+              <option value="primaryCategory">主分类 (Category)</option>
+              <option value="region">区域 (Region)</option>
             </select>
           </div>
         </div>
@@ -531,6 +596,53 @@ export function ToolGraph() {
           </>
         )}
 
+        {/* Physics Config */}
+        <div className="h-px w-full bg-border-color/30 my-1"></div>
+        <div className="flex flex-col gap-2">
+          <button 
+            type="button"
+            onClick={() => setShowPhysicsConfig(!showPhysicsConfig)}
+            className="flex items-center justify-between text-xs font-medium text-text-secondary uppercase tracking-wider mb-1 hover:text-text-primary transition-colors"
+          >
+            <span>物理引擎 (Physics)</span>
+            <span className={`transform transition-transform ${showPhysicsConfig ? 'rotate-180' : ''}`}>▼</span>
+          </button>
+          
+          {showPhysicsConfig && (
+            <div className="flex flex-col gap-3 animate-in slide-in-from-top-2 fade-in duration-200">
+              <div className="flex flex-col gap-1">
+                <div className="flex justify-between text-xs">
+                  <label htmlFor={chargeStrengthId} className="text-text-primary">排斥力 (Charge)</label>
+                  <span className="text-text-secondary">{chargeStrength}</span>
+                </div>
+                <input 
+                  id={chargeStrengthId}
+                  type="range" 
+                  min="-500" max="0" step="10" 
+                  value={chargeStrength} 
+                  onChange={(e) => setChargeStrength(parseFloat(e.target.value))}
+                  className="w-full accent-accent-cyan cursor-pointer"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <div className="flex justify-between text-xs">
+                  <label htmlFor={linkDistanceId} className="text-text-primary">连线张力 (Link Dist)</label>
+                  <span className="text-text-secondary">{linkDistance}</span>
+                </div>
+                <input 
+                  id={linkDistanceId}
+                  type="range" 
+                  min="10" max="200" step="5" 
+                  value={linkDistance} 
+                  onChange={(e) => setLinkDistance(parseFloat(e.target.value))}
+                  className="w-full accent-accent-cyan cursor-pointer"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="h-px w-full bg-border-color/30 my-1"></div>
 
         {/* Modes */}
@@ -573,7 +685,7 @@ export function ToolGraph() {
 
       {/* Overlay UI - Tool Details */}
       {selectedNode && selectedNode.group === 'tool' && selectedNode.tool && (
-        <div className="absolute top-4 right-4 z-10 w-80 bg-bg-surface/70 p-6 rounded-2xl border border-border-color/50 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all animate-in slide-in-from-right-8">
+        <div className="absolute top-4 right-4 z-10 w-80 ui-panel p-6 rounded-2xl transition-all animate-in slide-in-from-right-8 fade-in">
           <button 
             type="button"
             onClick={() => setSelectedNode(null)}
@@ -585,10 +697,10 @@ export function ToolGraph() {
           <p className="text-sm text-text-secondary mb-4">{selectedNode.tool.tagline}</p>
           
           <div className="flex flex-wrap gap-2 mb-4">
-            <span className="px-2 py-1 text-xs rounded-full bg-accent-orange/20 text-accent-orange">
+            <span className="px-2 py-1 text-xs rounded-full bg-accent-orange/20 border border-accent-orange/30 text-accent-orange">
               {selectedNode.tool.primaryCategory}
             </span>
-            <span className="px-2 py-1 text-xs rounded-full bg-green-500/20 text-green-400">
+            <span className="px-2 py-1 text-xs rounded-full bg-green-500/20 border border-green-500/30 text-green-400">
               {selectedNode.tool.sourceType}
             </span>
           </div>
@@ -597,7 +709,7 @@ export function ToolGraph() {
             {selectedNode.tool.summary}
           </p>
 
-          <div className="flex flex-col gap-2 text-sm text-text-secondary mb-4">
+          <div className="flex flex-col gap-2 text-sm text-text-secondary mb-4 p-3 bg-bg-surface-strong/50 rounded-lg border border-border-color/50">
             <div><strong className="text-text-primary">Vendor:</strong> {selectedNode.tool.vendor}</div>
             <div><strong className="text-text-primary">Region:</strong> {selectedNode.tool.region}</div>
             {selectedNode.tool.githubStars && (
@@ -607,12 +719,12 @@ export function ToolGraph() {
 
           <div className="flex gap-3">
             {selectedNode.tool.homepageUrl && (
-              <a href={selectedNode.tool.homepageUrl} target="_blank" rel="noreferrer" className="flex-1 text-center py-2 bg-accent-cyan/10 text-accent-cyan rounded hover:bg-accent-cyan/20 transition">
+              <a href={selectedNode.tool.homepageUrl} target="_blank" rel="noreferrer" className="flex-1 text-center py-2 bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan rounded-lg hover:bg-accent-cyan hover:text-bg-main transition-all font-medium text-sm">
                 Homepage
               </a>
             )}
             {selectedNode.tool.githubUrl && (
-              <a href={selectedNode.tool.githubUrl} target="_blank" rel="noreferrer" className="flex-1 text-center py-2 bg-bg-subtle text-text-primary rounded hover:bg-border-color transition">
+              <a href={selectedNode.tool.githubUrl} target="_blank" rel="noreferrer" className="flex-1 text-center py-2 bg-bg-surface-strong border border-border-color text-text-primary rounded-lg hover:border-text-primary transition-all font-medium text-sm">
                 GitHub
               </a>
             )}
