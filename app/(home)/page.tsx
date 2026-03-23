@@ -179,7 +179,7 @@ export default function HomePage() {
         <div className="grid gap-4 md:grid-cols-4 relative z-10">
           {[
             { href: '/arena', label: 'The Arena', desc: '动态对比矩阵与差异过滤', icon: <Database className="size-5 mb-2 text-accent-cyan" /> },
-            { href: '/tools', label: 'Tool Intelligence', desc: '每个工具的实测档案与避坑建议', icon: <Activity className="size-5 mb-2 text-accent-orange" /> },
+            { href: '/analytics', label: 'Analytics', desc: '图表化多维度分析', icon: <Activity className="size-5 mb-2 text-accent-orange" /> },
             { href: '/choose', label: 'Help Me Choose', desc: '问答式快速推荐卡片', icon: <Search className="size-5 mb-2 text-accent-cyan" /> },
             { href: '/log', label: 'The Log', desc: 'AI Agent 行业变化追踪', icon: <Sparkles className="size-5 mb-2 text-accent-orange" /> },
           ].map((item) => (

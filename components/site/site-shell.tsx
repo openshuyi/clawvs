@@ -4,10 +4,10 @@ import { Logo } from '@/components/site/logo';
 
 const navItems = [
   { href: '/', label: 'Arena' },
-  { href: '/tools', label: 'Tool Intelligence' },
+  { href: '/tools', label: 'Intelligence' },
+  { href: '/analytics', label: 'Analytics' },
   { href: '/graph', label: '3D Graph' },
   { href: '/choose', label: 'Help Me Choose' },
-  { href: '/log', label: 'The Log' },
 ];
 
 export function SiteShell({ children }: { children: React.ReactNode }) {

@@ -253,6 +253,9 @@ export type ToolProfile = {
   docsUrl: string | null;
   githubStars: number | null;
   primaryLanguage: string | null;
+  lastCommitDate: string | null;
+  latestVersion: string | null;
+  lastReleaseDate: string | null;
   pricing: string;
   license: string;
   focus: string;
