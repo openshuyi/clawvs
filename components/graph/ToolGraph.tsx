@@ -101,7 +101,7 @@ export function ToolGraph() {
   }, []);
 
   // Generate Graph Data
-  const graphData = useMemo(() => {
+  const { graphData, legendData } = useMemo(() => {
     const nodes: Node[] = [];
     const links: Link[] = [];
 
@@ -130,6 +130,18 @@ export function ToolGraph() {
       const index = uniqueValues.indexOf(val);
       return colorPalette[index % colorPalette.length];
     };
+
+    // Calculate Legend Data
+    const legendData = colorBy === 'sourceType' 
+      ? [
+          { label: '开源', color: '#10b981' },
+          { label: '闭源', color: '#f59e0b' },
+          { label: '部分开源', color: '#3b82f6' }
+        ].filter(item => filteredTools.some(t => t.sourceType === item.label))
+      : uniqueValues.map((val, index) => ({
+          label: val,
+          color: colorPalette[index % colorPalette.length]
+        }));
 
     filteredTools.forEach((tool) => {
       // Calculate size based on stars. 
@@ -189,7 +201,7 @@ export function ToolGraph() {
       });
     });
 
-    return { nodes, links };
+    return { graphData: { nodes, links }, legendData };
   }, [filterCategory, filterSourceType, sizeMapping, colorBy]);
 
   const renderNode = useCallback((node: any) => {
@@ -292,9 +304,9 @@ export function ToolGraph() {
     highlightLinks.clear();
     if (node) {
       highlightNodes.add(node.id);
-      graphData.links.forEach((link) => {
-        const sourceId = typeof link.source === 'object' ? (link.source as any).id : link.source;
-        const targetId = typeof link.target === 'object' ? (link.target as any).id : link.target;
+      graphData.links.forEach((link: any) => {
+        const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
+        const targetId = typeof link.target === 'object' ? link.target.id : link.target;
         if (sourceId === node.id || targetId === node.id) {
           highlightLinks.add(link);
           highlightNodes.add(sourceId === node.id ? targetId : sourceId);
@@ -728,6 +740,25 @@ export function ToolGraph() {
                 GitHub
               </a>
             )}
+          </div>
+        </div>
+      )}
+      {/* Legend Panel */}
+      {legendData.length > 0 && (
+        <div className="absolute bottom-4 left-4 z-10 ui-panel p-4 rounded-xl flex flex-col gap-2 max-h-64 overflow-y-auto pointer-events-auto">
+          <h3 className="text-xs font-bold text-text-secondary uppercase tracking-wider mb-1 sticky top-0 bg-bg-surface/80 backdrop-blur-sm pb-1">
+            {colorBy === 'sourceType' ? '开源类型' : colorBy === 'primaryCategory' ? '主分类' : '区域'} 图例
+          </h3>
+          <div className="flex flex-col gap-2">
+            {legendData.map((item) => (
+              <div key={item.label} className="flex items-center gap-2">
+                <span 
+                  className="w-3 h-3 rounded-full shrink-0" 
+                  style={{ backgroundColor: item.color, boxShadow: `0 0 8px ${item.color}` }}
+                />
+                <span className="text-xs text-text-primary whitespace-nowrap">{item.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       )}
