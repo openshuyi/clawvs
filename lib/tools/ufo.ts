@@ -13,7 +13,7 @@ export const ufo: ToolProfile = {
   homepageUrl: 'https://github.com/microsoft/UFO',
   githubUrl: 'https://github.com/microsoft/UFO',
   docsUrl: 'https://github.com/microsoft/UFO#readme',
-  githubStars: 8204,
+  githubStars: 8210,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

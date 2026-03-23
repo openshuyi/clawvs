@@ -13,7 +13,7 @@ export const continuedev: ToolProfile = {
   homepageUrl: 'https://continue.dev',
   githubUrl: 'https://github.com/continuedev/continue',
   docsUrl: 'https://docs.continue.dev',
-  githubStars: 31982,
+  githubStars: 31994,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'Apache-2.0',

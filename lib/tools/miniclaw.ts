@@ -13,7 +13,7 @@ export const miniclaw: ToolProfile = {
   homepageUrl: 'https://mimiclaw.io/',
   githubUrl: 'https://github.com/memovai/mimiclaw',
   docsUrl: 'https://docs.memovai.com/mimiclaw',
-  githubStars: 4740,
+  githubStars: 4750,
   primaryLanguage: "C",
   pricing: '免费开源',
   license: 'MIT',

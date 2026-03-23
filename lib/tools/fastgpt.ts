@@ -13,7 +13,7 @@ export const fastgpt: ToolProfile = {
   homepageUrl: 'https://fastgpt.in',
   githubUrl: 'https://github.com/labring/FastGPT',
   docsUrl: 'https://doc.fastgpt.in',
-  githubStars: 27464,
+  githubStars: 27475,
   primaryLanguage: "TypeScript",
   pricing: '免费开源，云服务付费',
   license: 'Apache-2.0',

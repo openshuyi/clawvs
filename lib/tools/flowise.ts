@@ -13,7 +13,7 @@ export const flowise: ToolProfile = {
   homepageUrl: 'https://flowiseai.com',
   githubUrl: 'https://github.com/FlowiseAI/Flowise',
   docsUrl: 'https://docs.flowiseai.com',
-  githubStars: 50976,
+  githubStars: 50990,
   primaryLanguage: "TypeScript",
   pricing: '免费开源，云服务付费',
   license: 'Apache-2.0',

@@ -13,7 +13,7 @@ export const openclaw: ToolProfile = {
   homepageUrl: 'https://openclaw.ai',
   githubUrl: 'https://github.com/openclaw/openclaw',
   docsUrl: 'https://docs.openclaw.ai',
-  githubStars: 329876,
+  githubStars: 330625,
   primaryLanguage: "TypeScript",
   pricing: '免费开源，可自建',
   license: 'Apache-2.0',

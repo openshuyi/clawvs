@@ -13,7 +13,7 @@ export const localgpt: ToolProfile = {
   homepageUrl: null,
   githubUrl: 'https://github.com/PromtEngineer/localGPT',
   docsUrl: null,
-  githubStars: 22212,
+  githubStars: 22213,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

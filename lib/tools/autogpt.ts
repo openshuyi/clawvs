@@ -13,7 +13,7 @@ export const autogpt: ToolProfile = {
   homepageUrl: 'https://autogpt.net',
   githubUrl: 'https://github.com/Significant-Gravitas/AutoGPT',
   docsUrl: 'https://docs.agpt.co',
-  githubStars: 182699,
+  githubStars: 182725,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

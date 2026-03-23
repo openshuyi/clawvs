@@ -13,7 +13,7 @@ export const fauxpilot: ToolProfile = {
   homepageUrl: 'https://github.com/fauxpilot/fauxpilot',
   githubUrl: 'https://github.com/fauxpilot/fauxpilot',
   docsUrl: 'https://github.com/fauxpilot/fauxpilot#readme',
-  githubStars: 14761,
+  githubStars: 14762,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

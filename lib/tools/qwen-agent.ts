@@ -13,7 +13,7 @@ export const qwenAgent: ToolProfile = {
   homepageUrl: 'https://github.com/QwenLM/Qwen-Agent',
   githubUrl: 'https://github.com/QwenLM/Qwen-Agent',
   docsUrl: 'https://qwen.readthedocs.io/zh-cn/latest/framework/qwen_agent.html',
-  githubStars: 15726,
+  githubStars: 15731,
   primaryLanguage: "Python",
   pricing: '开源免费',
   license: 'Apache-2.0',

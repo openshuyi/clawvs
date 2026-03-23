@@ -13,7 +13,7 @@ export const tabby: ToolProfile = {
   homepageUrl: 'https://tabbyml.com',
   githubUrl: 'https://github.com/TabbyML/tabby',
   docsUrl: 'https://tabbyml.com/docs',
-  githubStars: 33036,
+  githubStars: 33034,
   primaryLanguage: "Rust",
   pricing: '免费开源',
   license: 'Apache-2.0',

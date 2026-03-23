@@ -13,7 +13,7 @@ export const clawmetrics: ToolProfile = {
   homepageUrl: 'https://github.com/openclaw/openclaw',
   githubUrl: 'https://github.com/openclaw/openclaw',
   docsUrl: 'https://github.com/openclaw/openclaw#readme',
-  githubStars: 329926,
+  githubStars: 330625,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'Apache-2.0',

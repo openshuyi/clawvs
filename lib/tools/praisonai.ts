@@ -13,7 +13,7 @@ export const praisonai: ToolProfile = {
   homepageUrl: 'https://praison.ai',
   githubUrl: 'https://github.com/mervinpraison/PraisonAI',
   docsUrl: 'https://docs.praison.ai',
-  githubStars: 5713,
+  githubStars: 5716,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

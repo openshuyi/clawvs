@@ -13,7 +13,7 @@ export const maxkb: ToolProfile = {
   homepageUrl: 'https://maxkb.cn',
   githubUrl: 'https://github.com/1Panel-dev/MaxKB',
   docsUrl: 'https://maxkb.cn/docs',
-  githubStars: 20532,
+  githubStars: 20541,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

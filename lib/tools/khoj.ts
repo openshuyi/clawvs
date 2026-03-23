@@ -13,7 +13,7 @@ export const khoj: ToolProfile = {
   homepageUrl: 'https://khoj.dev',
   githubUrl: 'https://github.com/khoj-ai/khoj',
   docsUrl: 'https://docs.khoj.dev',
-  githubStars: 33558,
+  githubStars: 33569,
   primaryLanguage: "Python",
   pricing: '免费开源，云服务付费',
   license: 'AGPL-3.0',

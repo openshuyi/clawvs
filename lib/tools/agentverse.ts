@@ -13,7 +13,7 @@ export const agentverse: ToolProfile = {
   homepageUrl: null,
   githubUrl: 'https://github.com/openbmb/agentverse',
   docsUrl: null,
-  githubStars: 4971,
+  githubStars: 4972,
   primaryLanguage: "JavaScript",
   pricing: '免费开源',
   license: 'Apache-2.0',

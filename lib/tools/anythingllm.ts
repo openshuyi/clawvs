@@ -13,7 +13,7 @@ export const anythingllm: ToolProfile = {
   homepageUrl: 'https://anythingllm.com',
   githubUrl: 'https://github.com/Mintplex-Labs/anything-llm',
   docsUrl: 'https://docs.anythingllm.com',
-  githubStars: 56585,
+  githubStars: 56596,
   primaryLanguage: "JavaScript",
   pricing: '免费开源，云服务付费',
   license: 'MIT',

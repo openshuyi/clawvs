@@ -45,11 +45,12 @@ async function loadState() {
       };
       const fileName = clean(parts[0]);
       const date = clean(parts[1]);
-      const status = clean(parts[2]);
-      const stars = clean(parts[3]);
-      const language = clean(parts[4]);
-      const error = clean(parts[5]);
-      state.records[fileName] = { date, status, stars, language, error };
+      const github_url = clean(parts[2]);
+      const status = clean(parts[3]);
+      const stars = clean(parts[4]);
+      const language = clean(parts[5]);
+      const error = clean(parts[6]);
+      state.records[fileName] = { date, github_url, status, stars, language, error };
     }
   } catch {
     // 文件不存在
@@ -58,11 +59,12 @@ async function loadState() {
 }
 
 async function saveState(state) {
-  const lines = ['fileName,date,status,stars,language,error'];
+  const lines = ['fileName,date,github_url,status,stars,language,error'];
   for (const [fileName, record] of Object.entries(state.records)) {
     lines.push([
       escapeCSV(fileName),
       escapeCSV(record.date),
+      escapeCSV(record.github_url),
       escapeCSV(record.status),
       escapeCSV(record.stars),
       escapeCSV(record.language),
@@ -72,9 +74,11 @@ async function saveState(state) {
   await writeFile(stateFile, lines.join('\n'), 'utf8');
 }
 
-function shouldSkip(state, fileName) {
+function shouldSkip(state, fileName, currentGithubUrl) {
   const record = state.records[fileName];
   if (!record) return false;
+  // 如果 GitHub URL 变了，不跳过
+  if (record.github_url !== (currentGithubUrl || '')) return false;
   return record.status === 'success' && record.date === today;
 }
 
@@ -127,16 +131,17 @@ async function main() {
   for (const filePath of toolFiles) {
     const fileName = path.basename(filePath);
 
-    // 检查是否当天已成功获取
-    if (shouldSkip(state, fileName)) {
-      console.log(`${fileName}: skipped (already synced today)`);
-      continue;
-    }
-
     const source = await readFile(filePath, 'utf8');
     const githubUrlMatch = source.match(/githubUrl:\s*(null|'[^']*')/);
     const githubUrlLiteral = githubUrlMatch?.[1] ?? 'null';
     const githubUrl = githubUrlLiteral === 'null' ? null : githubUrlLiteral.slice(1, -1);
+
+    // 检查是否当天已成功获取且 URL 未变
+    if (shouldSkip(state, fileName, githubUrl)) {
+      console.log(`${fileName}: skipped (already synced today and URL unchanged)`);
+      continue;
+    }
+
     const repoPath = parseGithubRepo(githubUrl);
     let stars = null;
     let language = null;
@@ -170,6 +175,7 @@ async function main() {
     // 更新状态记录
     state.records[fileName] = {
       date: today,
+      github_url: githubUrl ?? '',
       status,
       stars: stars ?? '',
       language: language ?? '',

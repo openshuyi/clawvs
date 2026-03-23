@@ -13,7 +13,7 @@ export const openfang: ToolProfile = {
   homepageUrl: 'https://github.com/RightNow-AI/openfang',
   githubUrl: 'https://github.com/RightNow-AI/openfang',
   docsUrl: 'https://github.com/RightNow-AI/openfang#readme',
-  githubStars: 15241,
+  githubStars: 15274,
   primaryLanguage: "Rust",
   pricing: '免费开源，企业支持付费',
   license: 'GPL-3.0',

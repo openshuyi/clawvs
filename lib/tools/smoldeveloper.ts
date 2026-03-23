@@ -13,7 +13,7 @@ export const smoldeveloper: ToolProfile = {
   homepageUrl: 'https://smol.ai',
   githubUrl: 'https://github.com/smol-ai/developer',
   docsUrl: 'https://smol.ai/docs',
-  githubStars: 12202,
+  githubStars: 12203,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

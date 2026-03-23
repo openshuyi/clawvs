@@ -13,7 +13,7 @@ export const autohotkey: ToolProfile = {
   homepageUrl: 'https://www.autohotkey.com',
   githubUrl: 'https://github.com/AutoHotkey/AutoHotkey',
   docsUrl: 'https://www.autohotkey.com/docs',
-  githubStars: 12109,
+  githubStars: 12112,
   primaryLanguage: "C++",
   pricing: '免费开源',
   license: 'GPL-2.0',

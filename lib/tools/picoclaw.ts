@@ -13,7 +13,7 @@ export const picoclaw: ToolProfile = {
   homepageUrl: 'https://picoclaw.io/',
   githubUrl: 'https://github.com/sipeed/picoclaw',
   docsUrl: 'https://docs.picoclaw.io/',
-  githubStars: 414,
+  githubStars: 25832,
   primaryLanguage: "Go",
   pricing: '免费开源',
   license: 'Apache-2.0',

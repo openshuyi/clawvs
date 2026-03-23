@@ -13,7 +13,7 @@ export const autogluon: ToolProfile = {
   homepageUrl: 'https://autogluon.aws',
   githubUrl: 'https://github.com/autogluon/autogluon',
   docsUrl: 'https://autogluon.readthedocs.io',
-  githubStars: 10129,
+  githubStars: 10135,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

@@ -13,7 +13,7 @@ export const activepieces: ToolProfile = {
   homepageUrl: 'https://activepieces.com',
   githubUrl: 'https://github.com/activepieces/activepieces',
   docsUrl: 'https://www.activepieces.com/docs',
-  githubStars: 21368,
+  githubStars: 21373,
   primaryLanguage: "TypeScript",
   pricing: '免费开源，云服务付费',
   license: 'MIT',

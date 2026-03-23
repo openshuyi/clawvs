@@ -13,7 +13,7 @@ export const roocode: ToolProfile = {
   homepageUrl: 'https://roo.dev',
   githubUrl: 'https://github.com/RooVetGit/Roo-Cline',
   docsUrl: 'https://docs.roo.dev',
-  githubStars: 22787,
+  githubStars: 22794,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'Apache-2.0',

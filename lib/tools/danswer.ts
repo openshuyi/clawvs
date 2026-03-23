@@ -13,7 +13,7 @@ export const danswer: ToolProfile = {
   homepageUrl: 'https://danswer.ai',
   githubUrl: 'https://github.com/danswer-ai/danswer',
   docsUrl: 'https://docs.danswer.ai',
-  githubStars: 17977,
+  githubStars: 17985,
   primaryLanguage: "Python",
   pricing: '免费开源，企业版付费',
   license: 'MIT',

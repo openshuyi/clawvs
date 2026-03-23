@@ -13,7 +13,7 @@ export const ollama: ToolProfile = {
   homepageUrl: 'https://ollama.com',
   githubUrl: 'https://github.com/ollama/ollama',
   docsUrl: 'https://ollama.com/docs',
-  githubStars: 165866,
+  githubStars: 165900,
   primaryLanguage: "Go",
   pricing: '免费开源',
   license: 'MIT',

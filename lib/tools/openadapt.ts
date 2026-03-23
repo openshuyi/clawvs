@@ -13,7 +13,7 @@ export const openadapt: ToolProfile = {
   homepageUrl: 'https://openadapt.ai',
   githubUrl: 'https://github.com/OpenAdaptAI/OpenAdapt',
   docsUrl: 'https://openadapt.ai/docs',
-  githubStars: 1523,
+  githubStars: 1524,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

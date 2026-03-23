@@ -13,7 +13,7 @@ export const agentgpt: ToolProfile = {
   homepageUrl: 'https://agentgpt.reworkd.ai',
   githubUrl: 'https://github.com/reworkd/AgentGPT',
   docsUrl: 'https://docs.reworkd.ai',
-  githubStars: 35864,
+  githubStars: 35868,
   primaryLanguage: "TypeScript",
   pricing: '免费开源，云服务付费',
   license: 'GPL-3.0',

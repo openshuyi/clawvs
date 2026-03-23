@@ -13,7 +13,7 @@ export const langflow: ToolProfile = {
   homepageUrl: 'https://langflow.org',
   githubUrl: 'https://github.com/langflow-ai/langflow',
   docsUrl: 'https://docs.langflow.org',
-  githubStars: 146052,
+  githubStars: 146074,
   primaryLanguage: "Python",
   pricing: '免费开源，云服务付费',
   license: 'MIT',

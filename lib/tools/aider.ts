@@ -13,7 +13,7 @@ export const aider: ToolProfile = {
   homepageUrl: 'https://aider.chat',
   githubUrl: 'https://github.com/paul-gauthier/aider',
   docsUrl: 'https://aider.chat/docs',
-  githubStars: 42243,
+  githubStars: 42258,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

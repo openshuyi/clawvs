@@ -13,7 +13,7 @@ export const memgpt: ToolProfile = {
   homepageUrl: 'https://memgpt.ai',
   githubUrl: 'https://github.com/cpacker/memgpt',
   docsUrl: 'https://docs.memgpt.ai',
-  githubStars: 21700,
+  githubStars: 21703,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

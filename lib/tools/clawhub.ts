@@ -13,7 +13,7 @@ export const clawhub: ToolProfile = {
   homepageUrl: 'https://openclaw.ai',
   githubUrl: 'https://github.com/openclaw/clawhub',
   docsUrl: 'https://docs.openclaw.ai/clawhub',
-  githubStars: 6604,
+  githubStars: 6640,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'MIT',

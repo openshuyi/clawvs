@@ -13,7 +13,7 @@ export const superagi: ToolProfile = {
   homepageUrl: 'https://superagi.com',
   githubUrl: 'https://github.com/TransformerOptimus/SuperAGI',
   docsUrl: 'https://docs.superagi.com',
-  githubStars: 17292,
+  githubStars: 17293,
   primaryLanguage: "Python",
   pricing: '免费开源，企业版付费',
   license: 'MIT',

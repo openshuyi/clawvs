@@ -13,7 +13,7 @@ export const crewai: ToolProfile = {
   homepageUrl: 'https://github.com/crewAIInc/crewAI',
   githubUrl: 'https://github.com/crewAIInc/crewAI',
   docsUrl: 'https://docs.crewai.com',
-  githubStars: 46838,
+  githubStars: 46896,
   primaryLanguage: "Python",
   pricing: '开源免费，企业版增值',
   license: 'MIT',

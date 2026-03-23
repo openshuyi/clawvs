@@ -13,7 +13,7 @@ export const pyautogui: ToolProfile = {
   homepageUrl: 'https://pyautogui.readthedocs.io',
   githubUrl: 'https://github.com/asweigart/pyautogui',
   docsUrl: 'https://pyautogui.readthedocs.io/en/latest',
-  githubStars: 12380,
+  githubStars: 12381,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'BSD-3-Clause',

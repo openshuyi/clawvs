@@ -13,7 +13,7 @@ export const agentS: ToolProfile = {
   homepageUrl: 'https://github.com/simular-ai/agent-s',
   githubUrl: 'https://github.com/simular-ai/agent-s',
   docsUrl: 'https://github.com/simular-ai/agent-s#readme',
-  githubStars: 10488,
+  githubStars: 10505,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

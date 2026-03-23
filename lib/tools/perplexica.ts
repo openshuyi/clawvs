@@ -13,7 +13,7 @@ export const perplexica: ToolProfile = {
   homepageUrl: null,
   githubUrl: 'https://github.com/ItzCrazyKns/Perplexica',
   docsUrl: null,
-  githubStars: 33289,
+  githubStars: 33309,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'MIT',

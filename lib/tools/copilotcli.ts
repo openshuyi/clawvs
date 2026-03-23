@@ -13,7 +13,7 @@ export const copilotcli: ToolProfile = {
   homepageUrl: 'https://github.com/features/copilot',
   githubUrl: 'https://github.com/github/copilot-cli',
   docsUrl: 'https://docs.github.com/copilot',
-  githubStars: 9502,
+  githubStars: 9511,
   primaryLanguage: "Shell",
   pricing: '免费开源',
   license: 'MIT',

@@ -13,7 +13,7 @@ export const jan: ToolProfile = {
   homepageUrl: 'https://jan.ai',
   githubUrl: 'https://github.com/janhq/jan',
   docsUrl: 'https://jan.ai/docs',
-  githubStars: 41190,
+  githubStars: 41194,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'AGPL-3.0',

@@ -13,7 +13,7 @@ export const dify: ToolProfile = {
   homepageUrl: 'https://dify.ai',
   githubUrl: 'https://github.com/langgenius/dify',
   docsUrl: 'https://docs.dify.ai',
-  githubStars: 133942,
+  githubStars: 134004,
   primaryLanguage: "TypeScript",
   pricing: '开源自建免费，云服务付费',
   license: 'Apache-2.0',

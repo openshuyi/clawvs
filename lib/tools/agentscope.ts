@@ -13,7 +13,7 @@ export const agentscope: ToolProfile = {
   homepageUrl: 'https://modelscope.cn',
   githubUrl: 'https://github.com/modelscope/agentscope',
   docsUrl: 'https://agentscope.io',
-  githubStars: 18398,
+  githubStars: 18605,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

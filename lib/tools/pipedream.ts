@@ -13,7 +13,7 @@ export const pipedream: ToolProfile = {
   homepageUrl: 'https://pipedream.com',
   githubUrl: 'https://github.com/PipedreamHQ/pipedream',
   docsUrl: 'https://docs.pipedream.com',
-  githubStars: 11194,
+  githubStars: 11196,
   primaryLanguage: "JavaScript",
   pricing: '免费额度 + 按量计费',
   license: '商业许可',

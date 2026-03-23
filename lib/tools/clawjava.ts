@@ -13,7 +13,7 @@ export const clawjava: ToolProfile = {
   homepageUrl: 'https://clawrunr.io',
   githubUrl: 'https://github.com/jobrunr/javaclaw',
   docsUrl: 'https://docs.clawrunr.io',
-  githubStars: 169,
+  githubStars: 180,
   primaryLanguage: "Java",
   pricing: '免费开源',
   license: 'Apache-2.0',

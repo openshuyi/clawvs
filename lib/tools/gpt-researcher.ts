@@ -13,7 +13,7 @@ export const gptResearcher: ToolProfile = {
   homepageUrl: 'https://gptr.dev',
   githubUrl: 'https://github.com/assafelovic/gpt-researcher',
   docsUrl: 'https://docs.gptr.dev',
-  githubStars: 25920,
+  githubStars: 25939,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

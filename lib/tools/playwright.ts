@@ -13,7 +13,7 @@ export const playwright: ToolProfile = {
   homepageUrl: 'https://playwright.dev',
   githubUrl: 'https://github.com/microsoft/playwright',
   docsUrl: 'https://playwright.dev/docs/intro',
-  githubStars: 84735,
+  githubStars: 84762,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'Apache-2.0',

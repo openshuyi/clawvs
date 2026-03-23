@@ -13,7 +13,7 @@ export const stagehand: ToolProfile = {
   homepageUrl: 'https://github.com/Browserbase/stagehand',
   githubUrl: 'https://github.com/Browserbase/stagehand',
   docsUrl: 'https://docs.stagehand.dev',
-  githubStars: 21652,
+  githubStars: 21661,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'MIT',

@@ -17,10 +17,35 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
+  // Use a tiny inline script to check localStorage/cookie before Hydration
+  // to prevent FOUC (Flash of Unstyled Content) while keeping the site fully static
+  const themeScript = `
+    (function() {
+      try {
+        var match = document.cookie.match(new RegExp('(^| )clawvs-theme=([^;]+)'));
+        var theme = match ? match[2] : 'dark';
+        if (theme === 'light') {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+          document.documentElement.setAttribute('data-theme', 'light');
+          document.documentElement.style.colorScheme = 'light';
+        } else {
+          document.documentElement.classList.remove('light');
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
+          document.documentElement.style.colorScheme = 'dark';
+        }
+      } catch (e) {}
+    })();
+  `;
+
   return (
-    <html lang="zh-CN" suppressHydrationWarning className={cn('font-sans', geist.variable)}>
-      <body className="flex min-h-screen flex-col" suppressHydrationWarning>
-        <RootProvider>{children}</RootProvider>
+    <html lang="zh-CN" suppressHydrationWarning className={cn('font-sans dark', geist.variable)} data-theme="dark" style={{ colorScheme: 'dark' }}>
+      <head>
+        <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="flex min-h-screen flex-col bg-bg-base text-text-primary" suppressHydrationWarning>
+        <RootProvider theme={{ defaultTheme: 'dark', forcedTheme: undefined, attribute: 'class' }}>{children}</RootProvider>
       </body>
     </html>
   );

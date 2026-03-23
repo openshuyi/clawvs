@@ -13,7 +13,7 @@ export const tagui: ToolProfile = {
   homepageUrl: 'https://tagui.readthedocs.io',
   githubUrl: 'https://github.com/aisingapore/TagUI',
   docsUrl: 'https://tagui.readthedocs.io/en/latest',
-  githubStars: 6241,
+  githubStars: 6242,
   primaryLanguage: "JavaScript",
   pricing: '免费开源',
   license: 'Apache-2.0',

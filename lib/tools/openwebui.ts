@@ -13,7 +13,7 @@ export const openwebui: ToolProfile = {
   homepageUrl: 'https://openwebui.com',
   githubUrl: 'https://github.com/open-webui/open-webui',
   docsUrl: 'https://docs.openwebui.com',
-  githubStars: 128246,
+  githubStars: 128313,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

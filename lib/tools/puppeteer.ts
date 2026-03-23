@@ -13,7 +13,7 @@ export const puppeteer: ToolProfile = {
   homepageUrl: 'https://pptr.dev',
   githubUrl: 'https://github.com/puppeteer/puppeteer',
   docsUrl: 'https://pptr.dev/guides',
-  githubStars: 93898,
+  githubStars: 93905,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'Apache-2.0',

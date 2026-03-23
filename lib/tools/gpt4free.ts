@@ -13,7 +13,7 @@ export const gpt4free: ToolProfile = {
   homepageUrl: null,
   githubUrl: 'https://github.com/xtekky/gpt4free',
   docsUrl: null,
-  githubStars: 65841,
+  githubStars: 65848,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'GPL-3.0',

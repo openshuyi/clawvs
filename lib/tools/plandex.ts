@@ -13,7 +13,7 @@ export const plandex: ToolProfile = {
   homepageUrl: 'https://github.com/plandex-ai/plandex',
   githubUrl: 'https://github.com/plandex-ai/plandex',
   docsUrl: 'https://docs.plandex.ai',
-  githubStars: 15120,
+  githubStars: 15123,
   primaryLanguage: "Go",
   pricing: '社区版免费，托管能力付费',
   license: 'MIT',

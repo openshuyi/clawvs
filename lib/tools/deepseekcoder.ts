@@ -13,7 +13,7 @@ export const deepseekcoder: ToolProfile = {
   homepageUrl: 'https://deepseek.com',
   githubUrl: 'https://github.com/deepseek-ai/DeepSeek-Coder',
   docsUrl: 'https://deepseek.com/docs',
-  githubStars: 22944,
+  githubStars: 22945,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

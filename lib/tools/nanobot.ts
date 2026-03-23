@@ -13,7 +13,7 @@ export const nanobot: ToolProfile = {
   homepageUrl: 'https://github.com/HKUDS/nanobot',
   githubUrl: 'https://github.com/HKUDS/nanobot',
   docsUrl: 'https://github.com/HKUDS/nanobot#readme',
-  githubStars: 35457,
+  githubStars: 35550,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

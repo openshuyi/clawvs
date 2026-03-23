@@ -13,7 +13,7 @@ export const omniparser: ToolProfile = {
   homepageUrl: 'https://github.com/microsoft/OmniParser',
   githubUrl: 'https://github.com/microsoft/OmniParser',
   docsUrl: 'https://github.com/microsoft/OmniParser#readme',
-  githubStars: 24565,
+  githubStars: 24564,
   primaryLanguage: "Jupyter Notebook",
   pricing: '免费开源',
   license: 'MIT',

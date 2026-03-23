@@ -13,7 +13,7 @@ export const babyagi: ToolProfile = {
   homepageUrl: 'https://github.com/yoheinakajima/babyagi',
   githubUrl: 'https://github.com/yoheinakajima/babyagi',
   docsUrl: 'https://github.com/yoheinakajima/babyagi#readme',
-  githubStars: 22202,
+  githubStars: 22204,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

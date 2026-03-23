@@ -13,7 +13,7 @@ export const moltis: ToolProfile = {
   homepageUrl: 'https://moltis.org/',
   githubUrl: 'https://github.com/moltis-org/moltis',
   docsUrl: 'https://docs.moltis.org/',
-  githubStars: 2325,
+  githubStars: 2330,
   primaryLanguage: "Rust",
   pricing: '免费开源',
   license: 'Apache-2.0',

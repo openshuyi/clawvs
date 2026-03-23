@@ -13,7 +13,7 @@ export const gpt4all: ToolProfile = {
   homepageUrl: 'https://gpt4all.io',
   githubUrl: 'https://github.com/nomic-ai/gpt4all',
   docsUrl: 'https://docs.gpt4all.io',
-  githubStars: 77232,
+  githubStars: 77236,
   primaryLanguage: "C++",
   pricing: '免费开源',
   license: 'MIT',

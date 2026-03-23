@@ -13,7 +13,7 @@ export const selenium: ToolProfile = {
   homepageUrl: 'https://www.selenium.dev',
   githubUrl: 'https://github.com/SeleniumHQ/selenium',
   docsUrl: 'https://www.selenium.dev/documentation',
-  githubStars: 34163,
+  githubStars: 34167,
   primaryLanguage: "Java",
   pricing: '免费开源',
   license: 'Apache-2.0',

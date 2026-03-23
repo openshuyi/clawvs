@@ -13,7 +13,7 @@ export const zeroclaw: ToolProfile = {
   homepageUrl: 'https://github.com/zeroclaw-labs/zeroclaw',
   githubUrl: 'https://github.com/zeroclaw-labs/zeroclaw',
   docsUrl: 'https://github.com/zeroclaw-labs/zeroclaw#readme',
-  githubStars: 28384,
+  githubStars: 28431,
   primaryLanguage: "Rust",
   pricing: '免费开源',
   license: 'MIT',

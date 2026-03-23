@@ -231,6 +231,9 @@ export const toolTags = [
   'MLOps',
   'Python',
   '监控',
+  'OpenClaw 服务',
+  '任务自动化',
+  '订阅服务',
 ] as const;
 
 export type ToolTag = (typeof toolTags)[number];

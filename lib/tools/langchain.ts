@@ -13,7 +13,7 @@ export const langchain: ToolProfile = {
   homepageUrl: 'https://langchain.com',
   githubUrl: 'https://github.com/langchain-ai/langchain',
   docsUrl: 'https://python.langchain.com/docs',
-  githubStars: 130580,
+  githubStars: 130652,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

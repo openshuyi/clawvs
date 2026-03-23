@@ -13,7 +13,7 @@ export const phidata: ToolProfile = {
   homepageUrl: 'https://phidata.com',
   githubUrl: 'https://github.com/phidatahq/phidata',
   docsUrl: 'https://docs.phidata.com',
-  githubStars: 38855,
+  githubStars: 38861,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

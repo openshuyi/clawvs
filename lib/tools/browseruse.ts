@@ -13,7 +13,7 @@ export const browseruse: ToolProfile = {
   homepageUrl: 'https://browseruse.com',
   githubUrl: 'https://github.com/gregpr07/browser-use',
   docsUrl: 'https://docs.browseruse.com',
-  githubStars: 82294,
+  githubStars: 82786,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

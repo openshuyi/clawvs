@@ -39,37 +39,36 @@ import { camel } from '@/lib/tools/camel';
 import { characterAI } from '@/lib/tools/character-ai';
 import { chatgpt } from '@/lib/tools/chatgpt';
 import { claudeAI } from '@/lib/tools/claude-ai';
+import { clawDashboard } from '@/lib/tools/claw-dashboard';
+import { clawMonitor } from '@/lib/tools/claw-monitor';
+import { claw0 } from '@/lib/tools/claw0';
 import { clawai } from '@/lib/tools/clawai';
 import { clawapi } from '@/lib/tools/clawapi';
 import { clawbot } from '@/lib/tools/clawbot';
 import { clawbridge } from '@/lib/tools/clawbridge';
 import { clawcache } from '@/lib/tools/clawcache';
-import { clawcli } from '@/lib/tools/clawcli';
-import { clawconfig } from '@/lib/tools/clawconfig';
 import { clawcs } from '@/lib/tools/clawcs';
 import { clawdata } from '@/lib/tools/clawdata';
 import { clawdocs } from '@/lib/tools/clawdocs';
-import { clawflow } from '@/lib/tools/clawflow';
+import { clawflows } from '@/lib/tools/clawflows';
 import { clawgo } from '@/lib/tools/clawgo';
 import { clawhub } from '@/lib/tools/clawhub';
 import { clawjava } from '@/lib/tools/clawjava';
 import { clawjs } from '@/lib/tools/clawjs';
 import { clawlite } from '@/lib/tools/clawlite';
-import { clawlog } from '@/lib/tools/clawlog';
 import { clawmetrics } from '@/lib/tools/clawmetrics';
+import { clawmetry } from '@/lib/tools/clawmetry';
 import { clawml } from '@/lib/tools/clawml';
-import { clawmonitor } from '@/lib/tools/clawmonitor';
 import { clawops } from '@/lib/tools/clawops';
 import { clawpro } from '@/lib/tools/clawpro';
-import { clawqueue } from '@/lib/tools/clawqueue';
 import { clawrs } from '@/lib/tools/clawrs';
-import { clawsdk } from '@/lib/tools/clawsdk';
-import { clawsecrets } from '@/lib/tools/clawsecrets';
+import { clawsec } from '@/lib/tools/clawsec';
 import { clawsecure } from '@/lib/tools/clawsecure';
+import { clawsio } from '@/lib/tools/clawsio';
 import { clawstudio } from '@/lib/tools/clawstudio';
 import { clawsync } from '@/lib/tools/clawsync';
-import { clawtest } from '@/lib/tools/clawtest';
 import { clawtrace } from '@/lib/tools/clawtrace';
+import { clawwork } from '@/lib/tools/clawwork';
 import { cline } from '@/lib/tools/cline';
 import { cloudflareclaw } from '@/lib/tools/cloudflareclaw';
 import { codiumai } from '@/lib/tools/codacy';
@@ -109,6 +108,7 @@ import { guiagent } from '@/lib/tools/guiagent';
 import { gumloop } from '@/lib/tools/gumloop';
 import { haystack } from '@/lib/tools/haystack';
 import { herokuclaw } from '@/lib/tools/herokuclaw';
+import { hiveclaw } from '@/lib/tools/hiveclaw';
 import { hunyuanclaw } from '@/lib/tools/hunyuanclaw';
 import { ibmclaw } from '@/lib/tools/ibmclaw';
 import { ifttt } from '@/lib/tools/ifttt';
@@ -147,6 +147,8 @@ import { ollama } from '@/lib/tools/ollama';
 import { omniparser } from '@/lib/tools/omniparser';
 import { openadapt } from '@/lib/tools/openadapt';
 import { openassistant } from '@/lib/tools/openassistant';
+import { clawconfig } from '@/lib/tools/openclaw-config';
+import { openclawSkills } from '@/lib/tools/openclaw-skills';
 import { openclaw } from '@/lib/tools/openclaw';
 import { openfang } from '@/lib/tools/openfang';
 import { openhands } from '@/lib/tools/openhands';
@@ -158,6 +160,7 @@ import { panguclaw } from '@/lib/tools/panguclaw';
 import { pearai } from '@/lib/tools/pearai';
 import { perplexica } from '@/lib/tools/perplexica';
 import { perplexity } from '@/lib/tools/perplexity';
+import { pgclaw } from '@/lib/tools/pgclaw';
 import { phidata } from '@/lib/tools/phidata';
 import { phind } from '@/lib/tools/phind';
 import { pi } from '@/lib/tools/pi';
@@ -187,6 +190,7 @@ import { rpapython } from '@/lib/tools/rpapython';
 import { salesforceclaw } from '@/lib/tools/salesforceclaw';
 import { sapclaw } from '@/lib/tools/sapclaw';
 import { screenpilot } from '@/lib/tools/screenpilot';
+import { sdkworkClawStudio } from '@/lib/tools/sdkwork-claw-studio';
 import { seeact } from '@/lib/tools/seeact';
 import { selenium } from '@/lib/tools/selenium';
 import { semanticKernel } from '@/lib/tools/semantic-kernel';
@@ -277,37 +281,36 @@ export const tools = [
   characterAI,
   chatgpt,
   claudeAI,
+  clawDashboard,
+  clawMonitor,
+  claw0,
   clawai,
   clawapi,
   clawbot,
   clawbridge,
   clawcache,
-  clawcli,
-  clawconfig,
   clawcs,
   clawdata,
   clawdocs,
-  clawflow,
+  clawflows,
   clawgo,
   clawhub,
   clawjava,
   clawjs,
   clawlite,
-  clawlog,
   clawmetrics,
+  clawmetry,
   clawml,
-  clawmonitor,
   clawops,
   clawpro,
-  clawqueue,
   clawrs,
-  clawsdk,
-  clawsecrets,
+  clawsec,
   clawsecure,
+  clawsio,
   clawstudio,
   clawsync,
-  clawtest,
   clawtrace,
+  clawwork,
   cline,
   cloudflareclaw,
   codiumai,
@@ -347,6 +350,7 @@ export const tools = [
   gumloop,
   haystack,
   herokuclaw,
+  hiveclaw,
   hunyuanclaw,
   ibmclaw,
   ifttt,
@@ -385,6 +389,8 @@ export const tools = [
   omniparser,
   openadapt,
   openassistant,
+  clawconfig,
+  openclawSkills,
   openclaw,
   openfang,
   openhands,
@@ -396,6 +402,7 @@ export const tools = [
   pearai,
   perplexica,
   perplexity,
+  pgclaw,
   phidata,
   phind,
   pi,
@@ -425,6 +432,7 @@ export const tools = [
   salesforceclaw,
   sapclaw,
   screenpilot,
+  sdkworkClawStudio,
   seeact,
   selenium,
   semanticKernel,

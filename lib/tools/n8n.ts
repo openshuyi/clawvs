@@ -13,7 +13,7 @@ export const n8n: ToolProfile = {
   homepageUrl: 'https://n8n.io',
   githubUrl: 'https://github.com/n8n-io/n8n',
   docsUrl: 'https://docs.n8n.io',
-  githubStars: 180482,
+  githubStars: 180565,
   primaryLanguage: "TypeScript",
   pricing: '自托管免费，云服务$20/月起',
   license: 'Sustainable Use License',

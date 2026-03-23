@@ -13,7 +13,7 @@ export const openassistant: ToolProfile = {
   homepageUrl: 'https://open-assistant.io',
   githubUrl: 'https://github.com/LAION-AI/Open-Assistant',
   docsUrl: 'https://docs.open-assistant.io',
-  githubStars: 37435,
+  githubStars: 37437,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

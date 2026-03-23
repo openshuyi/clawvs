@@ -13,7 +13,7 @@ export const langgraph: ToolProfile = {
   homepageUrl: 'https://github.com/langchain-ai/langgraph',
   githubUrl: 'https://github.com/langchain-ai/langgraph',
   docsUrl: 'https://langchain-ai.github.io/langgraph/',
-  githubStars: 27141,
+  githubStars: 27184,
   primaryLanguage: "Python",
   pricing: '开源免费，托管能力另计',
   license: 'MIT',

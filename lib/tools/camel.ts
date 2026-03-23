@@ -13,7 +13,7 @@ export const camel: ToolProfile = {
   homepageUrl: 'https://camel-ai.org',
   githubUrl: 'https://github.com/camel-ai/camel',
   docsUrl: 'https://docs.camel-ai.org',
-  githubStars: 16453,
+  githubStars: 16458,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

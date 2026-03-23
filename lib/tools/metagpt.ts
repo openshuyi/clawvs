@@ -13,7 +13,7 @@ export const metagpt: ToolProfile = {
   homepageUrl: 'https://github.com/geekan/MetaGPT',
   githubUrl: 'https://github.com/geekan/MetaGPT',
   docsUrl: 'https://docs.deepwisdom.ai/main/zh/guide/get_started/introduction.html',
-  githubStars: 65800,
+  githubStars: 65823,
   primaryLanguage: "Python",
   pricing: '开源免费',
   license: 'MIT',

@@ -13,7 +13,7 @@ export const autogen: ToolProfile = {
   homepageUrl: 'https://github.com/microsoft/autogen',
   githubUrl: 'https://github.com/microsoft/autogen',
   docsUrl: 'https://microsoft.github.io/autogen/',
-  githubStars: 56009,
+  githubStars: 56044,
   primaryLanguage: "Python",
   pricing: '开源免费',
   license: 'MIT',

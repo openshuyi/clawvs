@@ -13,7 +13,7 @@ export const librechat: ToolProfile = {
   homepageUrl: 'https://librechat.ai',
   githubUrl: 'https://github.com/danny-avila/LibreChat',
   docsUrl: 'https://docs.librechat.ai',
-  githubStars: 34844,
+  githubStars: 34861,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'MIT',

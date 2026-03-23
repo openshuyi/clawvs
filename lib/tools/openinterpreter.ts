@@ -13,7 +13,7 @@ export const openinterpreter: ToolProfile = {
   homepageUrl: 'https://github.com/openinterpreter/open-interpreter',
   githubUrl: 'https://github.com/openinterpreter/open-interpreter',
   docsUrl: 'https://docs.openinterpreter.com',
-  githubStars: 62824,
+  githubStars: 62831,
   primaryLanguage: "Python",
   pricing: '免费开源，可接商业模型',
   license: 'AGPL-3.0',

@@ -13,7 +13,7 @@ export const robotframework: ToolProfile = {
   homepageUrl: 'https://robotframework.org',
   githubUrl: 'https://github.com/robotframework/robotframework',
   docsUrl: 'https://robotframework.org/robotframework',
-  githubStars: 11496,
+  githubStars: 11497,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'Apache-2.0',

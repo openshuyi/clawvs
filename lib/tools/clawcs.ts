@@ -13,7 +13,7 @@ export const clawcs: ToolProfile = {
   homepageUrl: 'https://github.com/clawdotnet/openclaw.net',
   githubUrl: 'https://github.com/clawdotnet/openclaw.net',
   docsUrl: 'https://github.com/clawdotnet/openclaw.net#readme',
-  githubStars: 329926,
+  githubStars: 155,
   primaryLanguage: "C#",
   pricing: '免费开源',
   license: 'MIT',

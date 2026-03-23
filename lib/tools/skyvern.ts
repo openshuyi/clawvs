@@ -13,7 +13,7 @@ export const skyvern: ToolProfile = {
   homepageUrl: 'https://github.com/Skyvern-AI/skyvern',
   githubUrl: 'https://github.com/Skyvern-AI/skyvern',
   docsUrl: 'https://docs.skyvern.ai',
-  githubStars: 20891,
+  githubStars: 20898,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'AGPL-3.0',

@@ -13,7 +13,7 @@ export const llamaindex: ToolProfile = {
   homepageUrl: 'https://llamaindex.ai',
   githubUrl: 'https://github.com/run-llama/llama_index',
   docsUrl: 'https://docs.llamaindex.ai',
-  githubStars: 47861,
+  githubStars: 47876,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

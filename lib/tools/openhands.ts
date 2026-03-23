@@ -13,7 +13,7 @@ export const openhands: ToolProfile = {
   homepageUrl: 'https://all-hands.dev',
   githubUrl: 'https://github.com/All-Hands-AI/OpenHands',
   docsUrl: 'https://docs.all-hands.dev',
-  githubStars: 69539,
+  githubStars: 69571,
   primaryLanguage: "Python",
   pricing: '免费开源',
   license: 'MIT',

@@ -13,7 +13,7 @@ export const cline: ToolProfile = {
   homepageUrl: 'https://cline.ai',
   githubUrl: 'https://github.com/cline/cline',
   docsUrl: 'https://docs.cline.ai',
-  githubStars: 59241,
+  githubStars: 59246,
   primaryLanguage: "TypeScript",
   pricing: '免费开源',
   license: 'Apache-2.0',
