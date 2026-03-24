@@ -3,6 +3,14 @@
 
 # generated content
 .source
+/.cline/
+/.clinerules/
+/.kilocode/
+/.opencode/
+/.roo/
+/.trae/
+/openspec/
+
 
 # test & build
 /coverage

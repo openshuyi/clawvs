@@ -30,6 +30,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuGroup,
 } from '@/components/ui/dropdown-menu';
 import {
   Table,
@@ -47,6 +48,7 @@ type SourceFilter = '全部' | '开源' | '闭源';
 type RegionFilter = '全部' | '国内' | '海外' | '全球';
 type CategoryFilter = '全部' | (typeof primaryCategories)[number];
 type TagFilter = '全部' | (typeof toolTags)[number];
+type UpdateTimeFilter = '全部' | '最近一个月' | '最近三个月' | '最近半年' | '最近一年';
 type ViewMode = 'card' | 'list';
 type SortBy = '默认' | '名称 A-Z' | '成功率高到低' | 'Stars 高到低' | '综合评分高到低';
 type ToolItem = (typeof tools)[number];
@@ -70,6 +72,7 @@ export function ToolCatalog() {
   const [regionFilter, setRegionFilter] = useState<RegionFilter>('全部');
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('全部');
   const [tagFilter, setTagFilter] = useState<TagFilter>('全部');
+  const [updateTimeFilter, setUpdateTimeFilter] = useState<UpdateTimeFilter>('全部');
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [sortBy, setSortBy] = useState<SortBy>('默认');
   const [tableSorting, setTableSorting] = useState<SortingState>([]);
@@ -78,6 +81,7 @@ export function ToolCatalog() {
     gfwStatus: false,
     pricing: false,
     deployment: false,
+    lastCommitDate: true,
   });
   
   const [isMounted, setIsMounted] = useState(false);
@@ -93,6 +97,7 @@ export function ToolCatalog() {
         if (parsed.regionFilter) setRegionFilter(parsed.regionFilter);
         if (parsed.categoryFilter) setCategoryFilter(parsed.categoryFilter);
         if (parsed.tagFilter) setTagFilter(parsed.tagFilter);
+        if (parsed.updateTimeFilter) setUpdateTimeFilter(parsed.updateTimeFilter);
         if (parsed.sortBy) setSortBy(parsed.sortBy);
         if (parsed.viewMode) setViewMode(parsed.viewMode);
         if (parsed.columnVisibility) setColumnVisibility(parsed.columnVisibility);
@@ -107,22 +112,40 @@ export function ToolCatalog() {
   useEffect(() => {
     if (isMounted) {
       localStorage.setItem(CONFIG_KEY, JSON.stringify({
-        query, sourceFilter, regionFilter, categoryFilter, tagFilter, sortBy, viewMode, columnVisibility
+        query, sourceFilter, regionFilter, categoryFilter, tagFilter, updateTimeFilter, sortBy, viewMode, columnVisibility
       }));
     }
-  }, [query, sourceFilter, regionFilter, categoryFilter, tagFilter, sortBy, viewMode, columnVisibility, isMounted]);
+  }, [query, sourceFilter, regionFilter, categoryFilter, tagFilter, updateTimeFilter, sortBy, viewMode, columnVisibility, isMounted]);
 
   const filteredTools = useMemo(() => {
     const keyword = query.trim().toLowerCase();
+    const now = new Date();
+    
     const visibleTools = tools.filter((tool) => {
       const matchSource = sourceFilter === '全部' || tool.sourceType === sourceFilter;
       const matchRegion = regionFilter === '全部' || tool.region === regionFilter;
       const matchCategory = categoryFilter === '全部' || tool.primaryCategory === categoryFilter;
       const matchTag = tagFilter === '全部' || tool.tags.includes(tagFilter);
+      
+      let matchUpdateTime = true;
+      if (updateTimeFilter !== '全部') {
+        const dateStr = tool.lastCommitDate || tool.lastReleaseDate;
+        if (!dateStr) {
+          matchUpdateTime = false;
+        } else {
+          const updateDate = new Date(dateStr);
+          const diffMonths = (now.getTime() - updateDate.getTime()) / (1000 * 60 * 60 * 24 * 30);
+          if (updateTimeFilter === '最近一个月') matchUpdateTime = diffMonths <= 1;
+          else if (updateTimeFilter === '最近三个月') matchUpdateTime = diffMonths <= 3;
+          else if (updateTimeFilter === '最近半年') matchUpdateTime = diffMonths <= 6;
+          else if (updateTimeFilter === '最近一年') matchUpdateTime = diffMonths <= 12;
+        }
+      }
+
       const matchKeyword =
         keyword.length === 0 ||
         `${tool.name} ${tool.tagline} ${tool.summary} ${tool.vendor} ${tool.focus} ${tool.scenarios.join(' ')} ${tool.tags.join(' ')}`.toLowerCase().includes(keyword);
-      return matchSource && matchRegion && matchCategory && matchTag && matchKeyword;
+      return matchSource && matchRegion && matchCategory && matchTag && matchUpdateTime && matchKeyword;
     });
     if (sortBy === '名称 A-Z') {
       return [...visibleTools].sort((a, b) => a.name.localeCompare(b.name));
@@ -141,7 +164,7 @@ export function ToolCatalog() {
       });
     }
     return visibleTools;
-  }, [categoryFilter, query, regionFilter, sortBy, sourceFilter, tagFilter]);
+  }, [categoryFilter, query, regionFilter, sortBy, sourceFilter, tagFilter, updateTimeFilter]);
 
   function clearFilters() {
     setQuery('');
@@ -149,6 +172,7 @@ export function ToolCatalog() {
     setRegionFilter('全部');
     setCategoryFilter('全部');
     setTagFilter('全部');
+    setUpdateTimeFilter('全部');
     setSortBy('默认');
     setTableSorting([]);
     setColumnVisibility({
@@ -156,6 +180,7 @@ export function ToolCatalog() {
       gfwStatus: false,
       pricing: false,
       deployment: false,
+      lastCommitDate: true,
     });
   }
 
@@ -165,6 +190,7 @@ export function ToolCatalog() {
     regionFilter !== '全部' ||
     categoryFilter !== '全部' ||
     tagFilter !== '全部' ||
+    updateTimeFilter !== '全部' ||
     sortBy !== '默认' ||
     tableSorting.length > 0;
 
@@ -236,6 +262,18 @@ export function ToolCatalog() {
         accessorFn: (tool) => tool.primaryLanguage ?? '',
         header: 'Language',
         cell: ({ row }) => <Badge variant="outline">{row.original.primaryLanguage ?? '-'}</Badge>,
+      },
+      {
+        id: 'lastCommitDate',
+        accessorFn: (tool) => tool.lastCommitDate || tool.lastReleaseDate || '',
+        header: '更新时间',
+        cell: ({ row }) => {
+          const dateStr = row.original.lastCommitDate || row.original.lastReleaseDate;
+          if (!dateStr) return <span className="text-muted-foreground">-</span>;
+          const date = new Date(dateStr);
+          if (isNaN(date.getTime())) return <span className="text-muted-foreground">-</span>;
+          return <span className="text-muted-foreground">{date.toISOString().split('T')[0]}</span>;
+        },
       },
       {
         id: 'links',
@@ -358,6 +396,19 @@ export function ToolCatalog() {
             </SelectContent>
           </Select>
 
+          <Select value={updateTimeFilter} onValueChange={(value) => setUpdateTimeFilter(value as UpdateTimeFilter)}>
+            <SelectTrigger className="h-9 w-[110px] shrink-0 font-mono text-xs rounded-md border-border/60 bg-transparent">
+              <SelectValue placeholder="更新时间" />
+            </SelectTrigger>
+            <SelectContent className="rounded-md border-border/60">
+              <SelectItem value="全部">全部时间</SelectItem>
+              <SelectItem value="最近一个月">最近一个月</SelectItem>
+              <SelectItem value="最近三个月">最近三个月</SelectItem>
+              <SelectItem value="最近半年">最近半年</SelectItem>
+              <SelectItem value="最近一年">最近一年</SelectItem>
+            </SelectContent>
+          </Select>
+
           <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortBy)}>
             <SelectTrigger className="h-9 w-[120px] shrink-0 font-mono text-xs rounded-md border-border/60 bg-transparent">
               <SelectValue placeholder="排序" />
@@ -385,20 +436,22 @@ export function ToolCatalog() {
                 列配置
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48 bg-bg-surface border-border-color/60 shadow-xl backdrop-blur-md">
-                <DropdownMenuLabel className="text-xs text-text-muted">显示/隐藏列</DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-border-color/50" />
-                {table.getAllLeafColumns().filter(col => typeof col.accessorFn !== 'undefined' || col.id === 'links' || ['vendor', 'gfwStatus', 'pricing', 'deployment'].includes(col.id)).map(column => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize text-xs cursor-pointer focus:bg-accent-cyan/10 focus:text-accent-cyan"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                    >
-                      {typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id}
-                    </DropdownMenuCheckboxItem>
-                  )
-                })}
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel className="text-xs text-text-muted">显示/隐藏列</DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-border-color/50" />
+                  {table.getAllLeafColumns().filter(col => typeof col.accessorFn !== 'undefined' || col.id === 'links' || ['vendor', 'gfwStatus', 'pricing', 'deployment', 'lastCommitDate'].includes(col.id)).map(column => {
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize text-xs cursor-pointer focus:bg-accent-cyan/10 focus:text-accent-cyan"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                      >
+                        {typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id}
+                      </DropdownMenuCheckboxItem>
+                    )
+                  })}
+                </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -464,6 +517,14 @@ export function ToolCatalog() {
                     <div className="flex justify-between">
                       <span className="opacity-70">LANG</span>
                       <span className="text-text-primary font-medium">{tool.primaryLanguage ?? '-'}</span>
+                    </div>
+                    <div className="flex justify-between col-span-2">
+                      <span className="opacity-70">UPDATE</span>
+                      <span className="text-text-primary font-medium">
+                        {(tool.lastCommitDate || tool.lastReleaseDate) && !isNaN(new Date(tool.lastCommitDate || tool.lastReleaseDate || '').getTime())
+                          ? new Date(tool.lastCommitDate || tool.lastReleaseDate || '').toISOString().split('T')[0]
+                          : '-'}
+                      </span>
                     </div>
                   </div>
                 </CardContent>
